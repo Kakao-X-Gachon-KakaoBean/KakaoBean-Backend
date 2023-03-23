@@ -37,11 +37,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
+                .headers()
+                .frameOptions().disable()
+                .and()
                 .httpBasic().disable()
                 .formLogin().disable()
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(new LocalAuthenticationEntryPoint());
+
+        http.authorizeRequests()
+                //.antMatchers(HttpMethod.POST, "/members").permitAll()
+                .antMatchers("/**").permitAll()
+                .anyRequest().hasRole("USER");
 
         http
                 .sessionManagement()
@@ -49,14 +57,14 @@ public class SecurityConfig {
 
         http.oauth2Login()
                 .authorizationEndpoint()
-                .authorizationRequestRepository(cookieOAuth2AuthorizationRequestRepository);
+                .authorizationRequestRepository(cookieOAuth2AuthorizationRequestRepository)
+                .and()
+                .redirectionEndpoint()
+                .baseUri("/login/oauth2/code/*");
 
-        http.oauth2Client();
+        //http.oauth2Client();
 
-        http.authorizeRequests()
-                //.antMatchers(HttpMethod.POST, "/members").permitAll()
-                .antMatchers("/**").permitAll()
-                .anyRequest().hasRole("USER");
+
 
 
         http.addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

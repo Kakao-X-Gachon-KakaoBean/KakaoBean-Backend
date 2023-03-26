@@ -1,8 +1,7 @@
-package com.kakaobean.config.security;
+package com.kakaobean.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 

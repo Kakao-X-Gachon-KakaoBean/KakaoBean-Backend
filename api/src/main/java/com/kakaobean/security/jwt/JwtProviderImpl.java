@@ -50,15 +50,15 @@ public class JwtProviderImpl implements JwtProvider{
                 .collect(Collectors.joining(","));
 
         Date now = new Date();
-        Date validity = new Date(now.getTime() + this.expirationTimeInMilliSeconds);
+        Date expiryDate = new Date(now.getTime() + expirationTimeInMilliSeconds);
 
         return Jwts.builder()
                 .setSubject("token")
                 .claim(ID, authentication.getPrincipal())
                 .claim(AUTHORITIES, authorities)
-                .setIssuedAt(now)
+                .setIssuedAt(new Date())
                 .signWith(key, SignatureAlgorithm.HS256)
-                .setExpiration(validity)
+                .setExpiration(expiryDate)
                 .compact();
     }
 

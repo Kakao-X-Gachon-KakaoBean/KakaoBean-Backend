@@ -1,7 +1,7 @@
 package com.kakaobean.controller;
 
+import com.kakaobean.core.member.domain.AuthProvider;
 import com.kakaobean.exception.BadRequestException;
-import com.kakaobean.model.AuthProvider;
 import com.kakaobean.model.User;
 import com.kakaobean.payload.ApiResponse;
 import com.kakaobean.payload.AuthResponse;

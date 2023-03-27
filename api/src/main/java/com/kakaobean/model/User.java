@@ -1,5 +1,6 @@
 package com.kakaobean.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kakaobean.core.member.domain.AuthProvider;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

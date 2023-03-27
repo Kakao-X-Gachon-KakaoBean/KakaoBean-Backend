@@ -17,11 +17,18 @@ public class Member extends BaseEntity {
     @GeneratedValue
     private Long id;
 
+    private String name;
+
+    private String birth;
+
     @Embedded
     private Auth auth;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     public Member(String email, String password, Role role) {
         super(BaseStatus.ACTIVE);

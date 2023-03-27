@@ -1,13 +1,13 @@
 package com.kakaobean.security.oauth2;
 
+import com.kakaobean.core.member.domain.AuthProvider;
 import com.kakaobean.exception.OAuth2AuthenticationProcessingException;
-import com.kakaobean.model.AuthProvider;
 import com.kakaobean.model.User;
 import com.kakaobean.repository.UserRepository;
 import com.kakaobean.security.UserPrincipal;
 import com.kakaobean.security.oauth2.user.OAuth2UserInfo;
 import com.kakaobean.security.oauth2.user.OAuth2UserInfoFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -20,10 +20,10 @@ import org.springframework.util.StringUtils;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -41,8 +41,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
-        if(StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
-            throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
+        if(!StringUtils.hasText(oAuth2UserInfo.getEmail())) {
+            throw new OAuth2AuthenticationProcessingException("이메일이 존재하지 않습니다.");
         }
 
         Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());

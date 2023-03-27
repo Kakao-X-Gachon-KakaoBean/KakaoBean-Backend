@@ -2,15 +2,15 @@ package com.kakaobean.security.oauth2.user;
 
 import java.util.Map;
 
-public class GithubOAuth2UserInfo extends OAuth2UserInfo {
+public class KakaoOAuth2UserInfo  extends OAuth2UserInfo {
 
-    public GithubOAuth2UserInfo(Map<String, Object> attributes) {
+    public KakaoOAuth2UserInfo(Map<String, Object> attributes) {
         super(attributes);
     }
 
     @Override
     public String getId() {
-        return ((Integer) attributes.get("id")).toString();
+        return (String) attributes.get("sub");
     }
 
     @Override
@@ -20,11 +20,11 @@ public class GithubOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getEmail() {
-        return (String) attributes.get("email");
-    }
+        Map kakaoAccount = (Map) attributes.get("kakao_account");
+        return (String) kakaoAccount.get("email");}
 
     @Override
     public String getImageUrl() {
-        return (String) attributes.get("avatar_url");
+        return (String) attributes.get("picture");
     }
 }

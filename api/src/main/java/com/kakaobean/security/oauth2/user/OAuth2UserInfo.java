@@ -1,5 +1,9 @@
 package com.kakaobean.security.oauth2.user;
 
+import com.kakaobean.core.member.domain.Gender;
+
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Map;
 
 public abstract class OAuth2UserInfo {
@@ -20,4 +24,10 @@ public abstract class OAuth2UserInfo {
     public abstract String getEmail();
 
     public abstract String getImageUrl();
+
+    public abstract Gender getGender();
+
+    public abstract Integer getAge();
+
+    public abstract LocalDate getBirth();
 }

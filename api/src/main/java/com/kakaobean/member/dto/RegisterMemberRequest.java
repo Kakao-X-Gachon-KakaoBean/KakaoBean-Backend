@@ -39,7 +39,7 @@ public class RegisterMemberRequest {
     private LocalDate birth;
 
     public RegisterMemberRequestDto toServiceDto(PasswordEncoder passwordEncoder){
-        if(!password.equals(checkPassword)){
+        if(isSamePassword()){
             throw new RuntimeException("비밀번호가 다릅니다");
         }
         return new RegisterMemberRequestDto(
@@ -50,5 +50,9 @@ public class RegisterMemberRequest {
                 passwordEncoder.encode(password),
                 birth
         );
+    }
+
+    private boolean isSamePassword() {
+        return !password.equals(checkPassword);
     }
 }

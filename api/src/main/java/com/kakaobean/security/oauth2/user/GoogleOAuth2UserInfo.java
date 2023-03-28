@@ -1,6 +1,11 @@
 package com.kakaobean.security.oauth2.user;
 
+import com.kakaobean.core.member.domain.Gender;
+
+import java.time.LocalDate;
 import java.util.Map;
+
+import static com.kakaobean.core.member.domain.Gender.UNKNOWN;
 
 public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
 
@@ -26,5 +31,20 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     @Override
     public String getImageUrl() {
         return (String) attributes.get("picture");
+    }
+
+    @Override
+    public Gender getGender() {
+        return UNKNOWN;
+    }
+
+    @Override
+    public Integer getAge() {
+        return 0;
+    }
+
+    @Override
+    public LocalDate getBirth() {
+        return null;
     }
 }

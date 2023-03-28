@@ -90,7 +90,7 @@ public class SecurityConfig {
                         "/**/*.css",
                         "/**/*.js")
                 .permitAll()
-                .antMatchers("/auth/**", "/oauth2/**")
+                .antMatchers("/auth/**", "/oauth2/**", "/members/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

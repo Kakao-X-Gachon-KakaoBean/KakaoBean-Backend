@@ -1,6 +1,7 @@
 package com.kakaobean.security;
 
 
+import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,6 +37,18 @@ public class UserPrincipal implements OAuth2User, UserDetails {
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
+                authorities
+        );
+    }
+
+    public static UserPrincipal create(Member member) {
+        List<GrantedAuthority> authorities = Collections.
+                singletonList(new SimpleGrantedAuthority(member.getRole().toString()));
+
+        return new UserPrincipal(
+                member.getId(),
+                member.getAuth().getEmail(),
+                member.getAuth().getPassword(),
                 authorities
         );
     }

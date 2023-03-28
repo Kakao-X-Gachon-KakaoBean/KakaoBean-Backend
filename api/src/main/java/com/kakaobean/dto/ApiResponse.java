@@ -1,4 +1,4 @@
-package com.kakaobean.payload;
+package com.kakaobean.dto;
 
 public class ApiResponse {
     private boolean success;

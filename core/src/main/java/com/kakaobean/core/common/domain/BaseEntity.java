@@ -14,7 +14,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BaseEntity {
+public abstract class BaseEntity {
 
     @CreatedDate
     private String createdAt;
@@ -25,11 +25,11 @@ public class BaseEntity {
     @Enumerated(EnumType.STRING)
     private BaseStatus status;
 
-    public BaseEntity(BaseStatus status) {
+    protected BaseEntity(BaseStatus status) {
         this.status = status;
     }
 
-    public void delete(){
+    protected void delete(){
         this.status = BaseStatus.INACTIVE;
     }
 }

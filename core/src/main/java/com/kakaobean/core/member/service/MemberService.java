@@ -3,7 +3,9 @@ package com.kakaobean.core.member.service;
 
 import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.core.member.domain.Member;
-import com.kakaobean.core.member.domain.Role;
+import com.kakaobean.core.member.domain.MemberValidator;
+import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
+import com.kakaobean.core.member.service.dto.response.RegisterMemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,13 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final MemberValidator memberValidator;
 
     @Transactional(readOnly = false)
-    public Long registerMember(
-            RegisterMemberRequestDto requestDto
+    public RegisterMemberResponseDto registerMember(
+            RegisterMemberRequestDto dto
     ){
-        Member member = new Member(requestDto.getEmail(), requestDto.getPassword(), Role.ROLE_USER);
+        memberValidator.validate(dto);
+        Member member = dto.toEntity();
         memberRepository.save(member);
-        return member.getId();
+        return new RegisterMemberResponseDto(member.getId());
     }
 }

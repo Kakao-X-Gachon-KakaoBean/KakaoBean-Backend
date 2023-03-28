@@ -1,4 +1,4 @@
-package com.kakaobean.dto;
+package com.kakaobean.auth.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,11 +8,16 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
-public class LoginRequest {
+public class LocalLoginRequest {
     @NotBlank
     @Email
     private String email;
 
     @NotBlank
     private String password;
+
+    public LocalLoginRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

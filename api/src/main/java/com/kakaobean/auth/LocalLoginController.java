@@ -1,9 +1,9 @@
-package com.kakaobean.controller;
+package com.kakaobean.auth;
 
-import com.kakaobean.core.member.service.MemberService;
-import com.kakaobean.dto.AuthResponse;
-import com.kakaobean.dto.LoginRequest;
-import com.kakaobean.repository.UserRepository;
+import com.kakaobean.core.member.domain.Member;
+import com.kakaobean.core.member.domain.MemberRepository;
+import com.kakaobean.auth.dto.LocalLoginResponse;
+import com.kakaobean.auth.dto.LocalLoginRequest;
 import com.kakaobean.security.TokenProvider;
 
 import lombok.RequiredArgsConstructor;
@@ -14,34 +14,40 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
 @RestController
 @RequiredArgsConstructor
-public class AuthController {
+public class LocalLoginController {
 
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestBody @Validated LocalLoginRequest request) {
+
+        Member member = memberRepository.findMemberByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 이메일입니다"));
+
+        if(!passwordEncoder.matches(request.getPassword(), member.getAuth().getPassword())){
+            throw new RuntimeException("비밀번호가 틀립니다");
+        }
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()
+                        request.getEmail(),
+                        request.getPassword()
                 )
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = tokenProvider.createToken(authentication);
-        return ResponseEntity.ok(new AuthResponse(token));
+        return ResponseEntity.ok(new LocalLoginResponse(token));
     }
 }

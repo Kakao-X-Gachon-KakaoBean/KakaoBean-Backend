@@ -11,6 +11,7 @@ import com.kakaobean.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -91,6 +92,8 @@ public class SecurityConfig {
                         "/**/*.js")
                 .permitAll()
                 .antMatchers("/auth/**", "/oauth2/**", "/members/**")
+                .permitAll()
+                .antMatchers(HttpMethod.POST, "/login/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

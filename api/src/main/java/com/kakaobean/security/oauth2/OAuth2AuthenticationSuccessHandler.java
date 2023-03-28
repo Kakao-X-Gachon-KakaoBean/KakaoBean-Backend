@@ -1,12 +1,10 @@
 package com.kakaobean.security.oauth2;
 
 import com.kakaobean.config.AppProperties;
-import com.kakaobean.exception.BadRequestException;
+import com.kakaobean.exception.auth.BadRequestException;
 import com.kakaobean.security.TokenProvider;
 import com.kakaobean.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;

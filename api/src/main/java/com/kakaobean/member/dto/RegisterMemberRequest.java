@@ -1,4 +1,4 @@
-package com.kakaobean.member.presentation.dto;
+package com.kakaobean.member.dto;
 
 import com.kakaobean.core.member.domain.Gender;
 import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 /**
@@ -26,6 +23,7 @@ public class RegisterMemberRequest {
     @Min(1)
     private Integer age;
 
+    @NotNull
     private Gender gender;
 
     @Email
@@ -37,6 +35,7 @@ public class RegisterMemberRequest {
     @NotEmpty
     private String checkPassword;
 
+    @NotNull
     private LocalDate birth;
 
     public RegisterMemberRequestDto toServiceDto(PasswordEncoder passwordEncoder){

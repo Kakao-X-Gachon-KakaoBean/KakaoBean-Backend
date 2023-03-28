@@ -1,16 +1,16 @@
-package com.kakaobean.dto;
+package com.kakaobean.auth.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class AuthResponse {
+public class LocalLoginResponse {
 
     private String accessToken;
     private String tokenType = "Bearer";
 
-    public AuthResponse(String accessToken) {
+    public LocalLoginResponse(String accessToken) {
         this.accessToken = accessToken;
     }
 }

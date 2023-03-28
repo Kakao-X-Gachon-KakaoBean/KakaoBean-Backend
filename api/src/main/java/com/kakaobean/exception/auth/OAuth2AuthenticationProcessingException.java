@@ -1,4 +1,4 @@
-package com.kakaobean.exception;
+package com.kakaobean.exception.auth;
 
 import org.springframework.security.core.AuthenticationException;
 

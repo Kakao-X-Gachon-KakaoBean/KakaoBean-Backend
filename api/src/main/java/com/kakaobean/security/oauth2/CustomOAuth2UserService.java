@@ -1,7 +1,7 @@
 package com.kakaobean.security.oauth2;
 
 import com.kakaobean.core.member.domain.AuthProvider;
-import com.kakaobean.exception.OAuth2AuthenticationProcessingException;
+import com.kakaobean.exception.auth.OAuth2AuthenticationProcessingException;
 import com.kakaobean.model.User;
 import com.kakaobean.repository.UserRepository;
 import com.kakaobean.security.UserPrincipal;

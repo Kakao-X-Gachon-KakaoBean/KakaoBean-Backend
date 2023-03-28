@@ -5,8 +5,6 @@ import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.core.member.domain.Role;
 import com.kakaobean.exception.auth.OAuth2AuthenticationProcessingException;
-import com.kakaobean.model.User;
-import com.kakaobean.repository.UserRepository;
 import com.kakaobean.security.UserPrincipal;
 import com.kakaobean.security.oauth2.user.OAuth2UserInfo;
 import com.kakaobean.security.oauth2.user.OAuth2UserInfoFactory;

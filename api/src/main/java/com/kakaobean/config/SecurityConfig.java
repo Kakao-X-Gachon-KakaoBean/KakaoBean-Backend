@@ -1,5 +1,6 @@
 package com.kakaobean.config;
 
+import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.security.CustomUserDetailsService;
 import com.kakaobean.security.RestAuthenticationEntryPoint;
 import com.kakaobean.security.TokenAuthenticationFilter;
@@ -31,12 +32,35 @@ import java.security.NoSuchAlgorithmException;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+
     private final TokenProvider tokenProvider;
-    private final CustomUserDetailsService customUserDetailsService;
-    private final CustomOAuth2UserService customOAuth2UserService;
-    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+    private final MemberRepository memberRepository;
+    private final AppProperties appProperties;
+
+    @Bean
+    OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler(){
+        return new OAuth2AuthenticationSuccessHandler(tokenProvider, appProperties,httpCookieOAuth2AuthorizationRequestRepository());
+    }
+
+    @Bean
+    CustomUserDetailsService customUserDetailsService(){
+        return new CustomUserDetailsService(memberRepository);
+    }
+
+    @Bean
+    CustomOAuth2UserService customOAuth2UserService(){
+        return new CustomOAuth2UserService(memberRepository);
+    }
+
+    @Bean
+    OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler(){
+        return new OAuth2AuthenticationFailureHandler(httpCookieOAuth2AuthorizationRequestRepository());
+    }
+
+    @Bean
+    HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository(){
+        return new HttpCookieOAuth2AuthorizationRequestRepository();
+    }
 
 
     @Bean
@@ -48,13 +72,13 @@ public class SecurityConfig {
     AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setUserDetailsService(customUserDetailsService);
+        authenticationProvider.setUserDetailsService(customUserDetailsService());
         return authenticationProvider;
     }
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
-        return new TokenAuthenticationFilter(tokenProvider, customUserDetailsService);
+        return new TokenAuthenticationFilter(tokenProvider, customUserDetailsService());
     }
 
     @Bean
@@ -100,13 +124,13 @@ public class SecurityConfig {
                 .and()
                 .oauth2Login()
                 .authorizationEndpoint()
-                .authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository)
+                .authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository())
                 .and()
                 .userInfoEndpoint()
-                .userService(customOAuth2UserService)
+                .userService(customOAuth2UserService())
                 .and()
-                .successHandler(oAuth2AuthenticationSuccessHandler)
-                .failureHandler(oAuth2AuthenticationFailureHandler);
+                .successHandler(oAuth2AuthenticationSuccessHandler())
+                .failureHandler(oAuth2AuthenticationFailureHandler());
 
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

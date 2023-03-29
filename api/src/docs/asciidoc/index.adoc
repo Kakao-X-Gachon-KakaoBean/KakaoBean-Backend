@@ -34,4 +34,5 @@
 | 서버 에러
 |===
 
-include::{snippets}/hello-world/request-parameters.adoc/
+== 멤버 API
+* link:/docs/member/register_member.html[로컬 멤버 생성 API, window=_blank ]

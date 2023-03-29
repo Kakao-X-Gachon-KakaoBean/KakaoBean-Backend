@@ -2,6 +2,7 @@ package com.kakaobean.member.dto;
 
 import com.kakaobean.core.member.domain.Gender;
 import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,5 +55,16 @@ public class RegisterMemberRequest {
 
     private boolean isSamePassword() {
         return !password.equals(checkPassword);
+    }
+
+    @Builder
+    public RegisterMemberRequest(String name, Integer age, Gender gender, String email, String password, String checkPassword, LocalDate birth) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.email = email;
+        this.password = password;
+        this.checkPassword = checkPassword;
+        this.birth = birth;
     }
 }

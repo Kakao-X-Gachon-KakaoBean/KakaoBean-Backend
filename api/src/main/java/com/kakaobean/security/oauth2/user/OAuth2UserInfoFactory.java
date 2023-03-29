@@ -3,7 +3,7 @@ package com.kakaobean.security.oauth2.user;
 
 
 import com.kakaobean.core.member.domain.AuthProvider;
-import com.kakaobean.exception.auth.OAuth2AuthenticationProcessingException;
+import com.kakaobean.security.oauth2.OAuth2AuthenticationProcessingException;
 
 import java.util.Map;
 

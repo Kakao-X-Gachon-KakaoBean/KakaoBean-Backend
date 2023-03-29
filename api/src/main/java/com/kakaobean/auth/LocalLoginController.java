@@ -1,5 +1,6 @@
 package com.kakaobean.auth;
 
+import com.kakaobean.core.exception.member.NotExistsEmailException;
 import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.auth.dto.LocalLoginResponse;
@@ -32,7 +33,7 @@ public class LocalLoginController {
     public ResponseEntity<?> authenticateUser(@RequestBody @Validated LocalLoginRequest request) {
 
         Member member = memberRepository.findMemberByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 이메일입니다"));
+                .orElseThrow(NotExistsEmailException::new);
 
         if(!passwordEncoder.matches(request.getPassword(), member.getAuth().getPassword())){
             throw new RuntimeException("비밀번호가 틀립니다");

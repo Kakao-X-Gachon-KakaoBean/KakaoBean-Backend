@@ -1,7 +1,7 @@
 package com.kakaobean.security.oauth2;
 
 import com.kakaobean.config.AppProperties;
-import com.kakaobean.exception.auth.BadRequestException;
+import com.kakaobean.core.exception.auth.UnAuthorizedRedirectUrlException;
 import com.kakaobean.security.TokenProvider;
 import com.kakaobean.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
@@ -47,12 +47,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                 .map(Cookie::getValue);
 
         if(redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
-            throw new BadRequestException("인증되지 않은 Redirect 주소입니다.");
+            throw new UnAuthorizedRedirectUrlException();
         }
 
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 
-        //oidc는 여기서 에러 발
         String token = tokenProvider.createToken(authentication);
 
         return UriComponentsBuilder.fromUriString(targetUrl)

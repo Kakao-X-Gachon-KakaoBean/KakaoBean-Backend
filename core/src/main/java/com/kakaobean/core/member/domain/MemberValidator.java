@@ -1,5 +1,6 @@
 package com.kakaobean.core.member.domain;
 
+import com.kakaobean.core.exception.member.AlreadyExistsEmailException;
 import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class MemberValidator {
          */
 
         if(memberRepository.findMemberByEmail(dto.getEmail()).isPresent()){
-            throw new RuntimeException("이미 계정이 존재하는 이메일입니다.");
+            throw new AlreadyExistsEmailException();
         }
 
     }

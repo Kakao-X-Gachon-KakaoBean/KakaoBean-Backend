@@ -1,9 +1,10 @@
 package com.kakaobean.security;
 
 
+import com.kakaobean.core.exception.member.NotExistsEmailException;
+import com.kakaobean.core.exception.member.NotExistsMemberException;
 import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.MemberRepository;
-import com.kakaobean.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,9 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             String email
     ) throws UsernameNotFoundException {
         Member member = memberRepository.findMemberByEmail(email)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with email : " + email)
-        );
+                .orElseThrow(NotExistsEmailException::new);
 
         return UserPrincipal.create(member);
     }
@@ -36,10 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserById(
             Long id
     ) {
-        Member member = memberRepository.findMemberById(id).orElseThrow(
-            () -> new ResourceNotFoundException("User", "id", id)
-        );
-
+        Member member = memberRepository.findMemberById(id).orElseThrow(NotExistsMemberException::new);
         return UserPrincipal.create(member);
     }
 }

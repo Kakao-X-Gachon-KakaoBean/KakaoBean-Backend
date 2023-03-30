@@ -3,6 +3,7 @@ package com.kakaobean.core.member.domain;
 import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -48,6 +49,22 @@ public class Member extends BaseEntity {
         this.role = role;
         this.gender = gender;
         this.age = age;
+        this.authProvider = authProvider;
+    }
+
+    /**
+     * 테스트 코드를 위한 생성자.
+     */
+    @Builder
+    public Member(Long id, String name, Integer age, Auth auth, Role role, Gender gender, LocalDate birth, AuthProvider authProvider) {
+        super(BaseStatus.ACTIVE);
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.auth = auth;
+        this.role = role;
+        this.gender = gender;
+        this.birth = birth;
         this.authProvider = authProvider;
     }
 }

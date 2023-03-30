@@ -1,7 +1,7 @@
-package com.kakaobean.controller.member;
+package com.kakaobean.unit.controller.member;
 
-import com.kakaobean.controller.ControllerTest;
-import com.kakaobean.controller.factory.member.RegisterMemberDtoFactory;
+import com.kakaobean.unit.controller.ControllerTest;
+import com.kakaobean.unit.controller.factory.member.RegisterMemberDtoFactory;
 import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 import org.junit.jupiter.api.Test;

@@ -23,7 +23,7 @@ public class MemberService {
     ){
         memberValidator.validate(dto);
         Member member = dto.toEntity();
-        memberRepository.save(member);
-        return new RegisterMemberResponseDto(member.getId());
+        Member savedMember = memberRepository.save(member);
+        return new RegisterMemberResponseDto(savedMember.getId());
     }
 }

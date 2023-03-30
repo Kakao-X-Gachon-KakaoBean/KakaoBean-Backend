@@ -36,7 +36,7 @@ public class LocalLoginController {
                 .orElseThrow(NotExistsEmailException::new);
 
         if(!passwordEncoder.matches(request.getPassword(), member.getAuth().getPassword())){
-            throw new RuntimeException("비밀번호가 틀립니다");
+            throw new RuntimeException("비밀번호가 틀립니다.");
         }
 
         Authentication authentication = authenticationManager.authenticate(

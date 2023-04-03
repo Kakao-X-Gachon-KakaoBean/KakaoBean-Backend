@@ -39,11 +39,9 @@ public class MemberServiceTest extends UnitTest {
     @DisplayName("멤버를 성공적으로 등록한다.")
     @Test
     void successRegisterMember(){
-
         //given
         RegisterMemberRequestDto req = RegisterMemberServiceDtoFactory.createSuccessCaseRequestDto();
         Member member = MemberFactory.create();
-
         given(memberRepository.save(Mockito.any())).willReturn(member);
 
         //when

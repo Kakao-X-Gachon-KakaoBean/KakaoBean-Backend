@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentRequest;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentResponse;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -31,11 +31,10 @@ public class MemberControllerTest extends ControllerTest {
         //given
         RegisterMemberRequest request = RegisterMemberDtoFactory.createRequest();
         String requestBody = objectMapper.writeValueAsString(request);
+        given(memberService.registerMember(Mockito.any(RegisterMemberRequestDto.class)))
+                        .willReturn(RegisterMemberDtoFactory.createResponseDto());
 
         //when
-        when(memberService.registerMember(Mockito.any(RegisterMemberRequestDto.class)))
-                .thenReturn(RegisterMemberDtoFactory.createResponseDto());
-
         ResultActions perform = mockMvc.perform(post("/members")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -55,11 +54,11 @@ public class MemberControllerTest extends ControllerTest {
                         fieldWithPath("email").type(STRING).description("이메일"),
                         fieldWithPath("password").type(STRING).description("비밀번호"),
                         fieldWithPath("checkPassword").type(STRING).description("비밀번호 확인"),
-                        fieldWithPath("birth").type(STRING).description("생일")                ),
+                        fieldWithPath("birth").type(STRING).description("생일")
+                ),
                 responseFields(
                         fieldWithPath("memberId").type(NUMBER).description("등록한 회원 id")
                 )
         ));
-
     }
 }

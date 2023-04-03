@@ -38,6 +38,9 @@ public class Member extends BaseEntity {
     private AuthProvider authProvider;
 
 
+    /**
+     * 프로덕션 생성자
+     */
     public Member(
             String name, LocalDate birth, String email, Role role, Gender gender, Integer age, String password,
             AuthProvider authProvider

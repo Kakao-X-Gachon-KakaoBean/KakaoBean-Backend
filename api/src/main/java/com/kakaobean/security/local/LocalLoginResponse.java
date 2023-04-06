@@ -1,4 +1,4 @@
-package com.kakaobean.auth.dto;
+package com.kakaobean.security.local;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

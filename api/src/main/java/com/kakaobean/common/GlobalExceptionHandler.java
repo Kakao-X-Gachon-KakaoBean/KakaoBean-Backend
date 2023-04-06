@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     protected ResponseEntity<ApplicationExceptionResponse> handleAuthenticationException(AuthenticationException e) {
-        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INVALID_AUTHENTICATION_ERROR_CODE , "G003", 400);
+        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(e.getMessage() , "G003", 400);
         log.warn(LOG_FORMAT, e.getClass().getSimpleName(), BAD_REQUEST, e.getMessage());
         return ResponseEntity.status(BAD_REQUEST.value()).body(exceptionResponse);
 

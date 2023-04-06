@@ -1,16 +1,15 @@
 package com.kakaobean.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaobean.core.member.domain.MemberRepository;
-import com.kakaobean.security.CustomUserDetailsService;
-import com.kakaobean.security.RestAuthenticationEntryPoint;
-import com.kakaobean.security.TokenAuthenticationFilter;
-import com.kakaobean.security.TokenProvider;
+import com.kakaobean.security.*;
+import com.kakaobean.security.local.LoginFilter;
+import com.kakaobean.security.local.LoginSuccessHandler;
 import com.kakaobean.security.oauth2.CustomOAuth2UserService;
 import com.kakaobean.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.kakaobean.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.kakaobean.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,14 +24,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
-import java.security.NoSuchAlgorithmException;
-
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-
+    private final ObjectMapper objectMapper;
     private final TokenProvider tokenProvider;
     private final MemberRepository memberRepository;
     private final AppProperties appProperties;
@@ -117,7 +113,7 @@ public class SecurityConfig {
                 .permitAll()
                 .antMatchers("/auth/**", "/oauth2/**", "/members/**")
                 .permitAll()
-                .antMatchers(HttpMethod.POST, "/login/**")
+                .antMatchers(HttpMethod.POST, "/local/login/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -134,7 +130,17 @@ public class SecurityConfig {
 
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(loginFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+
+    private LoginFilter loginFilter(){
+        LoginFilter loginFilter = new LoginFilter(objectMapper);
+        loginFilter.setFilterProcessesUrl("/local/login");
+        loginFilter.setAuthenticationManager(authenticationManager());
+        loginFilter.setAuthenticationSuccessHandler(new LoginSuccessHandler(tokenProvider, objectMapper));
+        return loginFilter;
     }
 }

@@ -30,6 +30,8 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
+    testImplementation 'io.rest-assured:rest-assured:4.4.0'
+
 }
 
 test {

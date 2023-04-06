@@ -4,7 +4,7 @@
 
 # 기술 스택
 
-* Java, Gradle
+* Java 11, Gradle, Jacoco
 * Spring Boot
 * Spring Data JPA
 * Spring Security

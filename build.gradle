@@ -89,7 +89,9 @@ subprojects {
 						"**.security*",
 						"**.exception*",
 						"**.util*",
-						"**.common*"
+						"**.common*",
+						"**.Q*"
+
 				]
 			}
 		}

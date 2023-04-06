@@ -13,4 +13,13 @@ public abstract class ApplicationException extends RuntimeException{
         this.status = status;
         this.errorCode = errorCode;
     }
+
+
+    /**
+     * https://dkswnkk.tistory.com/692
+     */
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 }

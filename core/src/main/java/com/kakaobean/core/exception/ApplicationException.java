@@ -14,7 +14,6 @@ public abstract class ApplicationException extends RuntimeException{
         this.errorCode = errorCode;
     }
 
-
     /**
      * https://dkswnkk.tistory.com/692
      */

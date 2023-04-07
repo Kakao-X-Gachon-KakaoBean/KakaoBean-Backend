@@ -37,3 +37,7 @@
 == 멤버 API
 
 * link:/docs/member/register_member.html[로컬 멤버 생성 API, window=_blank ]
+
+== 인증 API
+
+* link:/docs/auth/local_login.html[로컬 로그인 API, window=_blank ]

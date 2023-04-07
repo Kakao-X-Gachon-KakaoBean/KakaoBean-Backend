@@ -1,5 +1,6 @@
 package com.kakaobean.common;
 
+import com.kakaobean.common.dto.ApplicationExceptionResponse;
 import com.kakaobean.core.exception.ApplicationException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,6 @@ public class GlobalExceptionHandler {
 
     private static final String LOG_FORMAT = "Class : {}, Code : {}, Message : {}";
 
-    private static final String INVALID_AUTHENTICATION_ERROR_CODE = "인증 오류입니다.";
     private static final String INTERNAL_SERVER_ERROR_CODE = "서버 오류입니다.";
     private static final String DATABASE_SERVER_ERROR_CODE = "데이터베이스 오류입니다.";
 

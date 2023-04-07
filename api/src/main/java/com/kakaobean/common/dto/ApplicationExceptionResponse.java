@@ -1,4 +1,4 @@
-package com.kakaobean.common;
+package com.kakaobean.common.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

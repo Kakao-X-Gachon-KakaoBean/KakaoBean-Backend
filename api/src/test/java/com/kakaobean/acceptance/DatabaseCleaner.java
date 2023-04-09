@@ -22,7 +22,6 @@ public class DatabaseCleaner implements InitializingBean {
         tables = entityManager.getMetamodel().getEntities().stream()
                 .map(entry -> entry.getName().toLowerCase(Locale.ROOT))
                 .collect(Collectors.toList());
-        System.out.println("tables = " + tables);
     }
 
     @Transactional

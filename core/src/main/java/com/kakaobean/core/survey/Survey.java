@@ -18,6 +18,6 @@ public class Survey extends BaseEntity {
     private SurveyOwner surveyOwner;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "survey")
-    List<Question> questions = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
 
 }

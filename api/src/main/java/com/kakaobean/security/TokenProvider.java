@@ -4,11 +4,14 @@ import com.kakaobean.config.AppProperties;
 
 import io.jsonwebtoken.*;
 
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.Date;
 
 @Slf4j
@@ -16,9 +19,16 @@ import java.util.Date;
 public class TokenProvider {
 
     private final AppProperties appProperties;
+    private final Key key;
 
     public TokenProvider(AppProperties appProperties) {
         this.appProperties = appProperties;
+        this.key = createKey(appProperties.getAuth().getTokenSecret());
+    }
+
+    private Key createKey(String tokenSecret) {
+        byte[] keyBytes = Decoders.BASE64.decode(tokenSecret);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String createToken(Authentication authentication) {
@@ -31,13 +41,15 @@ public class TokenProvider {
                 .setSubject(Long.toString(userPrincipal.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
+                .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }
 
     public Long getUserIdFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(appProperties.getAuth().getTokenSecret())
+        Claims claims = Jwts
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 

@@ -36,7 +36,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
                 UserPrincipal userDetails = (UserPrincipal) customUserDetailsService.loadUserById(userId);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails.getId(), null, userDetails.getAuthorities()
+                        userDetails.getId(), //여기에 어떤 값을 principal 넣는지가 중요함.
+                        null,
+                        userDetails.getAuthorities()
                 );
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

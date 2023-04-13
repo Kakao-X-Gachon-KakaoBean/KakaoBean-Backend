@@ -1,6 +1,6 @@
 package com.kakaobean.core.response.questionresponse;
 
-import com.kakaobean.core.survey.question.Question;
+import com.kakaobean.core.response.SurveyResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +11,14 @@ import javax.persistence.Entity;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@DiscriminatorValue("essay_question_response")
-public class EssayQuestionResponse extends QuestionResponse {
+@DiscriminatorValue("multiple_choice_question_response")
+public class MultipleChoiceQuestionResponse extends QuestionResponse {
 
     private String answer;
 
-    public EssayQuestionResponse(String answer) {
+    public MultipleChoiceQuestionResponse(Long questionId, SurveyResponse surveyResponse, String answer) {
+        super(questionId, surveyResponse);
         this.answer = answer;
     }
 }
+

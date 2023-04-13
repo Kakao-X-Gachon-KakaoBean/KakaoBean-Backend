@@ -34,7 +34,6 @@ public class MemberController {
 
     @GetMapping
     public String test(@AuthenticationPrincipal Long id){
-        System.out.println("id = " + id.toString());
         return String.valueOf(id);
     }
 }

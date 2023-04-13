@@ -17,7 +17,6 @@ public class Survey extends BaseEntity {
     @Embedded
     private SurveyOwner surveyOwner;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "survey")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "survey", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
-
 }

@@ -16,9 +16,14 @@ public abstract class QuestionResponse {
     @GeneratedValue
     private Long id;
 
-    private String questionTitle;
+    private Long questionId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private SurveyResponse surveyResponse;
+
+    public QuestionResponse(Long questionId, SurveyResponse surveyResponse) {
+        this.questionId = questionId;
+        this.surveyResponse = surveyResponse;
+    }
 }

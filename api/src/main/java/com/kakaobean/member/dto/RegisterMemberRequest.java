@@ -1,7 +1,7 @@
 package com.kakaobean.member.dto;
 
 import com.kakaobean.core.member.domain.Gender;
-import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
+import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package com.kakaobean.core.member.domain;
 
 import com.kakaobean.core.exception.member.AlreadyExistsEmailException;
-import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
+import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

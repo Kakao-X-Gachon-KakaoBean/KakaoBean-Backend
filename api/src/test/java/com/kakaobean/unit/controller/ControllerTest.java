@@ -5,7 +5,7 @@ import com.kakaobean.config.AppProperties;
 import com.kakaobean.config.SecurityConfig;
 import com.kakaobean.config.WebMvcConfig;
 import com.kakaobean.core.member.domain.MemberRepository;
-import com.kakaobean.core.member.service.MemberService;
+import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.member.MemberController;
 import com.kakaobean.security.TokenProvider;
 

@@ -1,15 +1,13 @@
 package com.kakaobean.member;
 
-import com.kakaobean.core.member.service.MemberService;
-import com.kakaobean.core.member.service.dto.response.RegisterMemberResponseDto;
+import com.kakaobean.core.member.application.MemberService;
+import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 
-import com.kakaobean.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;

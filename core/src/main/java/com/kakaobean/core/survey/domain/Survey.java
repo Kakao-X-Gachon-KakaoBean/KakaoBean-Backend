@@ -1,7 +1,7 @@
-package com.kakaobean.core.survey;
+package com.kakaobean.core.survey.domain;
 
 import com.kakaobean.core.common.domain.BaseEntity;
-import com.kakaobean.core.survey.question.Question;
+import com.kakaobean.core.survey.domain.question.Question;
 
 import javax.persistence.*;
 import java.util.ArrayList;

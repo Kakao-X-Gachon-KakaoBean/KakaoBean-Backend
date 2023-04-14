@@ -1,15 +1,10 @@
-package com.kakaobean.core.survey;
-
+package com.kakaobean.core.response.domain;
 
 import com.kakaobean.core.common.domain.BaseEntity;
-import lombok.Getter;
 
 import javax.persistence.*;
 
-@Getter
 @Embeddable
-public class SurveyOwner{
-
+public class Respondent{
     private Long memberId;
-
 }

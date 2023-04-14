@@ -1,7 +1,7 @@
 package com.kakaobean.unit.controller.factory.member;
 
 import com.kakaobean.core.member.domain.Gender;
-import com.kakaobean.core.member.service.dto.response.RegisterMemberResponseDto;
+import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 
 import java.time.LocalDate;

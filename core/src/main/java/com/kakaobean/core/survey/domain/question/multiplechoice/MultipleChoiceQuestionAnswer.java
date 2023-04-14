@@ -1,4 +1,4 @@
-package com.kakaobean.core.survey.question.multiplechoice;
+package com.kakaobean.core.survey.domain.question.multiplechoice;
 
 import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;

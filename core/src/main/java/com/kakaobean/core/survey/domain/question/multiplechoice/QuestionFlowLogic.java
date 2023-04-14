@@ -1,8 +1,8 @@
-package com.kakaobean.core.survey.question.multiplechoice;
+package com.kakaobean.core.survey.domain.question.multiplechoice;
 
 import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;
-import com.kakaobean.core.survey.question.Question;
+import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

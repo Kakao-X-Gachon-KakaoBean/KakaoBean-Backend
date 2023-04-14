@@ -1,11 +1,11 @@
-package com.kakaobean.core.member.service;
+package com.kakaobean.core.member.application;
 
 
 import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.MemberValidator;
-import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
-import com.kakaobean.core.member.service.dto.response.RegisterMemberResponseDto;
+import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
+import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,6 @@
-package com.kakaobean.core.response.questionresponse;
+package com.kakaobean.core.response.domain.questionresponse;
 
-import com.kakaobean.core.response.SurveyResponse;
-import com.kakaobean.core.survey.question.Question;
+import com.kakaobean.core.response.domain.SurveyResponse;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;

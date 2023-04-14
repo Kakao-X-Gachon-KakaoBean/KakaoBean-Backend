@@ -2,7 +2,7 @@ package com.kakaobean.unit.controller.member;
 
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberDtoFactory;
-import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
+import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

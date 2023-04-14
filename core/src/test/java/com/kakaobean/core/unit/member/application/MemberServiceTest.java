@@ -6,16 +6,14 @@ import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
 import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.core.member.domain.MemberValidator;
-import com.kakaobean.core.member.service.MemberService;
-import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
-import com.kakaobean.core.member.service.dto.response.RegisterMemberResponseDto;
+import com.kakaobean.core.member.application.MemberService;
+import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
+import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
 import com.kakaobean.core.unit.UnitTest;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 

@@ -1,8 +1,7 @@
-package com.kakaobean.core.survey.question.range;
+package com.kakaobean.core.survey.domain.question.range;
 
-import com.kakaobean.core.common.domain.BaseStatus;
-import com.kakaobean.core.survey.Survey;
-import com.kakaobean.core.survey.question.Question;
+import com.kakaobean.core.survey.domain.Survey;
+import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

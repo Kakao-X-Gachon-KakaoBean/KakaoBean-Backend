@@ -1,4 +1,4 @@
-package com.kakaobean.core.member.service.dto.request;
+package com.kakaobean.core.member.application.dto.request;
 
 import com.kakaobean.core.member.domain.AuthProvider;
 import com.kakaobean.core.member.domain.Gender;

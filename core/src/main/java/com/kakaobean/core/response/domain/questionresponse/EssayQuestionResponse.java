@@ -1,6 +1,5 @@
-package com.kakaobean.core.response.questionresponse;
+package com.kakaobean.core.response.domain.questionresponse;
 
-import com.kakaobean.core.survey.question.Question;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

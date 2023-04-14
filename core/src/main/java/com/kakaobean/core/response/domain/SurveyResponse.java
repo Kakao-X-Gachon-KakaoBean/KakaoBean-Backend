@@ -1,7 +1,7 @@
-package com.kakaobean.core.response;
+package com.kakaobean.core.response.domain;
 
 import com.kakaobean.core.common.domain.BaseEntity;
-import com.kakaobean.core.response.questionresponse.QuestionResponse;
+import com.kakaobean.core.response.domain.questionresponse.QuestionResponse;
 
 import javax.persistence.*;
 import java.util.ArrayList;

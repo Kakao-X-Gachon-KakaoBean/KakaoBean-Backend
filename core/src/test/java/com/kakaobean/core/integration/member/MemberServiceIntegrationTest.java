@@ -4,9 +4,9 @@ import com.kakaobean.core.exception.member.AlreadyExistsEmailException;
 import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
 import com.kakaobean.core.integration.IntegrationTest;
 import com.kakaobean.core.member.domain.MemberRepository;
-import com.kakaobean.core.member.service.MemberService;
-import com.kakaobean.core.member.service.dto.request.RegisterMemberRequestDto;
-import com.kakaobean.core.member.service.dto.response.RegisterMemberResponseDto;
+import com.kakaobean.core.member.application.MemberService;
+import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
+import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

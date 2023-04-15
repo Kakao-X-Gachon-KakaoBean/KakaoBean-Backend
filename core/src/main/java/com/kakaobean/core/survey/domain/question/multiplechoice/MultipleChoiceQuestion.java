@@ -26,7 +26,7 @@ public class MultipleChoiceQuestion extends Question {
     /**
      * 객관식 답변(ex. 1번, 2번, 3번, 4번, 5번)
      */
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<MultipleChoiceQuestionAnswer> answers = new ArrayList<>();
 
     /**
@@ -40,10 +40,18 @@ public class MultipleChoiceQuestion extends Question {
      */
     private Integer numberOfAnswerChoices;
 
-    public MultipleChoiceQuestion(Survey survey, String title, String explanation, String questionNumber, List<QuestionFlowLogic> logics, Integer numberOfAnswerChoices) {
-        super(survey, title, explanation, questionNumber);
+    public MultipleChoiceQuestion(
+            String title, String explanation,
+            String questionNumber,
+            List<MultipleChoiceQuestionAnswer> answers,
+            Integer numberOfAnswerChoices
+    ) {
+        super(title, explanation, questionNumber);
         this.answers = answers;
-        this.logics = logics;
         this.numberOfAnswerChoices = numberOfAnswerChoices;
+    }
+
+    public void addLogics(List<QuestionFlowLogic> questionFlowLogics){
+        this.logics.addAll(questionFlowLogics);
     }
 }

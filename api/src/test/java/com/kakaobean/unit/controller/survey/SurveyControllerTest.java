@@ -4,6 +4,7 @@ package com.kakaobean.unit.controller.survey;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
@@ -21,8 +22,7 @@ import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentResponse;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
-import static org.springframework.restdocs.payload.JsonFieldType.STRING;
+import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -39,7 +39,7 @@ public class SurveyControllerTest extends ControllerTest {
         RegisterSurveyRequest request = RegisterSurveyRequestFactory.createSuccessCase1Request();
         String requestBody = objectMapper.writeValueAsString(request);
         given(surveyService.registerSurvey(Mockito.any(RegisterSurveyRequestDto.class)))
-                .willReturn(1L);
+                .willReturn(new RegisterSurveyResponseDto(1L));
 
         //when
         ResultActions perform = mockMvc.perform(post("/surveys")
@@ -50,12 +50,13 @@ public class SurveyControllerTest extends ControllerTest {
 
         //then
         perform.andDo(print());
-//        perform.andExpect(status().is2xxSuccessful());
-//        perform.andDo(document("register_member",
+        perform.andExpect(status().is2xxSuccessful());
+//        perform.andDo(document("register_survey",
 //                getDocumentRequest(),
 //                getDocumentResponse(),
 //                requestFields(
-//                        fieldWithPath("name").type(STRING).description("이름"),
+//                        beneathPath()
+//                        fieldWithPath("questions").type(ARRAY).description("이름"),
 //                        fieldWithPath("age").type(NUMBER).description("나이"),
 //                        fieldWithPath("gender").type(STRING).description("성별"),
 //                        fieldWithPath("email").type(STRING).description("이메일"),
@@ -64,9 +65,16 @@ public class SurveyControllerTest extends ControllerTest {
 //                        fieldWithPath("birth").type(STRING).description("생일")
 //                ),
 //                responseFields(
-//                        fieldWithPath("memberId").type(NUMBER).description("등록한 회원 id")
+//                        fieldWithPath("surveyId").type(NUMBER).description("등록한 설문 id")
 //                )
 //        ));
 
     }
 }
+
+//https://stackoverflow.com/questions/61637182/how-to-document-a-mixed-typed-array-structures-in-requests-responses-with-spring
+
+//PayloadSubsectionExtractor.
+
+
+//https://www.tabnine.com/code/java/methods/org.springframework.restdocs.payload.SubsectionDescriptor/description

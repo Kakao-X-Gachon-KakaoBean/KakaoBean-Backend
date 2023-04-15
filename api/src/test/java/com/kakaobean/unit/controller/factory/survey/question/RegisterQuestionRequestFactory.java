@@ -65,13 +65,13 @@ public class RegisterQuestionRequestFactory {
                 .logics(
                       List.of(
                               RegisterQuestionFlowLogicRequest.builder()
-                                      .conditionOfQuestionNumbers(
+                                      .conditionOfQuestionAnswers(
                                               List.of(FIRST_ANSWER, SECOND_ANSWER)
                                       )
                                       .nextQuestionNumber("3")
                                       .build(),
                               RegisterQuestionFlowLogicRequest.builder()
-                                      .conditionOfQuestionNumbers(
+                                      .conditionOfQuestionAnswers(
                                               List.of(THIRD_ANSWER, FOURTH_ANSWER)
                                       )
                                       .nextQuestionNumber("4")
@@ -93,7 +93,7 @@ public class RegisterQuestionRequestFactory {
                 .questionNumber(questionNumber)
                 .numberOfAnswerChoices(1)
                 .answers(List.of(
-                        FIFTH_ANSWER,
+                        FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,

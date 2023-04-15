@@ -20,8 +20,8 @@ public class SurveyController{
     private final SurveyService surveyService;
 
     @PostMapping
-    public ResponseEntity registerSurvey(@AuthenticationPrincipal Long memberId, @RequestBody RegisterSurveyRequest body){
-        surveyService.registerSurvey(null);
+    public ResponseEntity registerSurvey(@AuthenticationPrincipal Long memberId, @RequestBody RegisterSurveyRequest request){
+        surveyService.registerSurvey(request.toServiceDto(memberId));
         return new ResponseEntity(null, HttpStatus.OK);
     }
 }

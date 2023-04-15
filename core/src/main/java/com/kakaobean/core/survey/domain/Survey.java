@@ -1,6 +1,7 @@
 package com.kakaobean.core.survey.domain;
 
 import com.kakaobean.core.common.domain.BaseEntity;
+import com.kakaobean.core.common.domain.BaseStatus;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,4 +25,19 @@ public class Survey extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "survey", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
+
+    public Survey(SurveyOwner surveyOwner) {
+        super(BaseStatus.ACTIVE);
+        this.surveyOwner = surveyOwner;
+    }
+
+    public Survey(SurveyOwner surveyOwner, List<Question> questions) {
+        super(BaseStatus.ACTIVE);
+        this.surveyOwner = surveyOwner;
+        this.questions.addAll(questions);
+    }
+
+//    public void addQuestions(List<Question> questions){
+//        this.questions.addAll(questions);
+//    }
 }

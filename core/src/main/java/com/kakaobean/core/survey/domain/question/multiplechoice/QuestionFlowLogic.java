@@ -50,4 +50,8 @@ public class QuestionFlowLogic extends BaseEntity {
         this.question = question;
         this.nextQuestion = nextQuestion;
     }
+
+    public void addConditions(List<QuestionFlowLogicWithAnswerCondition> conditions){
+        this.conditions.addAll(conditions);
+    }
 }

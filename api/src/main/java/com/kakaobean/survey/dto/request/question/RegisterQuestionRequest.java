@@ -3,7 +3,8 @@ package com.kakaobean.survey.dto.request.question;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.kakaobean.core.survey.application.dto.QuestionRequestType;
-import lombok.Builder;
+import com.kakaobean.core.survey.application.dto.question.RegisterQuestionRequestDto;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,10 +20,16 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.*;
 })
 public abstract class RegisterQuestionRequest {
 
-    private String title;
-    private String explanation;
-    private String questionNumber;
-    private QuestionRequestType type;
+    protected String title;
+    protected String explanation;
+    protected String questionNumber;
+    protected QuestionRequestType type;
+
+    public RegisterQuestionRequestDto toServiceDto(){
+        return createDetailServiceDto();
+    }
+
+    protected abstract RegisterQuestionRequestDto createDetailServiceDto();
 
     /**
      * 테스트 코드에서만 사용할 것.

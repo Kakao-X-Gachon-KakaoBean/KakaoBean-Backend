@@ -30,6 +30,10 @@ public class MultipleChoiceQuestionAnswer extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private MultipleChoiceQuestion question;
 
+    public MultipleChoiceQuestionAnswer(String content) {
+        super(BaseStatus.ACTIVE);
+        this.content = content;
+    }
     public MultipleChoiceQuestionAnswer(String content, MultipleChoiceQuestion question) {
         super(BaseStatus.ACTIVE);
         this.content = content;

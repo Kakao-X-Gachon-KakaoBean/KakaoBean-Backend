@@ -49,6 +49,7 @@ public class MultipleChoiceQuestion extends Question {
         super(title, explanation, questionNumber);
         this.answers = answers;
         this.numberOfAnswerChoices = numberOfAnswerChoices;
+        answers.forEach(answer -> answer.addQuestion(this));
     }
 
     public void addLogics(List<QuestionFlowLogic> questionFlowLogics){

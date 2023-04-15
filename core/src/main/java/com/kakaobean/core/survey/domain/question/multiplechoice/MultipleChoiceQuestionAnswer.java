@@ -5,6 +5,7 @@ import com.kakaobean.core.common.domain.BaseStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.EmitUtils;
 
 import javax.persistence.*;
 
@@ -34,9 +35,8 @@ public class MultipleChoiceQuestionAnswer extends BaseEntity {
         super(BaseStatus.ACTIVE);
         this.content = content;
     }
-    public MultipleChoiceQuestionAnswer(String content, MultipleChoiceQuestion question) {
-        super(BaseStatus.ACTIVE);
-        this.content = content;
-        this.question = question;
+
+    public void addQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
+        this.question = multipleChoiceQuestion;
     }
 }

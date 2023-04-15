@@ -46,6 +46,10 @@ public abstract class Question extends BaseEntity {
         this.explanation = explanation;
         this.questionNumber = questionNumber;
     }
+
+    public void addSurvey(Survey survey) {
+        this.survey = survey;
+    }
 }
 
 /**

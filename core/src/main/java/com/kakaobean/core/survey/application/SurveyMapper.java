@@ -2,16 +2,22 @@ package com.kakaobean.core.survey.application;
 
 import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
 import com.kakaobean.core.survey.application.dto.question.RegisterMultipleChoiceQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.question.RegisterQuestionFlowLogicRequestDto;
 import com.kakaobean.core.survey.application.dto.question.RegisterQuestionRequestDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyOwner;
 import com.kakaobean.core.survey.domain.question.Question;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestion;
+import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionAnswer;
+import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogic;
+import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogicWithAnswerCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Component
 @RequiredArgsConstructor
@@ -23,7 +29,7 @@ public class SurveyMapper {
                 createQuestion(dto)
         );
 
-        initMultipleChoiceQuestionLogic(survey.getQuestions(), dto.getDtoList());
+        initChoiceQuestionLogic(survey.getQuestions(), dto.getDtoList());
         return survey;
     }
 
@@ -34,22 +40,22 @@ public class SurveyMapper {
                 .collect(Collectors.toList());
     }
 
-    private void initMultipleChoiceQuestionLogic(
+    /**
+     * 분기점을 가지는 질문을 초기화함.
+     */
+    private void initChoiceQuestionLogic(
             List<Question> questions,
             List<RegisterQuestionRequestDto> dtoList
     ) {
         /**
-         * 1. 먼저 순회하면서 객관식 DTO을 찾는다.
+         * 1. 먼저 순회하면서 분기점을 가지는 질문(현재는 Only 객관식) DTO을 찾는다.
          * 2. 찾는다면 Logic이 빈 값인지 찾는다.
          * 3. 빈 값이 아니라면 Logic을 생성한다.
          */
-
-        System.out.println("start");
         for (int i = 0; i < dtoList.size(); i++) {
             RegisterQuestionRequestDto dto = dtoList.get(i);
 
-            //답안에 따른 로직을 가진 질문(객관식)이 아니면 return;
-            //현재 도메인 로직 상 객관식만 다음 로직을 가짐.
+            //답안에 따른 로직을 가진 질문(객관식)이 아니면 return; 현재 도메인 로직 상 객관식만 다음 로직을 가짐.
             if(!dto.hasQuestionFlowLogic()){
                 continue;
             }
@@ -58,7 +64,92 @@ public class SurveyMapper {
             RegisterMultipleChoiceQuestionRequestDto multipleChoiceDto = (RegisterMultipleChoiceQuestionRequestDto) dto;
             MultipleChoiceQuestion question = (MultipleChoiceQuestion )questions.get(i);
 
-            multipleChoiceDto.initDetailQuestionFlowLogic(question, questions, question.getAnswers());
+            initDetailQuestionFlowLogic(multipleChoiceDto, question, questions, question.getAnswers());
         }
+    }
+
+
+    private void initDetailQuestionFlowLogic(
+            RegisterMultipleChoiceQuestionRequestDto multipleChoiceDto,
+            MultipleChoiceQuestion ownerQuestion,
+            List<Question> questions,
+            List<MultipleChoiceQuestionAnswer> answers
+    ) {
+        if(multipleChoiceDto.getConditions().isEmpty()){
+            return;
+        }
+        ownerQuestion.addLogics(
+                multipleChoiceDto
+                        .getConditions().
+                        stream()
+                        .map(condition ->
+                                initFlowLogic(ownerQuestion, questions, answers, condition)
+                        )
+                        .collect(toList())
+        );
+    }
+
+
+    private QuestionFlowLogic initFlowLogic(
+            MultipleChoiceQuestion ownerQuestion,
+            List<Question> questions,
+            List<MultipleChoiceQuestionAnswer> answers,
+            RegisterQuestionFlowLogicRequestDto condition
+    ) {
+        //로직을 생성함.
+        QuestionFlowLogic flowLogic = createCreateFlowLogic(ownerQuestion, questions, condition);
+
+        //로직에 조건들을 초기화함.
+        flowLogic.addConditions(registerFlowCondition(answers, flowLogic, condition));
+        return flowLogic;
+    }
+
+
+    /**
+     * 단순히 분기점을 생성함.
+     */
+    private QuestionFlowLogic createCreateFlowLogic(
+            MultipleChoiceQuestion ownerQuestion,
+            List<Question> questions,
+            RegisterQuestionFlowLogicRequestDto condition
+    ) {
+        return new QuestionFlowLogic(
+                ownerQuestion,
+                registerNextQuestion(
+                        questions, condition.getNextQuestionNumber()
+                )
+        );
+    }
+
+    /**
+     * 질문 번호를 통해 이동할 질문을 뽑아냄.
+     */
+    private Question registerNextQuestion(List<Question> questions, String nextQuestionNumber) {
+        return questions.stream()
+                .filter(question -> question.getQuestionNumber().equals(nextQuestionNumber))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("해당하는 질문의 번호가 없습니다"));
+    }
+
+    /**
+     * 분기점은 어떤 답을 고르느냐에 따라 달라짐.
+     * 그것을 초기화함.
+     */
+    private List<QuestionFlowLogicWithAnswerCondition> registerFlowCondition(
+            List<MultipleChoiceQuestionAnswer> answers,
+            QuestionFlowLogic flowLogic,
+            RegisterQuestionFlowLogicRequestDto condition
+    ) {
+        return condition.getConditionOfQuestionAnswers()
+                .stream()
+                .map(answerString -> new QuestionFlowLogicWithAnswerCondition(
+                        flowLogic,
+                        answers.stream()
+                                .filter(answer -> answer.getContent().equals(answerString))
+                                .findFirst()
+                                .get()
+
+                ))
+                .collect(Collectors.toList());
     }
 }

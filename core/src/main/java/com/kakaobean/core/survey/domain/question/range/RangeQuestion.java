@@ -24,10 +24,4 @@ public class RangeQuestion extends Question {
         this.min = min;
         this.max = max;
     }
-
-    public RangeQuestion(Survey survey, String title, String explanation, String questionNumber, Integer min, Integer max) {
-        super(survey, title, explanation, questionNumber);
-        this.min = min;
-        this.max = max;
-    }
 }

@@ -6,9 +6,9 @@ import com.kakaobean.member.dto.RegisterMemberRequest;
 
 import java.time.LocalDate;
 
-public class RegisterMemberDtoFactory {
+public class RegisterMemberRequestFactory {
 
-    private RegisterMemberDtoFactory(){}
+    private RegisterMemberRequestFactory(){}
 
     public static RegisterMemberRequest createRequest(){
         return RegisterMemberRequest.builder()

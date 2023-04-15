@@ -2,7 +2,7 @@ package com.kakaobean.acceptance.member;
 
 import com.kakaobean.acceptance.AcceptanceTest;
 import com.kakaobean.member.dto.RegisterMemberRequest;
-import com.kakaobean.unit.controller.factory.member.RegisterMemberDtoFactory;
+import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
 
 import io.restassured.response.ExtractableResponse;
 import org.assertj.core.api.Assertions;
@@ -14,7 +14,7 @@ public class MemberAcceptanceTest extends AcceptanceTest {
     void registerMember(){
 
         //given
-        RegisterMemberRequest request = RegisterMemberDtoFactory.createRequest();
+        RegisterMemberRequest request = RegisterMemberRequestFactory.createRequest();
 
         //when
         ExtractableResponse response = MemberAcceptanceTask.registerMemberTask(request);

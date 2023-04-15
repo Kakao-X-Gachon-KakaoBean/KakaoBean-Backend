@@ -1,9 +1,10 @@
 package com.kakaobean.unit.controller.member;
 
 import com.kakaobean.unit.controller.ControllerTest;
-import com.kakaobean.unit.controller.factory.member.RegisterMemberDtoFactory;
+import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.member.dto.RegisterMemberRequest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
@@ -26,13 +27,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MemberControllerTest extends ControllerTest {
 
     @Test
+    @DisplayName("멤버 등록 API 명세서 테스트")
     void registerMemberTest() throws Exception {
 
         //given
-        RegisterMemberRequest request = RegisterMemberDtoFactory.createRequest();
+        RegisterMemberRequest request = RegisterMemberRequestFactory.createRequest();
         String requestBody = objectMapper.writeValueAsString(request);
         given(memberService.registerMember(Mockito.any(RegisterMemberRequestDto.class)))
-                        .willReturn(RegisterMemberDtoFactory.createResponseDto());
+                        .willReturn(RegisterMemberRequestFactory.createResponseDto());
 
         //when
         ResultActions perform = mockMvc.perform(post("/members")

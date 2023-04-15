@@ -30,8 +30,8 @@ public class MemberController {
         return new ResponseEntity(res, OK);
     }
 
-    @GetMapping
-    public String test(@AuthenticationPrincipal Long id){
-        return String.valueOf(id);
-    }
+//    @GetMapping
+//    public String test(@AuthenticationPrincipal Long id){
+//        return String.valueOf(id);
+//    }
 }

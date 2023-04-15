@@ -3,8 +3,10 @@ package com.kakaobean.core.survey.domain.question.multiplechoice;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -15,6 +17,7 @@ import java.util.List;
  * 객관식 질문
  */
 
+@Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DiscriminatorValue("multiple_choice_question")
@@ -29,10 +32,18 @@ public class MultipleChoiceQuestion extends Question {
     /**
      * 다음 답변으로 넘어갈 조건을 담은 로직
      */
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<QuestionFlowLogic> logics = new ArrayList<>();
 
-    public MultipleChoiceQuestion(Survey survey, String title, String explanation) {
-        super(survey, title, explanation);
+    /**
+     * 답을 몇개까지 고를지 제한선을 설정.그리고 이게 로직에서도 제한되어야 함.
+     */
+    private Integer numberOfAnswerChoices;
+
+    public MultipleChoiceQuestion(Survey survey, String title, String explanation, String questionNumber, List<QuestionFlowLogic> logics, Integer numberOfAnswerChoices) {
+        super(survey, title, explanation, questionNumber);
+        this.answers = answers;
+        this.logics = logics;
+        this.numberOfAnswerChoices = numberOfAnswerChoices;
     }
 }

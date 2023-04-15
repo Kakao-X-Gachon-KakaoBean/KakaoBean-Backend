@@ -6,9 +6,11 @@ import com.kakaobean.config.SecurityConfig;
 import com.kakaobean.config.WebMvcConfig;
 import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.core.member.application.MemberService;
+import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.member.MemberController;
 import com.kakaobean.security.TokenProvider;
 
+import com.kakaobean.survey.SurveyController;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,8 @@ import org.springframework.test.web.servlet.MockMvc;
         WebMvcConfig.class
 })
 @WebMvcTest(controllers = {
-        MemberController.class
+        MemberController.class,
+        SurveyController.class
 })
 @AutoConfigureRestDocs
 @MockBean(JpaMetamodelMappingContext.class)
@@ -54,5 +57,8 @@ public abstract class ControllerTest {
 
     @MockBean
     protected AppProperties appProperties;
+
+    @MockBean
+    protected SurveyService surveyService;
 
 }

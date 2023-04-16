@@ -19,6 +19,7 @@ public class RegisterQuestionFlowLogicRequestDto {
     private List<String> conditionOfQuestionAnswers;
     private String nextQuestionNumber;
 
+    @Builder
     public RegisterQuestionFlowLogicRequestDto(List<String> conditionOfQuestionAnswers, String nextQuestionNumber) {
         this.conditionOfQuestionAnswers = conditionOfQuestionAnswers;
         this.nextQuestionNumber = nextQuestionNumber;

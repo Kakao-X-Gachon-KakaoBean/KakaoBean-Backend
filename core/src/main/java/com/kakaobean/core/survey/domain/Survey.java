@@ -26,11 +26,6 @@ public class Survey extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "survey", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 
-    public Survey(SurveyOwner surveyOwner) {
-        super(BaseStatus.ACTIVE);
-        this.surveyOwner = surveyOwner;
-    }
-
     public Survey(SurveyOwner surveyOwner, List<Question> questions) {
         super(BaseStatus.ACTIVE);
         this.surveyOwner = surveyOwner;

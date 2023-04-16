@@ -1,8 +1,9 @@
 package com.kakaobean.core.survey.application.dto.question;
 
 import com.kakaobean.core.survey.domain.question.Question;
-import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionAnswer;
 import com.kakaobean.core.survey.domain.question.range.RangeQuestion;
+
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ public class RegisterRangeQuestionRequestDto extends RegisterQuestionRequestDto{
     private Integer min;
     private Integer max;
 
+    @Builder
     public RegisterRangeQuestionRequestDto(
             String title,
             String explanation,
@@ -42,4 +44,6 @@ public class RegisterRangeQuestionRequestDto extends RegisterQuestionRequestDto{
     public boolean hasQuestionFlowLogic() {
         return false;
     }
+
+
 }

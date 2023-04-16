@@ -1,6 +1,6 @@
 package com.kakaobean.core.unit.member.application;
 
-import com.kakaobean.core.exception.member.AlreadyExistsEmailException;
+import com.kakaobean.core.member.exception.member.AlreadyExistsEmailException;
 import com.kakaobean.core.factory.member.MemberFactory;
 import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
 import com.kakaobean.core.member.domain.Member;

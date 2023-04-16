@@ -1,7 +1,7 @@
 package com.kakaobean.security.oauth2;
 
 import com.kakaobean.config.AppProperties;
-import com.kakaobean.core.exception.auth.UnAuthorizedRedirectUrlException;
+import com.kakaobean.core.auth.exception.UnAuthorizedRedirectUrlException;
 import com.kakaobean.security.TokenProvider;
 import com.kakaobean.util.CookieUtils;
 import lombok.RequiredArgsConstructor;

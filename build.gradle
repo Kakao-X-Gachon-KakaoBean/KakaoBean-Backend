@@ -92,7 +92,8 @@ subprojects {
 						"**.exception*",
 						"**.util*",
 						"**.common*",
-						"**.Q*"
+						"**.Q*",
+						"**.response.*" //임시 설정
 				]
 			}
 		}

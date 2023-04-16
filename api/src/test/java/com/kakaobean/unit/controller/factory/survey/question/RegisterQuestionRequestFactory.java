@@ -56,7 +56,7 @@ public class RegisterQuestionRequestFactory {
                 .questionNumber(questionNumber)
                 .numberOfAnswerChoices(2)
                 .answers(List.of(
-                        FIFTH_ANSWER,
+                        FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,

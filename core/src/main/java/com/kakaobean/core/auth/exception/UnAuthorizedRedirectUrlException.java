@@ -1,6 +1,8 @@
-package com.kakaobean.core.exception.auth;
+package com.kakaobean.core.auth.exception;
 
-public class UnAuthorizedRedirectUrlException extends AuthException{
+import com.kakaobean.core.auth.exception.AuthException;
+
+public class UnAuthorizedRedirectUrlException extends AuthException {
 
     private static final String message = "인증되지 않은 redirect url 입니다.";
     private static final Integer status = 401;

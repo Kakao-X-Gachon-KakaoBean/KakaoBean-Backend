@@ -1,4 +1,4 @@
-package com.kakaobean.core.exception;
+package com.kakaobean.core.common;
 
 import lombok.Getter;
 

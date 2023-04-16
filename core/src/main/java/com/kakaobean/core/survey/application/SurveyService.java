@@ -23,6 +23,6 @@ public class SurveyService {
         Survey survey = surveyMapper.mapFrom(dto);
         surveyValidator.validate(survey);
         surveyRepository.save(survey);
-        return new RegisterSurveyResponseDto(1L);
+        return new RegisterSurveyResponseDto(survey.getId());
     }
 }

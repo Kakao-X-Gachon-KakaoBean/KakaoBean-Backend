@@ -1,6 +1,6 @@
-package com.kakaobean.core.exception.auth;
+package com.kakaobean.core.auth.exception;
 
-import com.kakaobean.core.exception.ApplicationException;
+import com.kakaobean.core.common.ApplicationException;
 import lombok.Getter;
 
 @Getter

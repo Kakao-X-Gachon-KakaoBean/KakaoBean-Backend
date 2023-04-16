@@ -1,8 +1,8 @@
 package com.kakaobean.security;
 
 
-import com.kakaobean.core.exception.member.NotExistsEmailException;
-import com.kakaobean.core.exception.member.NotExistsMemberException;
+import com.kakaobean.core.member.exception.member.NotExistsEmailException;
+import com.kakaobean.core.member.exception.member.NotExistsMemberException;
 import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.MemberRepository;
 
@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor

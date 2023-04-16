@@ -5,6 +5,7 @@ import com.kakaobean.core.survey.domain.question.Question;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestion;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionAnswer;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ public class RegisterMultipleChoiceQuestionRequestDto extends RegisterQuestionRe
     private List<String> answers;
     private List<RegisterQuestionFlowLogicRequestDto> conditions;
 
+    @Builder
     public RegisterMultipleChoiceQuestionRequestDto(
             String title,
             String explanation,

@@ -15,7 +15,7 @@ public class RegisterQuestionRequestListFactory {
     /**
      * Rqnge Bar Question 성공 로직
      */
-    public static List<RegisterQuestionRequest> createListRequest(){
+    public static List<RegisterQuestionRequest> createSuccessListRequest(){
         return List.of(
                 createEssayQuestionSuccessRequest("1"),
                 createMultipleQuestionSuccessRequestWithLogic("2"),

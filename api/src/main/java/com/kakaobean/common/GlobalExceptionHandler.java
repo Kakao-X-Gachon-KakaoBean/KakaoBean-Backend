@@ -1,7 +1,7 @@
 package com.kakaobean.common;
 
 import com.kakaobean.common.dto.ApplicationExceptionResponse;
-import com.kakaobean.core.exception.ApplicationException;
+import com.kakaobean.core.common.ApplicationException;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -32,6 +32,8 @@ public abstract class Question extends BaseEntity {
     private String questionNumber;
 
 
+    private boolean finalQuestion;
+
     public Question(String title, String explanation, String questionNumber) {
         super(BaseStatus.ACTIVE);
         this.title = title;

@@ -11,6 +11,8 @@ import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQu
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionAnswer;
 import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogic;
 import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogicWithAnswerCondition;
+import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
+import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -24,11 +26,7 @@ import static java.util.stream.Collectors.toList;
 public class SurveyMapper {
 
     public Survey mapFrom(RegisterSurveyRequestDto dto){
-        Survey survey = new Survey(
-                new SurveyOwner(dto.getMemberId()),
-                createQuestion(dto)
-        );
-
+        Survey survey = new Survey(new SurveyOwner(dto.getMemberId()), createQuestion(dto));
         initChoiceQuestionLogic(survey.getQuestions(), dto.getDtoList());
         return survey;
     }
@@ -69,6 +67,9 @@ public class SurveyMapper {
     }
 
 
+    /**
+     * 분기점이 있는 질문에서만 실행된다.
+     */
     private void initDetailQuestionFlowLogic(
             RegisterMultipleChoiceQuestionRequestDto multipleChoiceDto,
             MultipleChoiceQuestion ownerQuestion,
@@ -80,11 +81,9 @@ public class SurveyMapper {
         }
         ownerQuestion.addLogics(
                 multipleChoiceDto
-                        .getConditions().
-                        stream()
-                        .map(condition ->
-                                initFlowLogic(ownerQuestion, questions, answers, condition)
-                        )
+                        .getConditions()
+                        .stream()
+                        .map(condition -> initFlowLogic(ownerQuestion, questions, answers, condition))
                         .collect(toList())
         );
     }
@@ -128,7 +127,7 @@ public class SurveyMapper {
         return questions.stream()
                 .filter(question -> question.getQuestionNumber().equals(nextQuestionNumber))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("해당하는 질문의 번호가 없습니다"));
+                .orElseThrow(() -> new NoMatchingQuestionNumberException(nextQuestionNumber));
     }
 
     /**
@@ -147,7 +146,7 @@ public class SurveyMapper {
                         answers.stream()
                                 .filter(answer -> answer.getContent().equals(answerString))
                                 .findFirst()
-                                .get()
+                                .orElseThrow(() -> new NoMatchingQuestionAnswerException(answerString))
 
                 ))
                 .collect(Collectors.toList());

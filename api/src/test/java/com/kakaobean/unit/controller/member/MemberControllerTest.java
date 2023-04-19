@@ -55,6 +55,7 @@ public class MemberControllerTest extends ControllerTest {
                         fieldWithPath("age").type(NUMBER).description("나이"),
                         fieldWithPath("gender").type(STRING).description("성별"),
                         fieldWithPath("email").type(STRING).description("이메일"),
+                        fieldWithPath("emailAuthKey").type(STRING).description("이메일 인증 키"),
                         fieldWithPath("password").type(STRING).description("비밀번호"),
                         fieldWithPath("checkPassword").type(STRING).description("비밀번호 확인"),
                         fieldWithPath("birth").type(STRING).description("생일")

@@ -13,7 +13,9 @@ import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogi
 import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogicWithAnswerCondition;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -115,7 +117,8 @@ public class SurveyMapper {
         return new QuestionFlowLogic(
                 ownerQuestion,
                 registerNextQuestion(
-                        questions, condition.getNextQuestionNumber()
+                        questions,
+                        condition.getNextQuestionNumber()
                 )
         );
     }

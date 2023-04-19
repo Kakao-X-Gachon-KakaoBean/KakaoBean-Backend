@@ -22,9 +22,10 @@ public class RegisterRangeQuestionRequestDto extends RegisterQuestionRequestDto{
             String explanation,
             String questionNumber,
             Integer min,
-            Integer max
+            Integer max,
+            boolean finalQuestion
     ) {
-        super(title, explanation, questionNumber);
+        super(title, explanation, questionNumber, finalQuestion);
         this.min = min;
         this.max = max;
     }
@@ -36,7 +37,8 @@ public class RegisterRangeQuestionRequestDto extends RegisterQuestionRequestDto{
                 explanation,
                 questionNumber,
                 min,
-                max
+                max,
+                finalQuestion
         );
     }
 

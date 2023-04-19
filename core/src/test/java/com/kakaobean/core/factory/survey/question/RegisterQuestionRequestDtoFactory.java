@@ -14,7 +14,10 @@ public class RegisterQuestionRequestDtoFactory {
     /**
      * Rqnge Bar Question 성공 로직
      */
-    public static RegisterRangeQuestionRequestDto createRangeQuestionSuccessRequest(String questionNumber){
+    public static RegisterRangeQuestionRequestDto createRangeQuestionSuccessRequest(
+            String questionNumber,
+            boolean finalQuestion
+    ){
         return RegisterRangeQuestionRequestDto
                 .builder()
                 .title("Range Bar Question")
@@ -22,18 +25,23 @@ public class RegisterQuestionRequestDtoFactory {
                 .questionNumber(questionNumber)
                 .min(1)
                 .max(10)
+                .finalQuestion(finalQuestion)
                 .build();
     }
 
     /**
      * 주관식 성공 로직
      */
-    public static RegisterEssayQuestionRequestDto createEssayQuestionSuccessRequest(String questionNumber){
+    public static RegisterEssayQuestionRequestDto createEssayQuestionSuccessRequest(
+            String questionNumber,
+            boolean finalQuestion
+    ){
         return RegisterEssayQuestionRequestDto
                 .builder()
                 .title("Essay Question Title")
                 .explanation("ex2")
                 .questionNumber(questionNumber)
+                .finalQuestion(finalQuestion)
                 .build();
     }
 
@@ -42,6 +50,7 @@ public class RegisterQuestionRequestDtoFactory {
             String firstNextQuestionNumber,
             String secondNextQuestionNumber,
             Integer numberOfAnswerChoices,
+            boolean finalQuestion,
             String... answers
     ){
         return RegisterMultipleChoiceQuestionRequestDto
@@ -57,12 +66,14 @@ public class RegisterQuestionRequestDtoFactory {
                               RegisterQuestionFlowLogicRequestDtoFactory.createDto(secondNextQuestionNumber, answers[2], answers[3])
                       )
                 )
+                .finalQuestion(finalQuestion)
                 .build();
     }
 
     public static RegisterMultipleChoiceQuestionRequestDto createMultipleQuestionSuccessRequestWithoutLogic(
             String questionNumber,
             Integer numberOfAnswerChoices,
+            boolean finalQuestion,
             String... answers
     ){
         return RegisterMultipleChoiceQuestionRequestDto
@@ -75,6 +86,7 @@ public class RegisterQuestionRequestDtoFactory {
                 .conditions(
                         List.of()
                 )
+                .finalQuestion(finalQuestion)
                 .build();
     }
 
@@ -84,6 +96,7 @@ public class RegisterQuestionRequestDtoFactory {
             String firstNextQuestionNumber,
             String secondNextQuestionNumber,
             Integer numberOfAnswerChoices,
+            boolean finalQuestion,
             String... answers
     ){
         return RegisterMultipleChoiceQuestionRequestDto
@@ -100,6 +113,7 @@ public class RegisterQuestionRequestDtoFactory {
                                 RegisterQuestionFlowLogicRequestDtoFactory.createDto(secondNextQuestionNumber, answers[2], answers[3])
                         )
                 )
+                .finalQuestion(finalQuestion)
                 .build();
     }
 }

@@ -44,9 +44,10 @@ public class MultipleChoiceQuestion extends Question {
             String title, String explanation,
             String questionNumber,
             List<MultipleChoiceQuestionAnswer> answers,
-            Integer numberOfAnswerChoices
+            Integer numberOfAnswerChoices,
+            boolean finalQuestion
     ) {
-        super(title, explanation, questionNumber);
+        super(title, explanation, questionNumber, finalQuestion);
         this.answers = answers;
         this.numberOfAnswerChoices = numberOfAnswerChoices;
         answers.forEach(answer -> answer.addQuestion(this));

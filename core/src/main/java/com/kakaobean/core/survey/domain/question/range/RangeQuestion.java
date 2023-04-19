@@ -19,8 +19,15 @@ public class RangeQuestion extends Question {
     private Integer max;
 
 
-    public RangeQuestion(String title, String explanation, String questionNumber, Integer min, Integer max) {
-        super(title, explanation, questionNumber);
+    public RangeQuestion(
+            String title,
+            String explanation,
+            String questionNumber,
+            Integer min,
+            Integer max,
+            boolean finalQuestion
+    ) {
+        super(title, explanation, questionNumber, finalQuestion);
         this.min = min;
         this.max = max;
     }

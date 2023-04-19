@@ -16,7 +16,7 @@ import javax.persistence.*;
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity
+@Entity(name = "question_flow_logic_with_answer_condition")
 public class QuestionFlowLogicWithAnswerCondition extends BaseEntity {
 
     @Id

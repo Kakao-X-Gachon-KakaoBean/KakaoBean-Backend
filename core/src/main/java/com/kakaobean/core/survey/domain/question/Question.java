@@ -31,22 +31,14 @@ public abstract class Question extends BaseEntity {
     //설문내의 고유한 번호를 추가해야함.
     private String questionNumber;
 
-
     private boolean finalQuestion;
 
-    public Question(String title, String explanation, String questionNumber) {
+    public Question(String title, String explanation, String questionNumber, boolean finalQuestion) {
         super(BaseStatus.ACTIVE);
         this.title = title;
         this.explanation = explanation;
         this.questionNumber = questionNumber;
-    }
-
-    public Question(Survey survey, String title, String explanation, String questionNumber) {
-        super(BaseStatus.ACTIVE);
-        this.survey = survey;
-        this.title = title;
-        this.explanation = explanation;
-        this.questionNumber = questionNumber;
+        this.finalQuestion = finalQuestion;
     }
 
     public void addSurvey(Survey survey) {
@@ -55,5 +47,5 @@ public abstract class Question extends BaseEntity {
 }
 
 /**
- * 제출 문제인지, 다음 문제도 넣어야함
+ * 다음 문제도 넣어야함
  */

@@ -1,5 +1,6 @@
 package com.kakaobean.core.unit.member.application;
 
+import com.kakaobean.core.member.domain.email.EmailRepository;
 import com.kakaobean.core.member.exception.member.AlreadyExistsEmailException;
 import com.kakaobean.core.factory.member.MemberFactory;
 import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
@@ -9,7 +10,9 @@ import com.kakaobean.core.member.domain.MemberValidator;
 import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
+import com.kakaobean.core.member.infrastructure.MemberVerifiedEmailServiceImpl;
 import com.kakaobean.core.unit.UnitTest;
+import com.kakaobean.independentlysystem.email.EmailSender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,9 +32,16 @@ public class MemberServiceTest extends UnitTest {
     @Mock
     MemberRepository memberRepository;
 
+    @Mock
+    EmailSender emailSender;
+
+    @Mock
+    EmailRepository emailRepository;
+
     @BeforeEach
     void beforeEach(){
-        memberService = new MemberService(memberRepository, new MemberValidator(memberRepository));
+        MemberVerifiedEmailServiceImpl memberVerifiedEmailService = new MemberVerifiedEmailServiceImpl(emailSender, emailRepository);
+        memberService = new MemberService(memberRepository, new MemberValidator(memberRepository), memberVerifiedEmailService);
     }
 
     @DisplayName("멤버를 성공적으로 등록한다.")

@@ -1,13 +1,13 @@
 package com.kakaobean.core.member.domain.email;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
+
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
 
-@Component
+@Repository
 @RequiredArgsConstructor
 public class EmailRepository {
 

@@ -43,7 +43,7 @@ public class MemberValidatorTest extends UnitTest {
 
         //then, when
         Assertions.assertThatThrownBy(() -> {
-            memberValidator.validate(req);
+            memberValidator.validate(req.getEmail());
         })
                 .isInstanceOf(AlreadyExistsEmailException.class)
                 .hasMessage("이미 존재하는 유저의 이메일입니다.");

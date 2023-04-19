@@ -28,9 +28,10 @@ public class RegisterMultipleChoiceQuestionRequestDto extends RegisterQuestionRe
             String questionNumber,
             Integer numberOfAnswerChoices,
             List<String> answers,
-            List<RegisterQuestionFlowLogicRequestDto> conditions
+            List<RegisterQuestionFlowLogicRequestDto> conditions,
+            boolean finalQuestion
     ) {
-        super(title, explanation, questionNumber);
+        super(title, explanation, questionNumber, finalQuestion);
         this.numberOfAnswerChoices = numberOfAnswerChoices;
         this.answers = answers;
         this.conditions = conditions;
@@ -43,7 +44,8 @@ public class RegisterMultipleChoiceQuestionRequestDto extends RegisterQuestionRe
                 explanation,
                 questionNumber,
                 createMultipleChoiceAnswers(),
-                numberOfAnswerChoices
+                numberOfAnswerChoices,
+                finalQuestion
         );
 
         return question;

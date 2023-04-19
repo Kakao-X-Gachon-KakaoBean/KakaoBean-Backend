@@ -9,7 +9,7 @@ import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
 import org.assertj.core.api.AbstractThrowableAssert;
-import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

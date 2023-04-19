@@ -18,14 +18,15 @@ public class RegisterEssayQuestionRequestDto extends RegisterQuestionRequestDto{
     public RegisterEssayQuestionRequestDto(
             String title,
             String explanation,
-            String questionNumber
+            String questionNumber,
+            boolean finalQuestion
     ) {
-        super(title, explanation, questionNumber);
+        super(title, explanation, questionNumber, finalQuestion);
     }
 
     @Override
     protected Question createdDetailQuestionEntity() {
-        return new EssayQuestion(title, explanation, questionNumber);
+        return new EssayQuestion(title, explanation, questionNumber, finalQuestion);
     }
 
     @Override

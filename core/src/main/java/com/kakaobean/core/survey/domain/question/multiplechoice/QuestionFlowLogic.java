@@ -17,7 +17,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@Entity(name = "question_flow_logic")
 public class QuestionFlowLogic extends BaseEntity {
 
     @Id

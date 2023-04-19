@@ -12,6 +12,8 @@ public class SurveyValidator {
 
         //TODO 객관식에서 분기가 존재한다면 겹치는 분기가 없어야 한다.
 
-        //TODO
+        //TODO 마지막으로 질문이 0개면 예외 던짐.
+
+
     }
 }

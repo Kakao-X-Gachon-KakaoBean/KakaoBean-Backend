@@ -14,11 +14,13 @@ public abstract class RegisterQuestionRequestDto {
     protected String title;
     protected String explanation;
     protected String questionNumber;
+    protected boolean finalQuestion;
 
-    public RegisterQuestionRequestDto(String title, String explanation, String questionNumber) {
+    public RegisterQuestionRequestDto(String title, String explanation, String questionNumber, boolean finalQuestion) {
         this.title = title;
         this.explanation = explanation;
         this.questionNumber = questionNumber;
+        this.finalQuestion = finalQuestion;
     }
 
     public Question toEntity(){

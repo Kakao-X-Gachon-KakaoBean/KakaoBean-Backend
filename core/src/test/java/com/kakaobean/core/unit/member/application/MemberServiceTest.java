@@ -1,5 +1,6 @@
 package com.kakaobean.core.unit.member.application;
 
+import com.kakaobean.core.member.domain.email.Email;
 import com.kakaobean.core.member.domain.email.EmailRepository;
 import com.kakaobean.core.member.exception.member.AlreadyExistsEmailException;
 import com.kakaobean.core.factory.member.MemberFactory;
@@ -51,6 +52,8 @@ public class MemberServiceTest extends UnitTest {
         RegisterMemberRequestDto req = RegisterMemberServiceDtoFactory.createSuccessCaseRequestDto();
         Member member = MemberFactory.create();
         given(memberRepository.save(Mockito.any())).willReturn(member);
+        given(emailRepository.hasKey(Mockito.any())).willReturn(true);
+        given(emailRepository.getEmailCertification(Mockito.any())).willReturn(new Email(req.getEmail(), req.getEmailAuthKey()));
 
         //when
         RegisterMemberResponseDto res = memberService.registerMember(req);

@@ -1,5 +1,7 @@
 package com.kakaobean.core.integration.member;
 
+import com.kakaobean.core.member.domain.email.Email;
+import com.kakaobean.core.member.domain.email.EmailRepository;
 import com.kakaobean.core.member.exception.member.AlreadyExistsEmailException;
 import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
 import com.kakaobean.core.integration.IntegrationTest;
@@ -22,11 +24,15 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
     @Autowired
     MemberRepository memberRepository;
 
+    @Autowired
+    EmailRepository emailRepository;
+
     @DisplayName("멤버를 등록한다.")
     @Test
     void registerMember(){
         //given
         RegisterMemberRequestDto dto = RegisterMemberServiceDtoFactory.createSuccessCaseRequestDto();
+        emailRepository.createEmailCertification(new Email(dto.getEmail(), dto.getEmailAuthKey()));
 
         //when
         RegisterMemberResponseDto res = memberService.registerMember(dto);

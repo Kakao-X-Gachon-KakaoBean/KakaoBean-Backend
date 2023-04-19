@@ -4,6 +4,7 @@ jar { enabled = true }
 dependencies {
     implementation project(':common')
     implementation project(':independently-system')
+    testImplementation project(':independently-system')
 
     implementation 'com.querydsl:querydsl-jpa'
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"

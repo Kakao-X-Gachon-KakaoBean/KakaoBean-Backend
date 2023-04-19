@@ -1,5 +1,7 @@
 package com.kakaobean.acceptance.member;
 
+import com.kakaobean.core.member.domain.email.Email;
+import com.kakaobean.core.member.domain.email.EmailRepository;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 
 import io.restassured.RestAssured;
@@ -11,7 +13,10 @@ public class MemberAcceptanceTask {
 
     private MemberAcceptanceTask(){}
 
-    static public ExtractableResponse registerMemberTask(RegisterMemberRequest request){
+    static public ExtractableResponse registerMemberTask(RegisterMemberRequest request,
+                                                         EmailRepository emailRepository){
+        emailRepository.createEmailCertification(new Email(request.getEmail(), request.getEmailAuthKey()));
+
         return RestAssured
                 .given()
                 .accept(APPLICATION_JSON_VALUE)

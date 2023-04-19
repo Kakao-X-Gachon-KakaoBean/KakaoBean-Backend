@@ -5,11 +5,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class SendVerificationEmailRequest {
+public class SendVerificationEmailResponse {
 
     private String email;
 
-    public SendVerificationEmailRequest(String email) {
+    public SendVerificationEmailResponse(String email) {
         this.email = email;
     }
 }

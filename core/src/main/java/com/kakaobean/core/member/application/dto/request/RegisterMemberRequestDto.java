@@ -18,17 +18,23 @@ public class RegisterMemberRequestDto {
     private final String email;
     private final String password;
     private final LocalDate birth;
+    private final String emailAuthKey;
 
     @Builder
-    public RegisterMemberRequestDto(
-            String name, Integer age, Gender gender, String email, String password, LocalDate birth
-    ) {
+    public RegisterMemberRequestDto(String name,
+                                    Integer age,
+                                    Gender gender,
+                                    String email,
+                                    String password,
+                                    LocalDate birth,
+                                    String emailAuthKey) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.email = email;
         this.password = password;
         this.birth = birth;
+        this.emailAuthKey = emailAuthKey;
     }
 
     public Member toEntity(){

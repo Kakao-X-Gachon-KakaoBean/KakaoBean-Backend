@@ -1,4 +1,4 @@
-package com.kakaobean.independentlysystem.redis;
+package com.kakaobean.core.config.redis;
 
 import lombok.Getter;
 import lombok.Setter;

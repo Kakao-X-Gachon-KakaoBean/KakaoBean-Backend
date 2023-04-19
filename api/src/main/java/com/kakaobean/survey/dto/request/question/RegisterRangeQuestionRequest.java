@@ -21,7 +21,8 @@ public class RegisterRangeQuestionRequest extends RegisterQuestionRequest{
                 explanation,
                 questionNumber,
                 min,
-                max
+                max,
+                finalQuestion
         );
     }
 
@@ -35,9 +36,10 @@ public class RegisterRangeQuestionRequest extends RegisterQuestionRequest{
             String questionNumber,
             QuestionRequestType type,
             Integer min,
-            Integer max
+            Integer max,
+            boolean finalQuestion
     ) {
-        super(title, explanation, questionNumber, type);
+        super(title, explanation, questionNumber, type, finalQuestion);
         this.min = min;
         this.max = max;
     }

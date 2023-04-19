@@ -2,6 +2,7 @@ package com.kakaobean.core.member.domain;
 
 import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;
+import com.kakaobean.core.member.domain.email.MemberVerifiedEmailService;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,10 +42,14 @@ public class Member extends BaseEntity {
     /**
      * 프로덕션 생성자
      */
-    public Member(
-            String name, LocalDate birth, String email, Role role, Gender gender, Integer age, String password,
-            AuthProvider authProvider
-    ) {
+    public Member(String name,
+                  LocalDate birth,
+                  String email,
+                  Role role,
+                  Gender gender,
+                  Integer age,
+                  String password,
+                  AuthProvider authProvider) {
         super(BaseStatus.ACTIVE);
         this.name = name;
         this.birth = birth;
@@ -59,7 +64,14 @@ public class Member extends BaseEntity {
      * 테스트 코드를 위한 생성자.
      */
     @Builder
-    public Member(Long id, String name, Integer age, Auth auth, Role role, Gender gender, LocalDate birth, AuthProvider authProvider) {
+    public Member(Long id,
+                  String name,
+                  Integer age,
+                  Auth auth,
+                  Role role,
+                  Gender gender,
+                  LocalDate birth,
+                  AuthProvider authProvider) {
         super(BaseStatus.ACTIVE);
         this.id = id;
         this.name = name;
@@ -69,5 +81,12 @@ public class Member extends BaseEntity {
         this.gender = gender;
         this.birth = birth;
         this.authProvider = authProvider;
+    }
+
+    public void place(MemberValidator memberValidator,
+                      MemberVerifiedEmailService memberVerifiedEmailService,
+                      String authKey) {
+        memberValidator.validate(auth.getEmail());
+        memberVerifiedEmailService.verifyAuthEmailKey(auth.getEmail(), authKey);
     }
 }

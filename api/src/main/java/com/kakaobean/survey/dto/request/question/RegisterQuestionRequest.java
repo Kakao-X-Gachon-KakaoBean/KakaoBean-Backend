@@ -24,6 +24,7 @@ public abstract class RegisterQuestionRequest {
     protected String explanation;
     protected String questionNumber;
     protected QuestionRequestType type;
+    protected boolean finalQuestion;
 
     public RegisterQuestionRequestDto toServiceDto(){
         return createDetailServiceDto();
@@ -34,10 +35,18 @@ public abstract class RegisterQuestionRequest {
     /**
      * 테스트 코드에서만 사용할 것.
      */
-    public RegisterQuestionRequest(String title, String explanation, String questionNumber, QuestionRequestType type) {
+    public RegisterQuestionRequest(
+            String title,
+            String explanation,
+            String questionNumber,
+            QuestionRequestType type,
+            boolean finalQuestion
+    ) {
         this.title = title;
         this.explanation = explanation;
         this.questionNumber = questionNumber;
         this.type = type;
+        this.finalQuestion = finalQuestion;
     }
 }
+

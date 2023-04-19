@@ -6,6 +6,7 @@ import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.MemberValidator;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
+import com.kakaobean.core.member.domain.email.MemberVerifiedEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +17,17 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberValidator memberValidator;
+    private final MemberVerifiedEmailService memberVerifiedEmailService;
 
     @Transactional(readOnly = false)
-    public RegisterMemberResponseDto registerMember(
-            RegisterMemberRequestDto dto
-    ){
-        memberValidator.validate(dto);
+    public RegisterMemberResponseDto registerMember(RegisterMemberRequestDto dto){
         Member member = dto.toEntity();
+        member.place(memberValidator, memberVerifiedEmailService, dto.getEmailAuthKey());
         Member savedMember = memberRepository.save(member);
         return new RegisterMemberResponseDto(savedMember.getId());
+    }
+
+    public void sendVerificationEmail(String email) {
+        memberVerifiedEmailService.sendVerificationEmail(email);
     }
 }

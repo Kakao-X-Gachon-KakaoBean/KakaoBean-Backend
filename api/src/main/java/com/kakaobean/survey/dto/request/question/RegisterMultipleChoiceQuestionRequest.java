@@ -29,7 +29,8 @@ public class RegisterMultipleChoiceQuestionRequest extends RegisterQuestionReque
                 answers,
                 logics.stream()
                         .map(logic -> logic.toServiceDto())
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                finalQuestion
         );
     }
 
@@ -44,9 +45,10 @@ public class RegisterMultipleChoiceQuestionRequest extends RegisterQuestionReque
             QuestionRequestType type,
             Integer numberOfAnswerChoices,
             List<String> answers,
-            List<RegisterQuestionFlowLogicRequest> logics
+            List<RegisterQuestionFlowLogicRequest> logics,
+            boolean finalQuestion
     ) {
-        super(title, explanation, questionNumber, type);
+        super(title, explanation, questionNumber, type, finalQuestion);
         this.numberOfAnswerChoices = numberOfAnswerChoices;
         this.answers = answers;
         this.logics = logics;

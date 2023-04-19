@@ -25,7 +25,7 @@ public class MemberVerifiedEmailServiceImpl implements MemberVerifiedEmailServic
         if(emailRepository.hasKey(email)){
             emailRepository.removeEmailCertification(email);
         }
-        emailRepository.createEmailCertification(email);
+        emailRepository.save(email);
     }
 
     @Override

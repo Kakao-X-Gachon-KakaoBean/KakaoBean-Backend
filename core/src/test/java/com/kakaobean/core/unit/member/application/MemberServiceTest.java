@@ -82,4 +82,22 @@ public class MemberServiceTest extends UnitTest {
 
         verify(memberRepository, times(1)).findMemberByEmail(Mockito.any());
     }
+
+    @DisplayName("인증 이메일을 성공적으로 보낼 수 있다.")
+    @Test
+    void sendVerifiedEmail(){
+
+        //given
+        given(emailSender.sendVerificationEmail(Mockito.any(String.class))).willReturn("113336");
+
+        //when
+        memberService.sendVerificationEmail("example@gmail.com");
+    }
+
+
+    @DisplayName("레디스에 이전에 요청한 이메일이 남아있어도, 다시 요청한 인증 이메일로 회원가입을 진행해도 성공한다.")
+    @Test
+    void successRegisterMemberWhenRemainEmailOnRedis(){
+
+    }
 }

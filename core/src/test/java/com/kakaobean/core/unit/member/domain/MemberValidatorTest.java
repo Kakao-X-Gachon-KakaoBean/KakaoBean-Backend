@@ -34,7 +34,7 @@ public class MemberValidatorTest extends UnitTest {
     }
 
     @DisplayName("사전에 동일한 이메일을 가진 멤버가 있다면 예외가 발생한다.")
-    @Test()
+    @Test
     void failValidationWhenSomeoneHasSameEmail(){
 
         //given

@@ -16,7 +16,7 @@ public class EmailRepository {
 
     private final StringRedisTemplate redisTemplate;
     //SMS 인증 정보 저장
-    public void createEmailCertification(Email email) {
+    public void save(Email email) {
         redisTemplate.opsForValue().set(PREFIX + email.getEmail(), email.getAuthKey(), Duration.ofSeconds(LIMIT_TIME));
     }
 

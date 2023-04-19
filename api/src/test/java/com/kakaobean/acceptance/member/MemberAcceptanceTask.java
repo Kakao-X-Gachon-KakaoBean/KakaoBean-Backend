@@ -15,7 +15,7 @@ public class MemberAcceptanceTask {
 
     static public ExtractableResponse registerMemberTask(RegisterMemberRequest request,
                                                          EmailRepository emailRepository){
-        emailRepository.createEmailCertification(new Email(request.getEmail(), request.getEmailAuthKey()));
+        emailRepository.save(new Email(request.getEmail(), request.getEmailAuthKey()));
 
         return RestAssured
                 .given()

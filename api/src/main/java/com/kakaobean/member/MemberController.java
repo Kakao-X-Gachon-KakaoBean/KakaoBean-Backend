@@ -5,7 +5,7 @@ import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 
-import com.kakaobean.member.dto.SendVerificationEmailRequest;
+import com.kakaobean.member.dto.SendVerifiedEmailRequest;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -32,7 +32,7 @@ public class MemberController {
 
     @PostMapping("/emails")
     public ResponseEntity sendVerificationEmail(
-            @RequestBody @Validated SendVerificationEmailRequest request
+            @RequestBody @Validated SendVerifiedEmailRequest request
     ){
         memberService.sendVerificationEmail(request.getEmail());
         return new ResponseEntity(new CommandSuccessResponse(), OK);

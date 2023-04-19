@@ -1,5 +1,6 @@
 package com.kakaobean.unit.controller.member;
 
+import com.kakaobean.member.dto.SendVerifiedEmailRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
@@ -60,6 +61,36 @@ public class MemberControllerTest extends ControllerTest {
                 ),
                 responseFields(
                         fieldWithPath("memberId").type(NUMBER).description("등록한 회원 id")
+                )
+        ));
+    }
+
+    @Test
+    @DisplayName("인증 메일 요청 API 명세서 테스트")
+    void sendVerifiedEmail() throws Exception {
+
+        //given
+        SendVerifiedEmailRequest request = new SendVerifiedEmailRequest("gachon@gmail.com");
+        String requestBody = objectMapper.writeValueAsString(request);
+
+        //when
+        ResultActions perform = mockMvc.perform(post("/emails")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(requestBody)
+        );
+
+        //then
+        perform.andDo(print());
+        perform.andExpect(status().is2xxSuccessful());
+        perform.andDo(document("send_verified_email",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                requestFields(
+                        fieldWithPath("email").type(STRING).description("인증 키를 받을 이메일")
+                ),
+                responseFields(
+                        fieldWithPath("message").type(STRING).description("요청을 성공하셨습니다.")
                 )
         ));
     }

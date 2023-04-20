@@ -4,6 +4,7 @@ import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,4 +37,17 @@ public class Survey extends BaseEntity {
 //    public void addQuestions(List<Question> questions){
 //        this.questions.addAll(questions);
 //    }
+
+
+    @Builder
+    public Survey(Long id, SurveyOwner surveyOwner, List<Question> questions) {
+        super(BaseStatus.ACTIVE);
+        this.id = id;
+        this.surveyOwner = surveyOwner;
+        this.questions = questions;
+    }
+
+    public void place(SurveyValidator surveyValidator) {
+        surveyValidator.validate(this);
+    }
 }

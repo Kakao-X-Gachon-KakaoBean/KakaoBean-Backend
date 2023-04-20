@@ -21,8 +21,8 @@ public class SurveyService {
     @Transactional
     public RegisterSurveyResponseDto registerSurvey(RegisterSurveyRequestDto dto){
         Survey survey = surveyMapper.mapFrom(dto);
-        surveyValidator.validate(survey);
-        surveyRepository.save(survey);
-        return new RegisterSurveyResponseDto(survey.getId());
+        survey.place(surveyValidator);
+        Survey saveSurvey = surveyRepository.save(survey);
+        return new RegisterSurveyResponseDto(saveSurvey.getId());
     }
 }

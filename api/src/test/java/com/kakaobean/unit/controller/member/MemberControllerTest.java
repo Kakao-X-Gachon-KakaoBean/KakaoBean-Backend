@@ -1,5 +1,7 @@
 package com.kakaobean.unit.controller.member;
 
+import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
+import com.kakaobean.member.dto.FindEmailRequest;
 import com.kakaobean.member.dto.SendVerifiedEmailRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
@@ -7,9 +9,12 @@ import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDt
 import com.kakaobean.member.dto.RegisterMemberRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.time.LocalDate;
 
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentRequest;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentResponse;
@@ -92,6 +97,39 @@ public class MemberControllerTest extends ControllerTest {
                 ),
                 responseFields(
                         fieldWithPath("message").type(STRING).description("요청을 성공하셨습니다.")
+                )
+        ));
+    }
+
+
+    @Test
+    @DisplayName("이름, 생년월일을 통해 이메일을 찾는 API 명세서 테스트")
+    void findEmail() throws Exception {
+
+        //given
+        FindEmailRequest req = new FindEmailRequest("bean", LocalDate.of(1999, 6, 27));
+        given(memberService.findEmailByBirthAndName(Mockito.any(String.class), Mockito.any(LocalDate.class)))
+                .willReturn(new FindEmailResponseDto("example@gmail.com"));
+        String requestBody = objectMapper.writeValueAsString(req);
+
+        //when
+        ResultActions perform = mockMvc.perform(post("/members/find-email")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(requestBody)
+        );
+
+        //then
+        perform.andDo(print());
+        perform.andExpect(status().is2xxSuccessful());
+        perform.andDo(document("find_email",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                requestFields(
+                        fieldWithPath("name").type(STRING).description("이메일을 찾을 멤버 이름"),
+                        fieldWithPath("birth").type(STRING).description("이메일을 찾을 멤버 생년월일")),
+                responseFields(
+                        fieldWithPath("email").type(STRING).description("찾은 이메일")
                 )
         ));
     }

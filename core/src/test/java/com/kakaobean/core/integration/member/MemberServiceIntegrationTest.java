@@ -1,5 +1,8 @@
 package com.kakaobean.core.integration.member;
 
+import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
+import com.kakaobean.core.member.domain.Auth;
+import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.email.Email;
 import com.kakaobean.core.member.domain.email.EmailRepository;
 import com.kakaobean.core.member.exception.member.AlreadyExistsEmailException;
@@ -13,6 +16,7 @@ import com.kakaobean.core.member.exception.member.NotExistsEmailException;
 import com.kakaobean.core.member.exception.member.WrongEmailAuthKeyException;
 import com.kakaobean.independentlysystem.email.EmailSender;
 import org.assertj.core.api.AbstractThrowableAssert;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +28,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.MailSender;
+
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -154,5 +160,27 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
         //then
         result.isInstanceOf(WrongEmailAuthKeyException.class);
         result.hasMessage("이메일 인증번호가 틀립니다.");
+    }
+
+    @DisplayName("이메일을 찾을 수 있어야 한다.")
+    @Test
+    void findEmail(){
+        //given
+        String name = "bean";
+        String email = "123@gmail.com";
+        LocalDate birth = LocalDate.of(1999, 6, 27);
+        Member member = Member.builder()
+                .name(name)
+                .auth(new Auth(email, "pwd"))
+                .birth(birth)
+                .build();
+        memberRepository.save(member);
+
+        //when
+        FindEmailResponseDto res = memberService.findEmailByBirthAndName(name, birth);
+
+        //then
+        Assertions.assertThat(res.getEmail()).isEqualTo(email);
+
     }
 }

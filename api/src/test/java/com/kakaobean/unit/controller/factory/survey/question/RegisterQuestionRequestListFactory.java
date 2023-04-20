@@ -21,7 +21,7 @@ public class RegisterQuestionRequestListFactory {
                 createMultipleQuestionSuccessRequestWithoutLogic("4", 1, "5", false),
                 createEssayQuestionSuccessRequest("5" , "6", false),
                 createEssayQuestionSuccessRequest("6", "7", false),
-                createMultipleQuestionSuccessRequestWithoutLogic("7", 1, "0", false)
+                createMultipleQuestionSuccessRequestWithoutLogic("7", 1, "0", true)
         );
     }
 }

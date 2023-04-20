@@ -34,7 +34,6 @@ public class RegisterQuestionRequestFactory {
                 .max(10)
                 .nextQuestionNumber(nextQuestionNumber)
                 .finalQuestion(isFinalQuestion)
-
                 .build();
     }
 
@@ -52,7 +51,6 @@ public class RegisterQuestionRequestFactory {
                 .type(QuestionRequestType.ESSAY)
                 .nextQuestionNumber(nextQuestionNumber)
                 .finalQuestion(isFinalQuestion)
-
                 .build();
     }
 
@@ -91,7 +89,6 @@ public class RegisterQuestionRequestFactory {
                 .type(QuestionRequestType.MULTIPLE)
                 .nextQuestionNumber(nextQuestionNumber)
                 .finalQuestion(isFinalQuestion)
-
                 .build();
     }
 

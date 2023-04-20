@@ -39,9 +39,6 @@ public abstract class Question extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Question nextQuestion;
 
-    @OneToMany(mappedBy =  "nextQuestion")
-    private List<Question> previousQuestions = new ArrayList<>();
-
     public Question(String title, String explanation, String questionNumber, boolean finalQuestion) {
         super(BaseStatus.ACTIVE);
         this.title = title;
@@ -52,6 +49,10 @@ public abstract class Question extends BaseEntity {
 
     public void addSurvey(Survey survey) {
         this.survey = survey;
+    }
+
+    public void addNextQuestion(Question nextQuestion) {
+        this.nextQuestion = nextQuestion;
     }
 }
 

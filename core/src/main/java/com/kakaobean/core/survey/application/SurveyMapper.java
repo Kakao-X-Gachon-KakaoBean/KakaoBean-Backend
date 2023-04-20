@@ -29,6 +29,7 @@ public class SurveyMapper {
 
     public Survey mapFrom(RegisterSurveyRequestDto dto){
         Survey survey = new Survey(new SurveyOwner(dto.getMemberId()), createQuestion(dto));
+        initNextQuestionForAllQuestions(survey.getQuestions(), dto.getDtoList());
         initChoiceQuestionLogic(survey.getQuestions(), dto.getDtoList());
         return survey;
     }
@@ -39,6 +40,26 @@ public class SurveyMapper {
                 .map(questionDto -> questionDto.toEntity())
                 .collect(Collectors.toList());
     }
+
+    private void initNextQuestionForAllQuestions(List<Question> questions, List<RegisterQuestionRequestDto> dtoList) {
+        for (int i = 0; i < questions.size(); i++) {
+            RegisterQuestionRequestDto dto = dtoList.get(i);
+            if(haveNotNextQuestion(dto)){
+                continue;
+            }
+            Question initTarget = questions.get(i);
+            Question nextQuestion = questions.stream()
+                    .filter(question -> question.getQuestionNumber().equals(dto.getNextQuestionNumber()))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("다음 질문 번호의 값이 요청에 존재하지 않습니다."));
+            initTarget.addNextQuestion(nextQuestion);
+        }
+    }
+
+    private boolean haveNotNextQuestion(RegisterQuestionRequestDto dto) {
+        return dto.getNextQuestionNumber().equals("0");
+    }
+
 
     /**
      * 분기점을 가지는 질문을 초기화함.

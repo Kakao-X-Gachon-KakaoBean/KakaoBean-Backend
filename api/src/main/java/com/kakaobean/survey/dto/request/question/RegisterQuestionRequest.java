@@ -39,6 +39,7 @@ public abstract class RegisterQuestionRequest {
     @NotNull
     protected Boolean finalQuestion;
 
+    @NotBlank
     protected String nextQuestionNumber;
 
     public RegisterQuestionRequestDto toServiceDto(){

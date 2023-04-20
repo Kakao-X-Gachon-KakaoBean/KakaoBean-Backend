@@ -2,7 +2,9 @@ package com.kakaobean.member;
 
 import com.kakaobean.common.dto.CommandSuccessResponse;
 import com.kakaobean.core.member.application.MemberService;
+import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
+import com.kakaobean.member.dto.FindEmailRequest;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 
 import com.kakaobean.member.dto.SendVerifiedEmailRequest;
@@ -31,12 +33,17 @@ public class MemberController {
     }
 
     @PostMapping("/emails")
-    public ResponseEntity sendVerificationEmail(
-            @RequestBody @Validated SendVerifiedEmailRequest request
-    ){
+    public ResponseEntity sendVerificationEmail(@RequestBody @Validated SendVerifiedEmailRequest request){
         memberService.sendVerificationEmail(request.getEmail());
         return new ResponseEntity(new CommandSuccessResponse(), OK);
     }
+
+    @PostMapping("/members/find-email")
+    public ResponseEntity findEmail(@RequestBody @Validated FindEmailRequest request){
+        FindEmailResponseDto res = memberService.findEmailByBirthAndName(request.getName(), request.getBirth());
+        return new ResponseEntity(res, OK);
+    }
+
 
 //    @GetMapping
 //    public String test(@AuthenticationPrincipal Long id){

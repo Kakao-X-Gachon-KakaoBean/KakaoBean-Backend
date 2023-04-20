@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -32,6 +34,13 @@ public abstract class Question extends BaseEntity {
     private String questionNumber;
 
     private boolean finalQuestion;
+
+    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Question nextQuestion;
+
+    @OneToMany(mappedBy =  "nextQuestion")
+    private List<Question> previousQuestions = new ArrayList<>();
 
     public Question(String title, String explanation, String questionNumber, boolean finalQuestion) {
         super(BaseStatus.ACTIVE);

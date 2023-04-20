@@ -1,8 +1,6 @@
 package com.kakaobean.unit.controller.factory.survey.question;
 
-import com.kakaobean.core.survey.application.dto.QuestionRequestType;
 import com.kakaobean.survey.dto.request.question.RegisterQuestionRequest;
-import com.kakaobean.survey.dto.request.question.RegisterRangeQuestionRequest;
 
 import java.util.List;
 
@@ -17,13 +15,13 @@ public class RegisterQuestionRequestListFactory {
      */
     public static List<RegisterQuestionRequest> createSuccessListRequest(){
         return List.of(
-                createEssayQuestionSuccessRequest("1"),
-                createMultipleQuestionSuccessRequestWithLogic("2"),
-                createRangeQuestionSuccessRequest("3"),
-                createMultipleQuestionSuccessRequestWithoutLogic("4", 1),
-                createEssayQuestionSuccessRequest("5"),
-                createEssayQuestionSuccessRequest("6"),
-                createMultipleQuestionSuccessRequestWithoutLogic("7", 1)
+                createEssayQuestionSuccessRequest("1", "2", false),
+                createMultipleQuestionSuccessRequestWithLogic("2", "0",false),
+                createRangeQuestionSuccessRequest("3", "5", false),
+                createMultipleQuestionSuccessRequestWithoutLogic("4", 1, "5", false),
+                createEssayQuestionSuccessRequest("5" , "6", false),
+                createEssayQuestionSuccessRequest("6", "7", false),
+                createMultipleQuestionSuccessRequestWithoutLogic("7", 1, "0", false)
         );
     }
 }

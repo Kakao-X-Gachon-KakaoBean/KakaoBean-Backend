@@ -15,13 +15,12 @@ import java.util.List;
 public class RegisterEssayQuestionRequestDto extends RegisterQuestionRequestDto{
 
     @Builder
-    public RegisterEssayQuestionRequestDto(
-            String title,
-            String explanation,
-            String questionNumber,
-            boolean finalQuestion
-    ) {
-        super(title, explanation, questionNumber, finalQuestion);
+    public RegisterEssayQuestionRequestDto(String title,
+                                           String explanation,
+                                           String questionNumber,
+                                           Boolean finalQuestion,
+                                           String nextQuestionNumber) {
+        super(title, explanation, questionNumber, finalQuestion, nextQuestionNumber);
     }
 
     @Override

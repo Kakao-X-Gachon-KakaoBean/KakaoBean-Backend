@@ -16,7 +16,10 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentRequest;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentResponse;
+import static com.kakaobean.unit.controller.survey.CustomPayloadSubsectionExtractorFactory.*;
+
 import static org.mockito.BDDMockito.given;
+
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
@@ -58,14 +61,15 @@ public class SurveyControllerTest extends ControllerTest {
                 getDocumentRequest(),
                 getDocumentResponse(),
                 requestFields(
-                        CustomPayloadSubsectionExtractorFactory.getRangeQuestionExtractor(),
+                        getRangeQuestionExtractor(),
                         fieldWithPath("type").type(STRING).description("질문 타입"),
                         fieldWithPath("title").type(STRING).description("질문 제목"),
                         fieldWithPath("explanation").type(STRING).description("질문 설명"),
                         fieldWithPath("questionNumber").type(STRING).description("질문 번호"),
                         fieldWithPath("min").type(NUMBER).description("Ragne 답변 최솟값"),
                         fieldWithPath("max").type(NUMBER).description("Range 답변 최댓값"),
-                        fieldWithPath("finalQuestion").type(BOOLEAN).description("마지막 질문인가")
+                        fieldWithPath("finalQuestion").type(BOOLEAN).description("마지막 질문인가"),
+                        fieldWithPath("nextQuestionNumber").type(STRING).description("다음 질문 번호")
                 ),
                 responseFields(
                         fieldWithPath("surveyId").type(NUMBER).description("등록한 설문 id").ignored()
@@ -78,12 +82,13 @@ public class SurveyControllerTest extends ControllerTest {
                 getDocumentRequest(),
                 getDocumentResponse(),
                 requestFields(
-                        CustomPayloadSubsectionExtractorFactory.getEssayQuestionExtractor(),
+                        getEssayQuestionExtractor(),
                         fieldWithPath("type").type(STRING).description("질문 타입"),
                         fieldWithPath("title").type(STRING).description("질문 제목"),
                         fieldWithPath("explanation").type(STRING).description("질문 설명"),
                         fieldWithPath("questionNumber").type(STRING).description("질문 번호"),
-                        fieldWithPath("finalQuestion").type(BOOLEAN).description("마지막 질문인가")
+                        fieldWithPath("finalQuestion").type(BOOLEAN).description("마지막 질문인가"),
+                        fieldWithPath("nextQuestionNumber").type(STRING).description("다음 질문 번호")
                 ),
                 responseFields(
                         fieldWithPath("surveyId").type(NUMBER).description("등록한 설문 id")
@@ -96,7 +101,7 @@ public class SurveyControllerTest extends ControllerTest {
                 getDocumentRequest(),
                 getDocumentResponse(),
                 requestFields(
-                        CustomPayloadSubsectionExtractorFactory.getMultipleChoiceQuestionExtractor(),
+                        getMultipleChoiceQuestionExtractor(),
                         fieldWithPath("type").type(STRING).description("질문 타ㅋ"),
                         fieldWithPath("title").type(STRING).description("질문 제목"),
                         fieldWithPath("explanation").type(STRING).description("질문 설명"),
@@ -104,6 +109,7 @@ public class SurveyControllerTest extends ControllerTest {
                         fieldWithPath("finalQuestion").type(BOOLEAN).description("마지막 질문인가"),
                         fieldWithPath("numberOfAnswerChoices").type(NUMBER).description("객관식에서 선택할 수 있는 질문의 개수"),
                         fieldWithPath("answers").type(ARRAY).description("객관식 답변 배열"),
+                        fieldWithPath("nextQuestionNumber").type(STRING).description("다음 질문 번호"),
                         fieldWithPath("logics").type(ARRAY).description("객관식에 설정할 다음 답변 이동 분기 로직"),
                         fieldWithPath("logics[].conditionOfQuestionAnswers").type(ARRAY).description("분기 로직에서 이동의 조건이 되는 객관식의 답변"),
                         fieldWithPath("logics[].nextQuestionNumber").type(STRING).description("분기 로직에서 이동할 다음 질문 번호")),

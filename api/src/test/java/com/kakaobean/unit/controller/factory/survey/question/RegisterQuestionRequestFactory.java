@@ -21,7 +21,9 @@ public class RegisterQuestionRequestFactory {
     /**
      * Rqnge Bar Question 성공 로직
      */
-    public static RegisterRangeQuestionRequest createRangeQuestionSuccessRequest(String questionNumber){
+    public static RegisterRangeQuestionRequest createRangeQuestionSuccessRequest(String questionNumber,
+                                                                                 String nextQuestionNumber,
+                                                                                 Boolean isFinalQuestion){
         return RegisterRangeQuestionRequest
                 .builder()
                 .title("Range Bar Question")
@@ -30,25 +32,33 @@ public class RegisterQuestionRequestFactory {
                 .type(QuestionRequestType.RANGE)
                 .min(1)
                 .max(10)
+                .nextQuestionNumber(nextQuestionNumber)
+                .finalQuestion(isFinalQuestion)
+
                 .build();
     }
 
     /**
      * 주관식 성공 로직
      */
-    public static RegisterEssayQuestionRequest createEssayQuestionSuccessRequest(String questionNumber){
+    public static RegisterEssayQuestionRequest createEssayQuestionSuccessRequest(String questionNumber,
+                                                                                 String nextQuestionNumber,
+                                                                                 Boolean isFinalQuestion){
         return RegisterEssayQuestionRequest
                 .builder()
                 .title("Essay Question Title")
                 .explanation("ex2")
                 .questionNumber(questionNumber)
                 .type(QuestionRequestType.ESSAY)
+                .nextQuestionNumber(nextQuestionNumber)
+                .finalQuestion(isFinalQuestion)
+
                 .build();
     }
 
-    public static RegisterMultipleChoiceQuestionRequest createMultipleQuestionSuccessRequestWithLogic(
-            String questionNumber
-    ){
+    public static RegisterMultipleChoiceQuestionRequest createMultipleQuestionSuccessRequestWithLogic(String questionNumber,
+                                                                                                      String nextQuestionNumber,
+                                                                                                      Boolean isFinalQuestion){
         return RegisterMultipleChoiceQuestionRequest
                 .builder()
                 .title("First Multiple Question Title")
@@ -79,19 +89,22 @@ public class RegisterQuestionRequestFactory {
                       )
                 )
                 .type(QuestionRequestType.MULTIPLE)
+                .nextQuestionNumber(nextQuestionNumber)
+                .finalQuestion(isFinalQuestion)
+
                 .build();
     }
 
-    public static RegisterMultipleChoiceQuestionRequest createMultipleQuestionSuccessRequestWithoutLogic(
-            String questionNumber,
-            Integer numberOfAnswerChoices
-    ){
+    public static RegisterMultipleChoiceQuestionRequest createMultipleQuestionSuccessRequestWithoutLogic(String questionNumber,
+                                                                                                         Integer numberOfAnswerChoices,
+                                                                                                         String nextQuestionNumber,
+                                                                                                         Boolean isFinalQuestion){
         return RegisterMultipleChoiceQuestionRequest
                 .builder()
                 .title("Multiple Question Title")
                 .explanation("without logic")
                 .questionNumber(questionNumber)
-                .numberOfAnswerChoices(1)
+                .numberOfAnswerChoices(numberOfAnswerChoices)
                 .answers(List.of(
                         FIRST_ANSWER,
                         SECOND_ANSWER,
@@ -99,10 +112,12 @@ public class RegisterQuestionRequestFactory {
                         FOURTH_ANSWER,
                         FIFTH_ANSWER
                 ))
+                .nextQuestionNumber(nextQuestionNumber)
                 .logics(
                         List.of()
                 )
                 .type(QuestionRequestType.MULTIPLE)
+                .finalQuestion(isFinalQuestion)
                 .build();
     }
 }

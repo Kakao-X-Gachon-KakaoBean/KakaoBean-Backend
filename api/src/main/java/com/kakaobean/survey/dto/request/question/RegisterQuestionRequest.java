@@ -8,6 +8,10 @@ import com.kakaobean.core.survey.application.dto.question.RegisterQuestionReques
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.*;
 
 @Getter
@@ -20,11 +24,22 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.*;
 })
 public abstract class RegisterQuestionRequest {
 
+    @NotBlank
     protected String title;
+
+    @NotBlank
     protected String explanation;
+
+    @NotBlank
     protected String questionNumber;
+
+    @NotNull
     protected QuestionRequestType type;
-    protected boolean finalQuestion;
+
+    @NotNull
+    protected Boolean finalQuestion;
+
+    protected String nextQuestionNumber;
 
     public RegisterQuestionRequestDto toServiceDto(){
         return createDetailServiceDto();
@@ -40,13 +55,15 @@ public abstract class RegisterQuestionRequest {
             String explanation,
             String questionNumber,
             QuestionRequestType type,
-            boolean finalQuestion
+            Boolean finalQuestion,
+            String nextQuestionNumber
     ) {
         this.title = title;
         this.explanation = explanation;
         this.questionNumber = questionNumber;
         this.type = type;
         this.finalQuestion = finalQuestion;
+        this.nextQuestionNumber = nextQuestionNumber;
     }
 }
 

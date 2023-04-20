@@ -17,7 +17,8 @@ public class RegisterEssayQuestionRequest extends RegisterQuestionRequest{
                 title,
                 explanation,
                 questionNumber,
-                finalQuestion
+                finalQuestion,
+                nextQuestionNumber
         );
     }
 
@@ -30,8 +31,9 @@ public class RegisterEssayQuestionRequest extends RegisterQuestionRequest{
             String explanation,
             String questionNumber,
             QuestionRequestType type,
-            boolean finalQuestion
+            boolean finalQuestion,
+            String nextQuestionNumber
     ) {
-        super(title, explanation, questionNumber, type, finalQuestion);
+        super(title, explanation, questionNumber, type, finalQuestion, nextQuestionNumber);
     }
 }

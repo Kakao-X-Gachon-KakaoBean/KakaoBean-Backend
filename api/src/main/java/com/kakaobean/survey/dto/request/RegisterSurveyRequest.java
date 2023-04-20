@@ -5,6 +5,7 @@ import com.kakaobean.survey.dto.request.question.RegisterQuestionRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RegisterSurveyRequest {
 
+    @NotEmpty
     private List<RegisterQuestionRequest> questions = new ArrayList<>();
 
     public RegisterSurveyRequestDto toServiceDto(Long memberId) {

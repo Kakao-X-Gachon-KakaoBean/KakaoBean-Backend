@@ -43,3 +43,6 @@
 * link:/docs/auth/local_login.html[로컬 로그인 API, window=_blank ]
 * link:/docs/auth/request_verified_email.html[인증 이메일 요청 API, window=_blank ]
 
+== 설문 API
+
+* link:/docs/survey/register_survey.html[설문 생성 API, window=_blank ]

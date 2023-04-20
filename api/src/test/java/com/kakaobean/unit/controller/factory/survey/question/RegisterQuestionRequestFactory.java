@@ -42,7 +42,7 @@ public class RegisterQuestionRequestFactory {
                 .title("Essay Question Title")
                 .explanation("ex2")
                 .questionNumber(questionNumber)
-                .type(QuestionRequestType.RANGE)
+                .type(QuestionRequestType.ESSAY)
                 .build();
     }
 

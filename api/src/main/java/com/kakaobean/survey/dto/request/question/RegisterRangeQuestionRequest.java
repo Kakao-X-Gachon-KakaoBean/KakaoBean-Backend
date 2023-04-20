@@ -6,7 +6,9 @@ import com.kakaobean.core.survey.application.dto.question.RegisterRangeQuestionR
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @Getter
 @NoArgsConstructor
 public class RegisterRangeQuestionRequest extends RegisterQuestionRequest{

@@ -1,0 +1,28 @@
+= 설문 생성
+
+**로그인한 유저만 사용할 수 있다.**
+
+== 요청
+
+include::{snippets}/register_essay_question/http-request.adoc[]
+
+
+=== 서술형 질문 요청 바디
+
+include::{snippets}/register_essay_question/request-fields-questions.adoc[]
+
+
+=== Range Bar 질문 요청 바디
+
+include::{snippets}/register_range_bar_question/request-fields-questions.adoc[]
+
+
+=== 객관식 질문 요청 바디
+
+include::{snippets}/register_multiple_choice_question/request-fields-questions.adoc[]
+
+== 응답
+
+include::{snippets}/register_essay_question/http-response.adoc[]
+
+include::{snippets}/register_essay_question/response-fields.adoc[]

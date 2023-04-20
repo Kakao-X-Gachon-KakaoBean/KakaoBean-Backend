@@ -29,8 +29,8 @@ public class RegisterMultipleChoiceQuestionRequestDto extends RegisterQuestionRe
                                                     List<String> answers,
                                                     List<RegisterQuestionFlowLogicRequestDto> conditions,
                                                     Boolean finalQuestion,
-                                                    String nextQuestion) {
-        super(title, explanation, questionNumber, finalQuestion, nextQuestion);
+                                                    String nextQuestionNumber) {
+        super(title, explanation, questionNumber, finalQuestion, nextQuestionNumber);
         this.numberOfAnswerChoices = numberOfAnswerChoices;
         this.answers = answers;
         this.conditions = conditions;

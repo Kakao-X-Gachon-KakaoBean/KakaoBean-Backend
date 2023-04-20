@@ -19,4 +19,8 @@ public class RegisterSurveyServiceDtoFactory {
     public static RegisterSurveyRequestDto createFailCase2Request(){
         return new RegisterSurveyRequestDto(1L, createFailListCase2Request());
     }
+
+    public static RegisterSurveyRequestDto createFailCase3Request() {
+        return new RegisterSurveyRequestDto(1L, createFailListCase3Request());
+    }
 }

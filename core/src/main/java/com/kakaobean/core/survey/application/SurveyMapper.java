@@ -48,10 +48,7 @@ public class SurveyMapper {
                 continue;
             }
             Question initTarget = questions.get(i);
-            Question nextQuestion = questions.stream()
-                    .filter(question -> question.getQuestionNumber().equals(dto.getNextQuestionNumber()))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("다음 질문 번호의 값이 요청에 존재하지 않습니다."));
+            Question nextQuestion = getNextQuestion(questions, dto);
             initTarget.addNextQuestion(nextQuestion);
         }
     }
@@ -60,6 +57,12 @@ public class SurveyMapper {
         return dto.getNextQuestionNumber().equals("0");
     }
 
+    private Question getNextQuestion(List<Question> questions, RegisterQuestionRequestDto dto) {
+        return questions.stream()
+                .filter(question -> question.getQuestionNumber().equals(dto.getNextQuestionNumber()))
+                .findFirst()
+                .orElseThrow(() -> new NoMatchingQuestionNumberException(dto.getNextQuestionNumber()));
+    }
 
     /**
      * 분기점을 가지는 질문을 초기화함.
@@ -137,7 +140,7 @@ public class SurveyMapper {
     ) {
         return new QuestionFlowLogic(
                 ownerQuestion,
-                registerNextQuestion(
+                registerLogicNextQuestion(
                         questions,
                         condition.getNextQuestionNumber()
                 )
@@ -147,7 +150,7 @@ public class SurveyMapper {
     /**
      * 질문 번호를 통해 이동할 질문을 뽑아냄.
      */
-    private Question registerNextQuestion(List<Question> questions, String nextQuestionNumber) {
+    private Question registerLogicNextQuestion(List<Question> questions, String nextQuestionNumber) {
         return questions.stream()
                 .filter(question -> question.getQuestionNumber().equals(nextQuestionNumber))
                 .findFirst()

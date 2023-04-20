@@ -14,10 +14,9 @@ public class RegisterQuestionRequestDtoFactory {
     /**
      * Rqnge Bar Question 성공 로직
      */
-    public static RegisterRangeQuestionRequestDto createRangeQuestionSuccessRequest(
-            String questionNumber,
-            boolean finalQuestion
-    ){
+    public static RegisterRangeQuestionRequestDto createRangeQuestionSuccessRequest(String questionNumber,
+                                                                                    String nextQuestionNumber,
+                                                                                    boolean finalQuestion){
         return RegisterRangeQuestionRequestDto
                 .builder()
                 .title("Range Bar Question")
@@ -26,33 +25,33 @@ public class RegisterQuestionRequestDtoFactory {
                 .min(1)
                 .max(10)
                 .finalQuestion(finalQuestion)
+                .nextQuestionNumber(nextQuestionNumber)
                 .build();
     }
 
     /**
      * 주관식 성공 로직
      */
-    public static RegisterEssayQuestionRequestDto createEssayQuestionSuccessRequest(
-            String questionNumber,
-            boolean finalQuestion
-    ){
+    public static RegisterEssayQuestionRequestDto createEssayQuestionSuccessRequest(String questionNumber,
+                                                                                    String nextQuestionNumber,
+                                                                                    boolean finalQuestion){
         return RegisterEssayQuestionRequestDto
                 .builder()
                 .title("Essay Question Title")
                 .explanation("ex2")
                 .questionNumber(questionNumber)
                 .finalQuestion(finalQuestion)
+                .nextQuestionNumber(nextQuestionNumber)
                 .build();
     }
 
-    public static RegisterMultipleChoiceQuestionRequestDto createMultipleQuestionSuccessRequestWithLogic(
-            String questionNumber,
-            String firstNextQuestionNumber,
-            String secondNextQuestionNumber,
-            Integer numberOfAnswerChoices,
-            boolean finalQuestion,
-            String... answers
-    ){
+    public static RegisterMultipleChoiceQuestionRequestDto createMultipleQuestionSuccessRequestWithLogic(String questionNumber,
+                                                                                                         String logicFirstNextQuestionNumber,
+                                                                                                         String logicSecondNextQuestionNumber,
+                                                                                                         Integer numberOfAnswerChoices,
+                                                                                                         String nextQuestionNumber,
+                                                                                                         boolean finalQuestion,
+                                                                                                         String... answers){
         return RegisterMultipleChoiceQuestionRequestDto
                 .builder()
                 .title("First Multiple Question Title")
@@ -62,20 +61,20 @@ public class RegisterQuestionRequestDtoFactory {
                 .answers(List.of(answers))
                 .conditions(
                       List.of(
-                              RegisterQuestionFlowLogicRequestDtoFactory.createDto(firstNextQuestionNumber, answers[0], answers[1]),
-                              RegisterQuestionFlowLogicRequestDtoFactory.createDto(secondNextQuestionNumber, answers[2], answers[3])
+                              RegisterQuestionFlowLogicRequestDtoFactory.createDto(logicFirstNextQuestionNumber, answers[0], answers[1]),
+                              RegisterQuestionFlowLogicRequestDtoFactory.createDto(logicSecondNextQuestionNumber, answers[2], answers[3])
                       )
                 )
                 .finalQuestion(finalQuestion)
+                .nextQuestionNumber(nextQuestionNumber)
                 .build();
     }
 
-    public static RegisterMultipleChoiceQuestionRequestDto createMultipleQuestionSuccessRequestWithoutLogic(
-            String questionNumber,
-            Integer numberOfAnswerChoices,
-            boolean finalQuestion,
-            String... answers
-    ){
+    public static RegisterMultipleChoiceQuestionRequestDto createMultipleQuestionSuccessRequestWithoutLogic(String questionNumber,
+                                                                                                            Integer numberOfAnswerChoices,
+                                                                                                            boolean finalQuestion,
+                                                                                                            String nextQuestionNumber,
+                                                                                                            String... answers){
         return RegisterMultipleChoiceQuestionRequestDto
                 .builder()
                 .title("Multiple Question Title")
@@ -86,19 +85,19 @@ public class RegisterQuestionRequestDtoFactory {
                 .conditions(
                         List.of()
                 )
+                .nextQuestionNumber(nextQuestionNumber)
                 .finalQuestion(finalQuestion)
                 .build();
     }
 
 
-    public static RegisterMultipleChoiceQuestionRequestDto createMultipleQuestionFailRequestWithFailLogic(
-            String questionNumber,
-            String firstNextQuestionNumber,
-            String secondNextQuestionNumber,
-            Integer numberOfAnswerChoices,
-            boolean finalQuestion,
-            String... answers
-    ){
+    public static RegisterMultipleChoiceQuestionRequestDto createMultipleQuestionFailRequestWithFailLogic(String questionNumber,
+                                                                                                          String firstNextQuestionNumber,
+                                                                                                          String secondNextQuestionNumber,
+                                                                                                          Integer numberOfAnswerChoices,
+                                                                                                          boolean finalQuestion,
+                                                                                                          String nextQuestionNumber,
+                                                                                                          String... answers){
         return RegisterMultipleChoiceQuestionRequestDto
                 .builder()
                 .title("First Multiple Question Title")
@@ -114,6 +113,7 @@ public class RegisterQuestionRequestDtoFactory {
                         )
                 )
                 .finalQuestion(finalQuestion)
+                .nextQuestionNumber(nextQuestionNumber)
                 .build();
     }
 }

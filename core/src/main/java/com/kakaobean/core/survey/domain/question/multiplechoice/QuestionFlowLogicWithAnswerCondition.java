@@ -37,7 +37,8 @@ public class QuestionFlowLogicWithAnswerCondition extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private MultipleChoiceQuestionAnswer answer;
 
-    public QuestionFlowLogicWithAnswerCondition(QuestionFlowLogic logic, MultipleChoiceQuestionAnswer answer) {
+    public QuestionFlowLogicWithAnswerCondition(QuestionFlowLogic logic,
+                                                MultipleChoiceQuestionAnswer answer) {
         super(BaseStatus.ACTIVE);
         this.logic = logic;
         this.answer = answer;

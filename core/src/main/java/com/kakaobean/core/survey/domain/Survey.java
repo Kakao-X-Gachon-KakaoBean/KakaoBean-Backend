@@ -34,11 +34,6 @@ public class Survey extends BaseEntity {
         questions.forEach(question -> question.addSurvey(this));
     }
 
-//    public void addQuestions(List<Question> questions){
-//        this.questions.addAll(questions);
-//    }
-
-
     @Builder
     public Survey(Long id, SurveyOwner surveyOwner, List<Question> questions) {
         super(BaseStatus.ACTIVE);

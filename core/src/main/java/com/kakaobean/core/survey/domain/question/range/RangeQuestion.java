@@ -18,7 +18,6 @@ public class RangeQuestion extends Question {
     private Integer min;
     private Integer max;
 
-
     public RangeQuestion(
             String title,
             String explanation,
@@ -30,5 +29,11 @@ public class RangeQuestion extends Question {
         super(title, explanation, questionNumber, finalQuestion);
         this.min = min;
         this.max = max;
+    }
+
+
+    @Override
+    protected void detailValidate() {
+        if(min == max) throw new RuntimeException("Range Bar 질문의 최솟값과 최댓값이 같으면 안됩니다.");
     }
 }

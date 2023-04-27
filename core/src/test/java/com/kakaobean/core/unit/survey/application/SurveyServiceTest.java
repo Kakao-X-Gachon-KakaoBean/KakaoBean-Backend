@@ -1,4 +1,4 @@
-package com.kakaobean.core.unit.survey;
+package com.kakaobean.core.unit.survey.application;
 
 import com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory;
 import com.kakaobean.core.factory.survey.SurveyFactory;

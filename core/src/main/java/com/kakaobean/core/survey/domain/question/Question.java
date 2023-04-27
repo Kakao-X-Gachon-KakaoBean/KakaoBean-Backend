@@ -54,6 +54,12 @@ public abstract class Question extends BaseEntity {
     public void addNextQuestion(Question nextQuestion) {
         this.nextQuestion = nextQuestion;
     }
+
+    public void validate(){
+        detailValidate();
+    }
+
+    protected abstract void detailValidate();
 }
 
 /**

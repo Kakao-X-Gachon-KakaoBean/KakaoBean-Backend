@@ -3,7 +3,10 @@ package com.kakaobean.member;
 import com.kakaobean.common.dto.CommandSuccessResponse;
 import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
+import com.kakaobean.core.member.application.dto.response.MemberInfoResponseDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
+import com.kakaobean.core.member.domain.Member;
+import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.member.dto.FindEmailRequest;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 
@@ -11,11 +14,15 @@ import com.kakaobean.member.dto.SendVerifiedEmailRequest;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -25,6 +32,8 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+
+    private final MemberRepository memberRepository;
 
     @PostMapping("/members")
     public ResponseEntity<RegisterMemberResponseDto> registerMember(@Validated @RequestBody RegisterMemberRequest request){
@@ -41,6 +50,12 @@ public class MemberController {
     @PostMapping("/members/find-email")
     public ResponseEntity findEmail(@RequestBody @Validated FindEmailRequest request){
         FindEmailResponseDto res = memberService.findEmailByBirthAndName(request.getName(), request.getBirth());
+        return new ResponseEntity(res, OK);
+    }
+
+    @GetMapping("/member/member-info")
+    public ResponseEntity findMemberInfo(@AuthenticationPrincipal Long memberId) {
+        MemberInfoResponseDto res = memberService.memberInfoByMemberId(memberId);
         return new ResponseEntity(res, OK);
     }
 

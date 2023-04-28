@@ -1,4 +1,4 @@
-package com.kakaobean.core.unit.survey.domain;
+package com.kakaobean.core.unit.domain.survey;
 
 import com.kakaobean.core.survey.domain.question.essay.EssayQuestion;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestion;
@@ -93,6 +93,28 @@ public class MultipleQuestionTest extends UnitTest {
         //then
         result.isInstanceOf(ExistSameLogicException.class);
         result.hasMessage("동일한 로직이 존재합니다.");
+    }
+
+    @Test
+    @DisplayName("로직의 조건인 답변의 종류만 다르면 같은 다음 질문을 가질 수 있다.")
+    void successMultipleQuestionValidation(){
+
+        //given
+        MultipleChoiceQuestion question = new MultipleChoiceQuestion("title", "ex", "1", List.of(firstAnswer, secondAnswer, thirdAnswer), 2, false);
+
+        MultipleChoiceQuestionFlowLogic questionFlowLogic1 = new MultipleChoiceQuestionFlowLogic(question, nextQuestion1);
+        MultipleChoiceQuestionFlowLogicCondition condition = new MultipleChoiceQuestionFlowLogicCondition(questionFlowLogic1, firstAnswer);
+        MultipleChoiceQuestionFlowLogicCondition condition2 = new MultipleChoiceQuestionFlowLogicCondition(questionFlowLogic1, secondAnswer);
+        questionFlowLogic1.addConditions(List.of(condition, condition2));
+
+        MultipleChoiceQuestionFlowLogic questionFlowLogic2 = new MultipleChoiceQuestionFlowLogic(question, nextQuestion1);
+        MultipleChoiceQuestionFlowLogicCondition condition3 = new MultipleChoiceQuestionFlowLogicCondition(questionFlowLogic2, firstAnswer);
+        questionFlowLogic2.addConditions(List.of(condition3));
+
+        question.addLogics(List.of(questionFlowLogic1, questionFlowLogic2));
+
+        //when, then
+        question.validate();
     }
 
 }

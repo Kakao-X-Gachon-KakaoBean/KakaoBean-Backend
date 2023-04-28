@@ -1,7 +1,7 @@
 package com.kakaobean.core.survey.domain.question.range;
 
-import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.question.Question;
+import com.kakaobean.core.survey.exception.RangeQuestionBoundaryValueException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +34,6 @@ public class RangeQuestion extends Question {
 
     @Override
     protected void detailValidate() {
-        if(min == max) throw new RuntimeException("Range Bar 질문의 최솟값과 최댓값이 같으면 안됩니다.");
+        if(min == max) throw new RangeQuestionBoundaryValueException();
     }
 }

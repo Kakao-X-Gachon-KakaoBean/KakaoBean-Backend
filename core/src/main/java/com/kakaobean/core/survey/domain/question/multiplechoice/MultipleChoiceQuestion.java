@@ -1,6 +1,5 @@
 package com.kakaobean.core.survey.domain.question.multiplechoice;
 
-import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -33,7 +32,7 @@ public class MultipleChoiceQuestion extends Question {
      * 다음 답변으로 넘어갈 조건을 담은 로직
      */
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<QuestionFlowLogic> logics = new ArrayList<>();
+    private List<MultipleChoiceQuestionFlowLogic> logics = new ArrayList<>();
 
     /**
      * 답을 몇개까지 고를지 제한선을 설정.그리고 이게 로직에서도 제한되어야 함.
@@ -52,7 +51,7 @@ public class MultipleChoiceQuestion extends Question {
         answers.forEach(answer -> answer.addQuestion(this));
     }
 
-    public void addLogics(List<QuestionFlowLogic> questionFlowLogics){
+    public void addLogics(List<MultipleChoiceQuestionFlowLogic> questionFlowLogics){
         this.logics.addAll(questionFlowLogics);
     }
 
@@ -60,26 +59,15 @@ public class MultipleChoiceQuestion extends Question {
     @Override
     protected void detailValidate() {
         validateLogicWithSameConditions();
-        //validateNumberOfAnswersAssignedLogic();
     }
 
     //겹치는 로직이 있으면 안됨. (동일한 답변인데 다른 질문을 향하거나 동일한 로직이 2개)
     private void validateLogicWithSameConditions() {
         for (int i = 0; i < logics.size() - 1; i++) {
-            QuestionFlowLogic standard = logics.get(i);
+            MultipleChoiceQuestionFlowLogic standard = logics.get(i);
             for (int j = i + 1; j < logics.size(); j++) {
                 standard.compareWithOtherLogic(logics.get(j));
             }
         }
     }
-
-
-    //TODO 객관식에서 답변할 수 있는 개수와 로직이 가지는 조건 답변 개수가 같아야하는지 얘기를 해봐야함.
-//    private void validateNumberOfAnswersAssignedLogic() {
-//        for (QuestionFlowLogic logic : logics) {
-//            if(logic.getConditions().size() != numberOfAnswerChoices ){
-//                throw new RuntimeException("로직에 할당된 답변의 개수와 객관식에 설정된 답변의 개수가 다릅니다");
-//            }
-//        }
-//    }
 }

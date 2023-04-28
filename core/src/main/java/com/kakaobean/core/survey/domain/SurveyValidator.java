@@ -48,8 +48,7 @@ public class SurveyValidator {
      * 1. 서술형은 없음.
      * 2. Range Bar는 답변을 설정한 Min, Max 밸류가 달라야함
      * 3. 객관식
-     *    1. 객관식에서 답변할 수 있는 개수와 로직이 가지는 조건 답변 개수가 같아야함.
-     *    2. 객관식에서 겹치는 분기문이 있으면 안됨.
+     *    1. 객관식에서 겹치는 분기문이 있으면 안됨.
      *
      */
     private void validateByQuestionType(Survey survey) {

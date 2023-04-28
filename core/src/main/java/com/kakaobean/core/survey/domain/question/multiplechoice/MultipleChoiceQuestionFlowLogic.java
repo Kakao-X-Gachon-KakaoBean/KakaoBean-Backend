@@ -68,9 +68,6 @@ public class MultipleChoiceQuestionFlowLogic extends BaseEntity {
     }
 
     private boolean compareConditions(List<MultipleChoiceQuestionFlowLogicCondition> compareConditions) {
-        if(conditions.size() != compareConditions.size()){
-            return false;
-        }
         return isSameConditions(compareConditions);
     }
 

@@ -52,3 +52,4 @@ public class AppProperties {
         return oauth2;
     }
 }
+

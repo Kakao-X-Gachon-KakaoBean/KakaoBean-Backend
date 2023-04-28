@@ -1,4 +1,4 @@
-package com.kakaobean.core.unit.member.domain;
+package com.kakaobean.core.unit.domain.member.domain;
 
 import com.kakaobean.core.member.exception.member.AlreadyExistsEmailException;
 import com.kakaobean.core.factory.member.MemberFactory;

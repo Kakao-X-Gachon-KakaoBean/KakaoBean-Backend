@@ -1,4 +1,4 @@
-package com.kakaobean.core.unit.member.application;
+package com.kakaobean.core.unit.application.member;
 
 import com.kakaobean.core.member.domain.email.Email;
 import com.kakaobean.core.member.domain.email.EmailRepository;

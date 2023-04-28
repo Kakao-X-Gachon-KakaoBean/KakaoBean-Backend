@@ -15,18 +15,20 @@ public class RegisterRangeQuestionRequestDto extends RegisterQuestionRequestDto{
 
     private Integer min;
     private Integer max;
+    private String nextQuestionNumber;
 
     @Builder
-    public RegisterRangeQuestionRequestDto(
-            String title,
-            String explanation,
-            String questionNumber,
-            Integer min,
-            Integer max
-    ) {
-        super(title, explanation, questionNumber);
+    public RegisterRangeQuestionRequestDto(String title,
+                                           String explanation,
+                                           String questionNumber,
+                                           Integer min,
+                                           Integer max,
+                                           Boolean finalQuestion,
+                                           String nextQuestionNumber) {
+        super(title, explanation, questionNumber, finalQuestion, nextQuestionNumber);
         this.min = min;
         this.max = max;
+        this.nextQuestionNumber = nextQuestionNumber;
     }
 
     @Override
@@ -36,7 +38,8 @@ public class RegisterRangeQuestionRequestDto extends RegisterQuestionRequestDto{
                 explanation,
                 questionNumber,
                 min,
-                max
+                max,
+                finalQuestion
         );
     }
 

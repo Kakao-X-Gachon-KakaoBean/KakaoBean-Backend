@@ -2,6 +2,7 @@ package com.kakaobean.acceptance.auth;
 
 import com.kakaobean.acceptance.AcceptanceTest;
 import com.kakaobean.acceptance.member.MemberAcceptanceTask;
+import com.kakaobean.core.member.domain.email.EmailRepository;
 import com.kakaobean.security.local.LocalLoginRequest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
 
@@ -11,6 +12,7 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 
@@ -24,6 +26,9 @@ public class AuthAcceptanceTest extends AcceptanceTest {
 
     private RequestSpecification spec;
 
+    @Autowired
+    EmailRepository emailRepository;
+
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
         this.spec = new RequestSpecBuilder()
@@ -35,7 +40,7 @@ public class AuthAcceptanceTest extends AcceptanceTest {
     void login(){
 
         //given
-        MemberAcceptanceTask.registerMemberTask(RegisterMemberRequestFactory.createRequest());
+        MemberAcceptanceTask.registerMemberTask(RegisterMemberRequestFactory.createRequest(), emailRepository);
         LocalLoginRequest loginRequest = new LocalLoginRequest("example@gmail.com", "1q2w3e4r!");
 
         //when

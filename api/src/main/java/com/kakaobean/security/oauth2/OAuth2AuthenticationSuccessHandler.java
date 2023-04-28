@@ -29,11 +29,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException{
         String targetUrl = determineTargetUrl(request, response, authentication);
 
         if (response.isCommitted()) {
-            logger.debug("응답이 이미 전송되었습니다." + targetUrl + "로 리다이렉트가 불가능합니다.");
+            logger.debug("응답이 이미 전송되었습니다. " + targetUrl + "로 리다이렉트가 불가능합니다.");
             return;
         }
 
@@ -50,10 +50,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         }
 
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-
         String token = tokenProvider.createToken(authentication);
 
-        return UriComponentsBuilder.fromUriString(targetUrl)
+        return UriComponentsBuilder
+                .fromUriString(targetUrl)
                 .queryParam("token", token)
                 .build().toUriString();
     }

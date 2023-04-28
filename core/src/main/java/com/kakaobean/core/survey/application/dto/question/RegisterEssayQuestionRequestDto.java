@@ -15,17 +15,17 @@ import java.util.List;
 public class RegisterEssayQuestionRequestDto extends RegisterQuestionRequestDto{
 
     @Builder
-    public RegisterEssayQuestionRequestDto(
-            String title,
-            String explanation,
-            String questionNumber
-    ) {
-        super(title, explanation, questionNumber);
+    public RegisterEssayQuestionRequestDto(String title,
+                                           String explanation,
+                                           String questionNumber,
+                                           Boolean finalQuestion,
+                                           String nextQuestionNumber) {
+        super(title, explanation, questionNumber, finalQuestion, nextQuestionNumber);
     }
 
     @Override
     protected Question createdDetailQuestionEntity() {
-        return new EssayQuestion(title, explanation, questionNumber);
+        return new EssayQuestion(title, explanation, questionNumber, finalQuestion);
     }
 
     @Override

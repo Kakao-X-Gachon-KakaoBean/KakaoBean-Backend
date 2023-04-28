@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -15,13 +16,30 @@ public class DatabaseCleaner implements InitializingBean {
 
     @PersistenceContext
     private EntityManager entityManager;
-    private List<String> tables;
+    private List<String> entities;
+    private List<String> tables = new ArrayList<>();
+
+
+    private List<String> filters = List.of(
+            "essayquestionresponse",
+            "multiplechoicequestionresponse",
+            "rangequestionresponse",
+            "essayquestion",
+            "multiplechoicequestion",
+            "rangequestion"
+    );
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        tables = entityManager.getMetamodel().getEntities().stream()
+        entities = entityManager.getMetamodel().getEntities().stream()
                 .map(entry -> entry.getName().toLowerCase(Locale.ROOT))
                 .collect(Collectors.toList());
+        for (String str : entities) {
+            if (!filters.contains(str)) {
+                tables.add(str);
+            }
+        }
+        System.out.println("tables = " + tables);
     }
 
     @Transactional

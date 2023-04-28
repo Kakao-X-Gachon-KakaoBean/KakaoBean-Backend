@@ -22,15 +22,15 @@ public class RegisterMultipleChoiceQuestionRequestDto extends RegisterQuestionRe
     private List<RegisterQuestionFlowLogicRequestDto> conditions;
 
     @Builder
-    public RegisterMultipleChoiceQuestionRequestDto(
-            String title,
-            String explanation,
-            String questionNumber,
-            Integer numberOfAnswerChoices,
-            List<String> answers,
-            List<RegisterQuestionFlowLogicRequestDto> conditions
-    ) {
-        super(title, explanation, questionNumber);
+    public RegisterMultipleChoiceQuestionRequestDto(String title,
+                                                    String explanation,
+                                                    String questionNumber,
+                                                    Integer numberOfAnswerChoices,
+                                                    List<String> answers,
+                                                    List<RegisterQuestionFlowLogicRequestDto> conditions,
+                                                    Boolean finalQuestion,
+                                                    String nextQuestionNumber) {
+        super(title, explanation, questionNumber, finalQuestion, nextQuestionNumber);
         this.numberOfAnswerChoices = numberOfAnswerChoices;
         this.answers = answers;
         this.conditions = conditions;
@@ -43,7 +43,8 @@ public class RegisterMultipleChoiceQuestionRequestDto extends RegisterQuestionRe
                 explanation,
                 questionNumber,
                 createMultipleChoiceAnswers(),
-                numberOfAnswerChoices
+                numberOfAnswerChoices,
+                finalQuestion
         );
 
         return question;

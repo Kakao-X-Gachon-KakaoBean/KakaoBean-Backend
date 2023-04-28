@@ -1,6 +1,7 @@
 package com.kakaobean.acceptance;
 
 
+import com.kakaobean.core.member.domain.email.EmailRepository;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public abstract class AcceptanceTest {
 
     @Autowired
     DatabaseCleaner databaseConfigurator;
+
+    @Autowired
+    protected EmailRepository emailRepository;
 
     @BeforeEach
     void beforeEach(){

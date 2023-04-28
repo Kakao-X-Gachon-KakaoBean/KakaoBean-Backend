@@ -9,11 +9,13 @@ import com.kakaobean.core.survey.domain.SurveyOwner;
 import com.kakaobean.core.survey.domain.question.Question;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestion;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionAnswer;
-import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogic;
-import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogicWithAnswerCondition;
+import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogic;
+import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogicCondition;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,6 +29,7 @@ public class SurveyMapper {
 
     public Survey mapFrom(RegisterSurveyRequestDto dto){
         Survey survey = new Survey(new SurveyOwner(dto.getMemberId()), createQuestion(dto));
+        initNextQuestionForAllQuestions(survey.getQuestions(), dto.getDtoList());
         initChoiceQuestionLogic(survey.getQuestions(), dto.getDtoList());
         return survey;
     }
@@ -38,13 +41,37 @@ public class SurveyMapper {
                 .collect(Collectors.toList());
     }
 
+    private void initNextQuestionForAllQuestions(List<Question> questions, List<RegisterQuestionRequestDto> dtoList) {
+        for (int i = 0; i < questions.size(); i++) {
+            RegisterQuestionRequestDto dto = dtoList.get(i);
+            if(haveNotNextQuestion(dto)){
+                continue;
+            }
+            Question initializeQuestion = questions.get(i);
+            Question nextQuestion = getNextQuestion(questions, dto);
+            initializeQuestion.addNextQuestion(nextQuestion);
+        }
+    }
+
+    /**
+     * 마지막 질문은 모두 questionNumber이 0으로 온다.
+     */
+    private boolean haveNotNextQuestion(RegisterQuestionRequestDto dto) {
+        return dto.getNextQuestionNumber().equals("0");
+    }
+
+    private Question getNextQuestion(List<Question> questions, RegisterQuestionRequestDto dto) {
+        return questions.stream()
+                .filter(question -> question.getQuestionNumber().equals(dto.getNextQuestionNumber()))
+                .findFirst()
+                .orElseThrow(() -> new NoMatchingQuestionNumberException(dto.getNextQuestionNumber()));
+    }
+
     /**
      * 분기점을 가지는 질문을 초기화함.
      */
-    private void initChoiceQuestionLogic(
-            List<Question> questions,
-            List<RegisterQuestionRequestDto> dtoList
-    ) {
+    private void initChoiceQuestionLogic(List<Question> questions,
+                                         List<RegisterQuestionRequestDto> dtoList) {
         /**
          * 1. 먼저 순회하면서 분기점을 가지는 질문(현재는 Only 객관식) DTO을 찾는다.
          * 2. 찾는다면 Logic이 빈 값인지 찾는다.
@@ -60,7 +87,7 @@ public class SurveyMapper {
 
             //객관식 질문을 도출.
             RegisterMultipleChoiceQuestionRequestDto multipleChoiceDto = (RegisterMultipleChoiceQuestionRequestDto) dto;
-            MultipleChoiceQuestion question = (MultipleChoiceQuestion )questions.get(i);
+            MultipleChoiceQuestion question = (MultipleChoiceQuestion)questions.get(i);
 
             initDetailQuestionFlowLogic(multipleChoiceDto, question, questions, question.getAnswers());
         }
@@ -70,12 +97,9 @@ public class SurveyMapper {
     /**
      * 분기점이 있는 질문에서만 실행된다.
      */
-    private void initDetailQuestionFlowLogic(
-            RegisterMultipleChoiceQuestionRequestDto multipleChoiceDto,
-            MultipleChoiceQuestion ownerQuestion,
-            List<Question> questions,
-            List<MultipleChoiceQuestionAnswer> answers
-    ) {
+    private void initDetailQuestionFlowLogic(RegisterMultipleChoiceQuestionRequestDto multipleChoiceDto,
+                                             MultipleChoiceQuestion ownerQuestion,
+                                             List<Question> questions, List<MultipleChoiceQuestionAnswer> answers) {
         if(multipleChoiceDto.getConditions().isEmpty()){
             return;
         }
@@ -89,14 +113,12 @@ public class SurveyMapper {
     }
 
 
-    private QuestionFlowLogic initFlowLogic(
-            MultipleChoiceQuestion ownerQuestion,
-            List<Question> questions,
-            List<MultipleChoiceQuestionAnswer> answers,
-            RegisterQuestionFlowLogicRequestDto condition
-    ) {
+    private MultipleChoiceQuestionFlowLogic initFlowLogic(MultipleChoiceQuestion ownerQuestion,
+                                                          List<Question> questions,
+                                                          List<MultipleChoiceQuestionAnswer> answers,
+                                                          RegisterQuestionFlowLogicRequestDto condition) {
         //로직을 생성함.
-        QuestionFlowLogic flowLogic = createCreateFlowLogic(ownerQuestion, questions, condition);
+        MultipleChoiceQuestionFlowLogic flowLogic = createCreateFlowLogic(ownerQuestion, questions, condition);
 
         //로직에 조건들을 초기화함.
         flowLogic.addConditions(registerFlowCondition(answers, flowLogic, condition));
@@ -107,15 +129,14 @@ public class SurveyMapper {
     /**
      * 단순히 분기점을 생성함.
      */
-    private QuestionFlowLogic createCreateFlowLogic(
-            MultipleChoiceQuestion ownerQuestion,
-            List<Question> questions,
-            RegisterQuestionFlowLogicRequestDto condition
-    ) {
-        return new QuestionFlowLogic(
+    private MultipleChoiceQuestionFlowLogic createCreateFlowLogic(MultipleChoiceQuestion ownerQuestion,
+                                                                  List<Question> questions,
+                                                                  RegisterQuestionFlowLogicRequestDto condition) {
+        return new MultipleChoiceQuestionFlowLogic(
                 ownerQuestion,
-                registerNextQuestion(
-                        questions, condition.getNextQuestionNumber()
+                registerLogicNextQuestion(
+                        questions,
+                        condition.getNextQuestionNumber()
                 )
         );
     }
@@ -123,7 +144,8 @@ public class SurveyMapper {
     /**
      * 질문 번호를 통해 이동할 질문을 뽑아냄.
      */
-    private Question registerNextQuestion(List<Question> questions, String nextQuestionNumber) {
+    private Question registerLogicNextQuestion(List<Question> questions,
+                                               String nextQuestionNumber) {
         return questions.stream()
                 .filter(question -> question.getQuestionNumber().equals(nextQuestionNumber))
                 .findFirst()
@@ -134,14 +156,12 @@ public class SurveyMapper {
      * 분기점은 어떤 답을 고르느냐에 따라 달라짐.
      * 그것을 초기화함.
      */
-    private List<QuestionFlowLogicWithAnswerCondition> registerFlowCondition(
-            List<MultipleChoiceQuestionAnswer> answers,
-            QuestionFlowLogic flowLogic,
-            RegisterQuestionFlowLogicRequestDto condition
-    ) {
+    private List<MultipleChoiceQuestionFlowLogicCondition> registerFlowCondition(List<MultipleChoiceQuestionAnswer> answers,
+                                                                                 MultipleChoiceQuestionFlowLogic flowLogic,
+                                                                                 RegisterQuestionFlowLogicRequestDto condition) {
         return condition.getConditionOfQuestionAnswers()
                 .stream()
-                .map(answerString -> new QuestionFlowLogicWithAnswerCondition(
+                .map(answerString -> new MultipleChoiceQuestionFlowLogicCondition(
                         flowLogic,
                         answers.stream()
                                 .filter(answer -> answer.getContent().equals(answerString))

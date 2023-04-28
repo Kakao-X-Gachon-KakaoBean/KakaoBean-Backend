@@ -68,6 +68,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApplicationExceptionResponse> handleRuntimeException(RuntimeException e) {
         ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "G001", 500);
         log.error(LOG_FORMAT, e.getClass().getSimpleName(), INTERNAL_SERVER_ERROR_CODE, e.getMessage());
+        e.printStackTrace();
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
     }
 }

@@ -11,15 +11,9 @@ public class MemberValidator {
 
     private final MemberRepository memberRepository;
 
-    public void validate(RegisterMemberRequestDto dto) {
-
-        /**
-         * TODO: 레디스에서 이메일 검증하는 로직이 추가되어야 함.
-         */
-
-        if(memberRepository.findMemberByEmail(dto.getEmail()).isPresent()){
+    public void validate(String email) {
+        if(memberRepository.findMemberByEmail(email).isPresent()){
             throw new AlreadyExistsEmailException();
         }
-
     }
 }

@@ -13,8 +13,13 @@ import javax.persistence.Entity;
 @DiscriminatorValue("essay_question")
 public class EssayQuestion extends Question {
 
-
-    public EssayQuestion(String title, String explanation, String questionNumber) {
-        super(title, explanation, questionNumber);
+    public EssayQuestion(String title, String explanation, String questionNumber, boolean finalQuestion) {
+        super(title, explanation, questionNumber, finalQuestion);
     }
+
+    @Override
+    protected void detailValidate() {
+
+    }
+
 }

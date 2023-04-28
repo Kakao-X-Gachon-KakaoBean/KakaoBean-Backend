@@ -19,6 +19,7 @@ public class RegisterMemberRequestFactory {
                 .password("1q2w3e4r!")
                 .checkPassword("1q2w3e4r!")
                 .birth(LocalDate.parse("1998-03-04"))
+                .emailAuthKey("113336")
                 .build();
     }
 

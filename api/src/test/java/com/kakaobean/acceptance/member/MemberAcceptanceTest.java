@@ -1,6 +1,7 @@
 package com.kakaobean.acceptance.member;
 
 import com.kakaobean.acceptance.AcceptanceTest;
+import com.kakaobean.core.member.domain.email.EmailRepository;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
 
@@ -17,7 +18,7 @@ public class MemberAcceptanceTest extends AcceptanceTest {
         RegisterMemberRequest request = RegisterMemberRequestFactory.createRequest();
 
         //when
-        ExtractableResponse response = MemberAcceptanceTask.registerMemberTask(request);
+        ExtractableResponse response = MemberAcceptanceTask.registerMemberTask(request, emailRepository);
 
         //given
         Assertions.assertThat(response.statusCode()).isEqualTo(200);

@@ -6,7 +6,9 @@ import com.kakaobean.core.survey.application.dto.question.RegisterRangeQuestionR
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @Getter
 @NoArgsConstructor
 public class RegisterRangeQuestionRequest extends RegisterQuestionRequest{
@@ -21,7 +23,9 @@ public class RegisterRangeQuestionRequest extends RegisterQuestionRequest{
                 explanation,
                 questionNumber,
                 min,
-                max
+                max,
+                finalQuestion,
+                nextQuestionNumber
         );
     }
 
@@ -35,9 +39,11 @@ public class RegisterRangeQuestionRequest extends RegisterQuestionRequest{
             String questionNumber,
             QuestionRequestType type,
             Integer min,
-            Integer max
+            Integer max,
+            Boolean finalQuestion,
+            String nextQuestionNumber
     ) {
-        super(title, explanation, questionNumber, type);
+        super(title, explanation, questionNumber, type, finalQuestion, nextQuestionNumber);
         this.min = min;
         this.max = max;
     }

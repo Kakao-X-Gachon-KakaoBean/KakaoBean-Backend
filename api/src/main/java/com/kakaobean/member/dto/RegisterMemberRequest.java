@@ -39,6 +39,9 @@ public class RegisterMemberRequest {
     @NotNull
     private LocalDate birth;
 
+    @NotBlank
+    private String emailAuthKey;
+
     public RegisterMemberRequestDto toServiceDto(PasswordEncoder passwordEncoder){
         if(isSamePassword()){
             throw new RuntimeException("비밀번호가 다릅니다");
@@ -49,7 +52,8 @@ public class RegisterMemberRequest {
                 gender,
                 email,
                 passwordEncoder.encode(password),
-                birth
+                birth,
+                emailAuthKey
         );
     }
 
@@ -58,7 +62,15 @@ public class RegisterMemberRequest {
     }
 
     @Builder
-    public RegisterMemberRequest(String name, Integer age, Gender gender, String email, String password, String checkPassword, LocalDate birth) {
+    public RegisterMemberRequest(String name,
+                                 Integer age,
+                                 Gender gender,
+                                 String email,
+                                 String password,
+                                 String checkPassword,
+                                 LocalDate birth,
+                                 String emailAuthKey
+    ) {
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -66,5 +78,6 @@ public class RegisterMemberRequest {
         this.password = password;
         this.checkPassword = checkPassword;
         this.birth = birth;
+        this.emailAuthKey = emailAuthKey;
     }
 }

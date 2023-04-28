@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,8 +17,12 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RegisterMultipleChoiceQuestionRequest extends RegisterQuestionRequest{
 
+    @NotNull
     private Integer numberOfAnswerChoices;
+
+    @NotEmpty
     private List<String> answers;
+
     private List<RegisterQuestionFlowLogicRequest> logics;
 
     @Override
@@ -29,7 +35,9 @@ public class RegisterMultipleChoiceQuestionRequest extends RegisterQuestionReque
                 answers,
                 logics.stream()
                         .map(logic -> logic.toServiceDto())
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                finalQuestion,
+                nextQuestionNumber
         );
     }
 
@@ -44,9 +52,11 @@ public class RegisterMultipleChoiceQuestionRequest extends RegisterQuestionReque
             QuestionRequestType type,
             Integer numberOfAnswerChoices,
             List<String> answers,
-            List<RegisterQuestionFlowLogicRequest> logics
+            List<RegisterQuestionFlowLogicRequest> logics,
+            boolean finalQuestion,
+            String nextQuestionNumber
     ) {
-        super(title, explanation, questionNumber, type);
+        super(title, explanation, questionNumber, type, finalQuestion, nextQuestionNumber);
         this.numberOfAnswerChoices = numberOfAnswerChoices;
         this.answers = answers;
         this.logics = logics;

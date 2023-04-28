@@ -15,7 +15,7 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@Entity(name = "multiple_choice_question_answer")
 public class MultipleChoiceQuestionAnswer extends BaseEntity {
 
     @Id

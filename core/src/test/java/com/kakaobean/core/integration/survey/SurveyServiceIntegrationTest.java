@@ -9,7 +9,7 @@ import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
 import org.assertj.core.api.AbstractThrowableAssert;
-import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +36,6 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         //then
         assertThat(result.getSurveyId()).isNotNull();
     }
-
 
     @DisplayName("분기점에서 다음 질문 번호를 없는 것으로 넣었다. 이후에 설문 등록을 실패한다.")
     @Test
@@ -70,5 +69,22 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         //then
         result.isInstanceOf(NoMatchingQuestionAnswerException.class);
         result.hasMessage("'없는 답 예시' 내용의 답변이 없습니다.");
+    }
+
+    @DisplayName("분기점에서 다음 질문으로 없는 질문 번호를 넣었다. 이후에 설문 등록을 실패한다.")
+    @Test
+    void registerFailCase3Survey(){
+
+        //given
+        RegisterSurveyRequestDto dto = RegisterSurveyServiceDtoFactory.createFailCase3Request();
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            surveyService.registerSurvey(dto);
+        });
+
+        //then
+        result.isInstanceOf(NoMatchingQuestionNumberException.class);
+        result.hasMessage("9번 질문에 해당하는 번호가 없습니다.");
     }
 }

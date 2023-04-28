@@ -23,33 +23,39 @@ public class RegisterQuestionRequestListDtoFactory {
      */
     public static List<RegisterQuestionRequestDto> createSuccessListRequest(){
         return List.of(
-                createEssayQuestionSuccessRequest("1"),
+                createEssayQuestionSuccessRequest("1", "2",false),
                 createMultipleQuestionSuccessRequestWithLogic(
                         "2",
                         "3",
                         "4",
                         2,
+                        "0",
+                        false,
                         FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,
                         FIFTH_ANSWER
                 ),
-                createRangeQuestionSuccessRequest("3"),
+                createRangeQuestionSuccessRequest("3","5", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
                         "4",
                         1,
+                        false,
+                        "6",
                         FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,
                         FIFTH_ANSWER
                 ),
-                createEssayQuestionSuccessRequest("5"),
-                createEssayQuestionSuccessRequest("6"),
+                createEssayQuestionSuccessRequest("5", "7",  false),
+                createEssayQuestionSuccessRequest("6", "7", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
                         "7",
                         1,
+                        true,
+                        "0",
                         FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
@@ -61,33 +67,38 @@ public class RegisterQuestionRequestListDtoFactory {
 
     public static List<RegisterQuestionRequestDto> createFailListCase1Request(){
         return List.of(
-                createEssayQuestionSuccessRequest("1"),
+                createEssayQuestionSuccessRequest("1", "0", true),
                 createMultipleQuestionSuccessRequestWithLogic(
                         "2",
                         "3",
-                        "9", //존재하지 않는 다음 질문 값을 넣는다.
+                        "4",
                         2,
+                        "0",
+                        false,
                         FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,
                         FIFTH_ANSWER
                 ),
-                createRangeQuestionSuccessRequest("3"),
+                createRangeQuestionSuccessRequest("3", "9",  false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
                         "4",
                         1,
+                        false,
+                        "6",
                         FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,
                         FIFTH_ANSWER
                 ),
-                createEssayQuestionSuccessRequest("5"),
-                createEssayQuestionSuccessRequest("6"),
+                createEssayQuestionSuccessRequest("5", "7", false),
+                createEssayQuestionSuccessRequest("6", "7", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
                         "7",
                         1,
+                        true,
                         FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
@@ -100,32 +111,81 @@ public class RegisterQuestionRequestListDtoFactory {
 
     public static List<RegisterQuestionRequestDto> createFailListCase2Request(){
         return List.of(
-                createEssayQuestionSuccessRequest("1"),
+                createEssayQuestionSuccessRequest("1", "2", false),
                 createMultipleQuestionFailRequestWithFailLogic(
                         "2",
                         "3",
                         "4",
                         2,
+                        false,
+                        "0",
                         FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,
                         FIFTH_ANSWER
                 ),
-                createRangeQuestionSuccessRequest("3"),
+                createRangeQuestionSuccessRequest("3", "4", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
                         "4",
                         2,
+                        false,
+                        "6",
                         FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,
                         FIFTH_ANSWER                ),
-                createEssayQuestionSuccessRequest("5"),
-                createEssayQuestionSuccessRequest("6"),
+                createEssayQuestionSuccessRequest("5", "7", false),
+                createEssayQuestionSuccessRequest("6", "7", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
                         "7",
                         1,
+                        true,
+                        "0",
+                        FIRST_ANSWER,
+                        SECOND_ANSWER,
+                        THIRD_ANSWER,
+                        FOURTH_ANSWER,
+                        FIFTH_ANSWER
+                )
+        );
+    }
+
+    public static List<RegisterQuestionRequestDto> createFailListCase3Request(){
+        return List.of(
+                createEssayQuestionSuccessRequest("1", "2", false),
+                createMultipleQuestionFailRequestWithFailLogic(
+                        "2",
+                        "9",
+                        "4",
+                        2,
+                        false,
+                        "0",
+                        FIRST_ANSWER,
+                        SECOND_ANSWER,
+                        THIRD_ANSWER,
+                        FOURTH_ANSWER,
+                        FIFTH_ANSWER
+                ),
+                createRangeQuestionSuccessRequest("3", "4", false),
+                createMultipleQuestionSuccessRequestWithoutLogic(
+                        "4",
+                        2,
+                        false,
+                        "6",
+                        FIRST_ANSWER,
+                        SECOND_ANSWER,
+                        THIRD_ANSWER,
+                        FOURTH_ANSWER,
+                        FIFTH_ANSWER                ),
+                createEssayQuestionSuccessRequest("5", "7", false),
+                createEssayQuestionSuccessRequest("6", "7", false),
+                createMultipleQuestionSuccessRequestWithoutLogic(
+                        "7",
+                        1,
+                        true,
+                        "0",
                         FIRST_ANSWER,
                         SECOND_ANSWER,
                         THIRD_ANSWER,

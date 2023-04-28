@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -31,29 +33,35 @@ public abstract class Question extends BaseEntity {
     //설문내의 고유한 번호를 추가해야함.
     private String questionNumber;
 
-
     private boolean finalQuestion;
 
-    public Question(String title, String explanation, String questionNumber) {
-        super(BaseStatus.ACTIVE);
-        this.title = title;
-        this.explanation = explanation;
-        this.questionNumber = questionNumber;
-    }
+    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Question nextQuestion;
 
-    public Question(Survey survey, String title, String explanation, String questionNumber) {
+    public Question(String title, String explanation, String questionNumber, boolean finalQuestion) {
         super(BaseStatus.ACTIVE);
-        this.survey = survey;
         this.title = title;
         this.explanation = explanation;
         this.questionNumber = questionNumber;
+        this.finalQuestion = finalQuestion;
     }
 
     public void addSurvey(Survey survey) {
         this.survey = survey;
     }
+
+    public void addNextQuestion(Question nextQuestion) {
+        this.nextQuestion = nextQuestion;
+    }
+
+    public void validate(){
+        detailValidate();
+    }
+
+    protected abstract void detailValidate();
 }
 
 /**
- * 제출 문제인지, 다음 문제도 넣어야함
+ * 다음 문제도 넣어야함
  */

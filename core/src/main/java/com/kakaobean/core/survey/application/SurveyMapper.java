@@ -9,8 +9,8 @@ import com.kakaobean.core.survey.domain.SurveyOwner;
 import com.kakaobean.core.survey.domain.question.Question;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestion;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionAnswer;
-import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogic;
-import com.kakaobean.core.survey.domain.question.multiplechoice.QuestionFlowLogicWithAnswerCondition;
+import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogic;
+import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogicCondition;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
 
@@ -113,12 +113,12 @@ public class SurveyMapper {
     }
 
 
-    private QuestionFlowLogic initFlowLogic(MultipleChoiceQuestion ownerQuestion,
-                                            List<Question> questions,
-                                            List<MultipleChoiceQuestionAnswer> answers,
-                                            RegisterQuestionFlowLogicRequestDto condition) {
+    private MultipleChoiceQuestionFlowLogic initFlowLogic(MultipleChoiceQuestion ownerQuestion,
+                                                          List<Question> questions,
+                                                          List<MultipleChoiceQuestionAnswer> answers,
+                                                          RegisterQuestionFlowLogicRequestDto condition) {
         //로직을 생성함.
-        QuestionFlowLogic flowLogic = createCreateFlowLogic(ownerQuestion, questions, condition);
+        MultipleChoiceQuestionFlowLogic flowLogic = createCreateFlowLogic(ownerQuestion, questions, condition);
 
         //로직에 조건들을 초기화함.
         flowLogic.addConditions(registerFlowCondition(answers, flowLogic, condition));
@@ -129,10 +129,10 @@ public class SurveyMapper {
     /**
      * 단순히 분기점을 생성함.
      */
-    private QuestionFlowLogic createCreateFlowLogic(MultipleChoiceQuestion ownerQuestion,
-                                                    List<Question> questions,
-                                                    RegisterQuestionFlowLogicRequestDto condition) {
-        return new QuestionFlowLogic(
+    private MultipleChoiceQuestionFlowLogic createCreateFlowLogic(MultipleChoiceQuestion ownerQuestion,
+                                                                  List<Question> questions,
+                                                                  RegisterQuestionFlowLogicRequestDto condition) {
+        return new MultipleChoiceQuestionFlowLogic(
                 ownerQuestion,
                 registerLogicNextQuestion(
                         questions,
@@ -156,12 +156,12 @@ public class SurveyMapper {
      * 분기점은 어떤 답을 고르느냐에 따라 달라짐.
      * 그것을 초기화함.
      */
-    private List<QuestionFlowLogicWithAnswerCondition> registerFlowCondition(List<MultipleChoiceQuestionAnswer> answers,
-                                                                             QuestionFlowLogic flowLogic,
-                                                                             RegisterQuestionFlowLogicRequestDto condition) {
+    private List<MultipleChoiceQuestionFlowLogicCondition> registerFlowCondition(List<MultipleChoiceQuestionAnswer> answers,
+                                                                                 MultipleChoiceQuestionFlowLogic flowLogic,
+                                                                                 RegisterQuestionFlowLogicRequestDto condition) {
         return condition.getConditionOfQuestionAnswers()
                 .stream()
-                .map(answerString -> new QuestionFlowLogicWithAnswerCondition(
+                .map(answerString -> new MultipleChoiceQuestionFlowLogicCondition(
                         flowLogic,
                         answers.stream()
                                 .filter(answer -> answer.getContent().equals(answerString))

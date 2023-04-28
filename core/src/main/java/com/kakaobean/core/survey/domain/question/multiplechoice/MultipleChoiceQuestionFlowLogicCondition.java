@@ -17,7 +17,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity(name = "question_flow_logic_with_answer_condition")
-public class QuestionFlowLogicWithAnswerCondition extends BaseEntity {
+public class MultipleChoiceQuestionFlowLogicCondition extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -28,7 +28,7 @@ public class QuestionFlowLogicWithAnswerCondition extends BaseEntity {
      */
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY)
-    private QuestionFlowLogic logic;
+    private MultipleChoiceQuestionFlowLogic logic;
 
     /**
      * 조건에 포함되는 객관식 답변 엔티티
@@ -37,10 +37,15 @@ public class QuestionFlowLogicWithAnswerCondition extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private MultipleChoiceQuestionAnswer answer;
 
-    public QuestionFlowLogicWithAnswerCondition(QuestionFlowLogic logic,
-                                                MultipleChoiceQuestionAnswer answer) {
+    public MultipleChoiceQuestionFlowLogicCondition(MultipleChoiceQuestionFlowLogic logic,
+                                                    MultipleChoiceQuestionAnswer answer) {
         super(BaseStatus.ACTIVE);
         this.logic = logic;
         this.answer = answer;
     }
 }
+
+/**
+ * 이것도 마찬가지 QuestionFlowLogicWithAnsewrCondition가 클래스 이름일 때는 jacoco가 인식을 못함.
+ * 근데 MultipleChoiceQuestionFlowLogicCondition로 변경하니까 jacoco가 인식하기 시작함.(?!)
+ */

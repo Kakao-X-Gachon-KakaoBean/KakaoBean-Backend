@@ -40,7 +40,7 @@ public class SurveyServiceTest extends UnitTest {
     void successRegisterSurvey(){
         //given
         RegisterSurveyRequestDto dto = RegisterSurveyServiceDtoFactory.createSuccessCase1Request();
-        Survey survey = SurveyFactory.create();
+        Survey survey = SurveyFactory.createWithId();
         BDDMockito.given(surveyRepository.save(Mockito.any())).willReturn(survey);
 
         //when

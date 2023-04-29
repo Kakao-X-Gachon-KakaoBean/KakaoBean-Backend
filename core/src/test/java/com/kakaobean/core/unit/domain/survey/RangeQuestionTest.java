@@ -7,6 +7,8 @@ import org.assertj.core.api.AbstractThrowableAssert;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+
 public class RangeQuestionTest extends UnitTest {
 
     @Test
@@ -28,8 +30,11 @@ public class RangeQuestionTest extends UnitTest {
     void successRegisterRangeBarQuestionCase(){
         //given
         RangeQuestion question = new RangeQuestion("title", "ex", "1", 1, 10, true);
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
 
         //when, then
         question.validate();;
     }
 }
+
+//test

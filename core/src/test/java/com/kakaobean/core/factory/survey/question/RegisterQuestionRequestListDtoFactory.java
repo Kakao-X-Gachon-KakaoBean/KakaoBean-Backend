@@ -194,4 +194,11 @@ public class RegisterQuestionRequestListDtoFactory {
                 )
         );
     }
+
+    public static List<RegisterQuestionRequestDto> createFailListCase4Request(){
+        return List.of(
+                createEssayQuestionSuccessRequest("6", "0", true),
+                createEssayQuestionSuccessRequest("6", "0", true)
+        );
+    }
 }

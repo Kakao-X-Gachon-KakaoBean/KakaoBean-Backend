@@ -6,7 +6,7 @@ public class SurveyFactory {
 
     private SurveyFactory(){}
 
-    public static Survey create(){
+    public static Survey createWithId(){
         return Survey.builder().id(1L).build();
     }
 }

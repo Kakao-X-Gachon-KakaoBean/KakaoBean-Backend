@@ -1,18 +1,19 @@
 package com.kakaobean.core.integration.member;
 
+import com.kakaobean.core.factory.member.MemberFactory;
 import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
-import com.kakaobean.core.member.domain.Auth;
-import com.kakaobean.core.member.domain.Member;
+import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponseDto;
+import com.kakaobean.core.member.domain.*;
 import com.kakaobean.core.member.domain.email.Email;
 import com.kakaobean.core.member.domain.email.EmailRepository;
 import com.kakaobean.core.member.exception.member.AlreadyExistsEmailException;
 import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
 import com.kakaobean.core.integration.IntegrationTest;
-import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
 import com.kakaobean.core.member.exception.member.NotExistsEmailException;
+import com.kakaobean.core.member.exception.member.NotExistsMembersInfoException;
 import com.kakaobean.core.member.exception.member.WrongEmailAuthKeyException;
 import com.kakaobean.independentlysystem.email.EmailSender;
 import org.assertj.core.api.AbstractThrowableAssert;
@@ -30,6 +31,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.MailSender;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -182,5 +184,39 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
         //then
         Assertions.assertThat(res.getEmail()).isEqualTo(email);
 
+    }
+
+    @DisplayName("멤버 정보를 찾을 수 있어야 한다.")
+    @Test
+    void findMemberInfo() {
+        //given
+        Member member = memberRepository.save(MemberFactory.create());
+
+        //when
+        FindMemberInfoResponseDto res = memberService.findMemberInfoByMemberId(member.getId());
+
+        //then
+        assertThat(res.getName()).isEqualTo(member.getName());
+        assertThat(res.getAge()).isEqualTo(member.getAge());
+        assertThat(res.getGender()).isEqualTo(member.getGender());
+        assertThat(res.getEmail()).isEqualTo(member.getAuth().getEmail());
+        assertThat(res.getBirth()).isEqualTo(member.getBirth());
+    }
+
+    @DisplayName("저장된 멤버 ID와는 다른 ID로 멤버 정보를 호출한다.")
+    @Test
+    void findMemberInfoException() {
+        //given
+        Member member = MemberFactory.create();
+        memberRepository.save(member);
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            memberService.findMemberInfoByMemberId(member.getId());
+        });
+
+        //then
+        result.isInstanceOf(NotExistsMembersInfoException.class);
+        result.hasMessage("멤버 정보가 없습니다.");
     }
 }

@@ -148,7 +148,6 @@ public class MemberControllerTest extends ControllerTest {
     void findMemberInfo() throws Exception {
 
         //given
-        RegisterSurveyRequest request = RegisterSurveyRequestFactory.createSuccessCase1Request();
         given(memberService.findMemberInfoByMemberId(1L))
                 .willReturn(new FindMemberInfoResponseDto("조연겸", 25, Gender.MALE, "whdusrua@naver.com", LocalDate.parse("1998-03-04")));
 

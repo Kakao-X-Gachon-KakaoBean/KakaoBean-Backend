@@ -9,7 +9,7 @@ import com.kakaobean.core.member.domain.MemberValidator;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
 import com.kakaobean.core.member.domain.email.MemberVerifiedEmailService;
-import com.kakaobean.core.member.exception.member.InvalidAccessMemberException;
+import com.kakaobean.core.member.exception.member.NotExistsMembersInfoException;
 import com.kakaobean.core.member.exception.member.NotExistsMemberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class MemberService {
 
     public FindMemberInfoResponseDto findMemberInfoByMemberId(Long memberId){
         Member member = memberRepository.findMemberById(memberId)
-                .orElseThrow(() -> new InvalidAccessMemberException());
-        return new FindMemberInfoResponseDto(member.getName(),member.getAge(),member.getGender(), member.getAuth().getEmail(), member.getBirth());
+                .orElseThrow(() -> new NotExistsMembersInfoException());
+        return FindMemberInfoResponseDto.returnInfo(member);
     }
 }

@@ -3,13 +3,13 @@ package com.kakaobean.core.member.exception.member;
 import lombok.Getter;
 
 @Getter
-public class InvalidAccessMemberException extends MemberException{
+public class NotExistsMembersInfoException extends MemberException{
 
-    private static final String message = "유효하지 않은 접근입니다.";
+    private static final String message = "멤버 정보가 없습니다.";
     private static final String errorCode = "M004";
     private static final Integer status = 400;
 
-    public InvalidAccessMemberException() {
+    public NotExistsMembersInfoException() {
         super(message, status, errorCode);
     }
 }

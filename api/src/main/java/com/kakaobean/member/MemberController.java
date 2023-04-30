@@ -50,7 +50,7 @@ public class MemberController {
         return new ResponseEntity(res, OK);
     }
 
-    @GetMapping("/members/find-member-info")
+    @GetMapping("/members/info")
     public ResponseEntity findMemberInfo(@AuthenticationPrincipal Long memberId) {
         FindMemberInfoResponseDto res = memberService.findMemberInfoByMemberId(memberId);
         return new ResponseEntity(res, OK);

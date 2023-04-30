@@ -32,9 +32,4 @@ public class SurveyController{
         return new ResponseEntity(res, HttpStatus.OK);
     }
 
-//    @GetMapping("/{surveyId}")
-//    public void getSurvey(@PathVariable Long surveyId){
-//        surveyService.getSurvey(surveyId);
-//        //return new ResponseEntity(res, HttpStatus.OK);
-//    }
 }

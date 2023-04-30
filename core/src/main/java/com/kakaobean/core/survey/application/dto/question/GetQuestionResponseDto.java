@@ -2,9 +2,6 @@ package com.kakaobean.core.survey.application.dto.question;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kakaobean.core.survey.application.dto.GetSurveyResponseDto;
-import com.kakaobean.core.survey.domain.question.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -39,7 +36,4 @@ public abstract class GetQuestionResponseDto {
     public GetQuestionResponseDto(String nextQuestionNumber) {
         this.nextQuestionNumber = nextQuestionNumber;
     }
-
-
-
 }

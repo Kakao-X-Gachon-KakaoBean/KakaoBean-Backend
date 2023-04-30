@@ -1,16 +1,11 @@
 package com.kakaobean.core.survey.application.dto;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaobean.core.survey.application.dto.question.*;
 import com.kakaobean.core.survey.domain.question.Question;
 import com.kakaobean.core.survey.domain.question.essay.EssayQuestion;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestion;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionAnswer;
 import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogic;
-import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogicCondition;
 import com.kakaobean.core.survey.domain.question.range.RangeQuestion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,7 +42,7 @@ public class GetSurveyResponseDto {
                         essayQuestion.getExplanation(),
                         essayQuestion.getQuestionNumber(),
                         essayQuestion.isFinalQuestion(),
-                        essayQuestion.getNextQuestion());
+                        hasNextQuestion(essayQuestion.getNextQuestion()));
 
             case "RangeQuestion":
                 RangeQuestion rangeQuestion = (RangeQuestion) question;
@@ -56,8 +51,7 @@ public class GetSurveyResponseDto {
                         rangeQuestion.getExplanation(),
                         rangeQuestion.getQuestionNumber(),
                         rangeQuestion.isFinalQuestion(),
-                        //Optional.ofNullable(rangeQuestion.getNextQuestion()),
-                        rangeQuestion.getNextQuestion(),
+                        hasNextQuestion(rangeQuestion.getNextQuestion()),
                         rangeQuestion.getMin(),
                         rangeQuestion.getMax());
 
@@ -68,7 +62,7 @@ public class GetSurveyResponseDto {
                         multipleChoiceQuestion.getExplanation(),
                         multipleChoiceQuestion.getQuestionNumber(),
                         multipleChoiceQuestion.isFinalQuestion(),
-                        multipleChoiceQuestion.getNextQuestion(),
+                        hasNextQuestion(multipleChoiceQuestion.getNextQuestion()),
                         multipleChoiceQuestion.getNumberOfAnswerChoices(),
                         multipleChoiceQuestion.getAnswers().stream()
                                 .map(MultipleChoiceQuestionAnswer::getContent).collect(Collectors.toList()),
@@ -81,10 +75,18 @@ public class GetSurveyResponseDto {
         }
     }
 
-//    private hasNextQuestion(Question question){
-//
-//
-//    }
+    /**
+     * 해당 질문이 마지막 값인지 확인한다.
+     * @param question : 확인할 대상 질문
+     * @return : 다음 질문이 없다면 0을 리턴한다.
+     */
+    private String hasNextQuestion(Question question){
+        if (question!=null){
+            return question.getQuestionNumber();
+        }else {
+            return "0";
+        }
+    }
 
     /**
      * 객관식에 존재하는 로직에 대한 dto를 만든다.

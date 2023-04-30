@@ -30,14 +30,7 @@ public class SurveyService {
     public GetSurveyResponseDto getSurvey(Long surveyId) {
         Survey findSurvey = surveyRepository.findById(surveyId).get();
         System.out.println("-----------------------------------");
-        findSurvey.getQuestions().forEach(question -> System.out.println(question.getNextQuestion().getQuestionNumber()));
         return new GetSurveyResponseDto(findSurvey.getQuestions());
     }
 
-//    public void getSurvey(Long surveyId) {
-//        Survey findSurvey = surveyRepository.findById(surveyId).get();
-//        System.out.println("-----------------------------------");
-//        findSurvey.getQuestions().forEach(question -> System.out.println(question.getNextQuestion().getQuestionNumber()));
-//        //return new GetSurveyResponseDto(findSurvey.getQuestions());
-//    }
 }

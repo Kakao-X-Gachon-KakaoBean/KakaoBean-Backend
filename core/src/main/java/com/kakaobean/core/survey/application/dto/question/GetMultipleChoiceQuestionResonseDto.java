@@ -1,6 +1,5 @@
 package com.kakaobean.core.survey.application.dto.question;
 
-import com.kakaobean.core.survey.domain.question.Question;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,11 +19,11 @@ public class GetMultipleChoiceQuestionResonseDto extends GetQuestionResponseDto{
                                                String explanation,
                                                String questionNumber,
                                                Boolean finalQuestion,
-                                               Question nextQuestion,
+                                               String nextQuestion,
                                                Integer numberOfAnswerChoices,
                                                List<String> answers,
                                                List<GetQuestionFlowLogicResponseDto> logics) {
-        super(title, explanation, questionNumber, finalQuestion, nextQuestion.getQuestionNumber());
+        super(title, explanation, questionNumber, finalQuestion, nextQuestion);
         this.numberOfAnswerChoices = numberOfAnswerChoices;
         this.answers = answers;
         this.logics = logics;

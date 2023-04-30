@@ -3,9 +3,8 @@ package com.kakaobean.member;
 import com.kakaobean.common.dto.CommandSuccessResponse;
 import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
-import com.kakaobean.core.member.application.dto.response.MemberInfoResponseDto;
+import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponseDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
-import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.member.dto.FindEmailRequest;
 import com.kakaobean.member.dto.RegisterMemberRequest;
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -53,9 +50,9 @@ public class MemberController {
         return new ResponseEntity(res, OK);
     }
 
-    @GetMapping("/member/member-info")
+    @GetMapping("/members/info")
     public ResponseEntity findMemberInfo(@AuthenticationPrincipal Long memberId) {
-        MemberInfoResponseDto res = memberService.memberInfoByMemberId(memberId);
+        FindMemberInfoResponseDto res = memberService.findMemberInfoByMemberId(memberId);
         return new ResponseEntity(res, OK);
     }
 

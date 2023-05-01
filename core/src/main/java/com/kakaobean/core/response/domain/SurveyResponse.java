@@ -22,5 +22,5 @@ public class SurveyResponse extends BaseEntity {
     @OneToMany(mappedBy = "surveyResponse")
     private List<QuestionResponse> questionResponses = new ArrayList<>();
 
-
+    // 생성자
 }

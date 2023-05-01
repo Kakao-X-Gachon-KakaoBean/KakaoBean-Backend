@@ -1,5 +1,7 @@
 package com.kakaobean.core.survey.domain.question.range;
 
+import com.kakaobean.core.survey.application.dto.question.GetQuestionResponseDto;
+import com.kakaobean.core.survey.application.dto.question.GetRangeQuestionResponseDto;
 import com.kakaobean.core.survey.domain.question.Question;
 import com.kakaobean.core.survey.exception.RangeQuestionBoundaryValueException;
 import lombok.AccessLevel;
@@ -35,5 +37,19 @@ public class RangeQuestion extends Question {
     @Override
     protected void detailValidate() {
         if(min == max) throw new RangeQuestionBoundaryValueException();
+    }
+
+    @Override
+    protected GetQuestionResponseDto createDetailServiceDto() {
+        return new GetRangeQuestionResponseDto(
+                getId(),
+                getTitle(),
+                getExplanation(),
+                getQuestionNumber(),
+                isFinalQuestion(),
+                hasNextQuestion(getNextQuestion()),
+                getMin(),
+                getMax()
+        );
     }
 }

@@ -10,11 +10,12 @@ import java.util.List;
 @NoArgsConstructor
 public class GetQuestionFlowLogicResponseDto {
 
-    private List<String> conditionOfQuestionAnswers;
+
+    private List<GetMultipleChoiceQuestionAnswerDto> conditionOfQuestionAnswers;
     private String nextQuestionNumber;
 
     @Builder
-    public GetQuestionFlowLogicResponseDto(List<String> conditionOfQuestionAnswers, String nextQuestionNumber) {
+    public GetQuestionFlowLogicResponseDto(List<GetMultipleChoiceQuestionAnswerDto> conditionOfQuestionAnswers, String nextQuestionNumber) {
         this.conditionOfQuestionAnswers = conditionOfQuestionAnswers;
         this.nextQuestionNumber = nextQuestionNumber;
     }

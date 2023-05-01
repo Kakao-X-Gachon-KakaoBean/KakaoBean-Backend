@@ -110,7 +110,7 @@ public class MultipleChoiceQuestion extends Question {
     protected GetQuestionFlowLogicResponseDto getLogicDto(MultipleChoiceQuestionFlowLogic logic){
         return new GetQuestionFlowLogicResponseDto(
                 logic.getConditions().stream()
-                        .map(condition -> condition.getAnswer().getContent())
+                        .map(condition -> getAnswerDto(condition.getAnswer()))
                         .collect(Collectors.toList()),
                 logic.getNextQuestion().getQuestionNumber()
         );

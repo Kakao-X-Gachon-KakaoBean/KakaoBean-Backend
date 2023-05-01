@@ -20,5 +20,6 @@ public class MultipleChoiceQuestionResponse extends QuestionResponse {
         super(questionId, surveyResponse);
         this.answer = answer;
     }
+    // 중복 선택
 }
 

@@ -2,8 +2,12 @@ package com.kakaobean.core.survey.application.dto.question;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.kakaobean.core.survey.domain.question.Question;
+import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogic;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -15,17 +19,20 @@ import lombok.NoArgsConstructor;
 })
 public abstract class GetQuestionResponseDto {
 
+    private Long questionId;
     protected String title;
     protected String explanation;
     protected String questionNumber;
     protected Boolean finalQuestion;
     private String nextQuestionNumber;
 
-    public GetQuestionResponseDto(String title,
+    public GetQuestionResponseDto(Long questionId,
+                                  String title,
                                   String explanation,
                                   String questionNumber,
                                   Boolean finalQuestion,
                                   String nextQuestionNumber) {
+        this.questionId = questionId;
         this.title = title;
         this.explanation = explanation;
         this.questionNumber = questionNumber;
@@ -33,7 +40,4 @@ public abstract class GetQuestionResponseDto {
         this.nextQuestionNumber = nextQuestionNumber;
     }
 
-    public GetQuestionResponseDto(String nextQuestionNumber) {
-        this.nextQuestionNumber = nextQuestionNumber;
-    }
 }

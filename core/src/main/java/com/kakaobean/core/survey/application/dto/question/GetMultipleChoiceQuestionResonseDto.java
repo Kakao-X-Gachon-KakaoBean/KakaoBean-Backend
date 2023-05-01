@@ -1,10 +1,14 @@
 package com.kakaobean.core.survey.application.dto.question;
 
+import com.kakaobean.core.survey.domain.question.Question;
+import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestion;
+import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionAnswer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -15,7 +19,8 @@ public class GetMultipleChoiceQuestionResonseDto extends GetQuestionResponseDto{
     private List<GetQuestionFlowLogicResponseDto> logics;
 
     @Builder
-    public GetMultipleChoiceQuestionResonseDto(String title,
+    public GetMultipleChoiceQuestionResonseDto(Long questionId,
+                                               String title,
                                                String explanation,
                                                String questionNumber,
                                                Boolean finalQuestion,
@@ -23,7 +28,7 @@ public class GetMultipleChoiceQuestionResonseDto extends GetQuestionResponseDto{
                                                Integer numberOfAnswerChoices,
                                                List<String> answers,
                                                List<GetQuestionFlowLogicResponseDto> logics) {
-        super(title, explanation, questionNumber, finalQuestion, nextQuestion);
+        super(questionId, title, explanation, questionNumber, finalQuestion, nextQuestion);
         this.numberOfAnswerChoices = numberOfAnswerChoices;
         this.answers = answers;
         this.logics = logics;

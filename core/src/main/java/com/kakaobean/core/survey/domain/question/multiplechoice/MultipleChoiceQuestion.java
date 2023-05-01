@@ -1,5 +1,7 @@
 package com.kakaobean.core.survey.domain.question.multiplechoice;
 
+import com.kakaobean.core.survey.application.dto.question.GetMultipleChoiceQuestionResonseDto;
+import com.kakaobean.core.survey.application.dto.question.GetQuestionResponseDto;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 객관식 질문
@@ -69,5 +72,22 @@ public class MultipleChoiceQuestion extends Question {
                 standard.compareWithOtherLogic(logics.get(j));
             }
         }
+    }
+
+    @Override
+    protected GetQuestionResponseDto createDetailServiceDto() {
+        return new GetMultipleChoiceQuestionResonseDto(
+                getId(),
+                getTitle(),
+                getExplanation(),
+                getQuestionNumber(),
+                isFinalQuestion(),
+                hasNextQuestion(getNextQuestion()),
+                getNumberOfAnswerChoices(),
+                getAnswers().stream()
+                        .map(answer->answer.getContent())
+                        .collect(Collectors.toList()),
+                getLogics().stream().map(logic -> getLogicDto(logic)).collect(Collectors.toList())
+        );
     }
 }

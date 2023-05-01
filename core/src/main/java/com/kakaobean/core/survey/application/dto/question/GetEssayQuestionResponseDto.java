@@ -1,5 +1,7 @@
 package com.kakaobean.core.survey.application.dto.question;
 
+import com.kakaobean.core.survey.domain.question.Question;
+import com.kakaobean.core.survey.domain.question.essay.EssayQuestion;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,13 +11,13 @@ import lombok.NoArgsConstructor;
 public class GetEssayQuestionResponseDto extends GetQuestionResponseDto{
 
     @Builder
-    public GetEssayQuestionResponseDto(String title,
+    public GetEssayQuestionResponseDto(Long questionId,
+                                       String title,
                                        String explanation,
                                        String questionNumber,
                                        Boolean finalQuestion,
                                        String nextQuestion) {
-        super(title, explanation, questionNumber, finalQuestion, nextQuestion);
+        super(questionId, title, explanation, questionNumber, finalQuestion, nextQuestion);
     }
-
 
 }

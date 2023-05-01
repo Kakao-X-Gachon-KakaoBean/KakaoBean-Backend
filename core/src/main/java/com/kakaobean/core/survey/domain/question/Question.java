@@ -2,7 +2,10 @@ package com.kakaobean.core.survey.domain.question;
 
 import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;
+import com.kakaobean.core.survey.application.dto.question.GetQuestionFlowLogicResponseDto;
+import com.kakaobean.core.survey.application.dto.question.GetQuestionResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
+import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogic;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +13,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Entity
@@ -60,6 +64,36 @@ public abstract class Question extends BaseEntity {
     }
 
     protected abstract void detailValidate();
+
+    public GetQuestionResponseDto toServiceDto(){
+        return createDetailServiceDto();
+    }
+
+    protected abstract GetQuestionResponseDto createDetailServiceDto();
+
+    /**
+     * 해당 질문이 마지막 값인지 확인한다.
+     */
+    protected String hasNextQuestion(Question question){
+        if (question!=null){
+            return question.getQuestionNumber();
+        }else {
+            return "0";
+        }
+    }
+
+    /**
+     * 객관식에 존재하는 로직에 대한 dto를 만든다.
+     */
+    protected GetQuestionFlowLogicResponseDto getLogicDto(MultipleChoiceQuestionFlowLogic logic){
+
+        return new GetQuestionFlowLogicResponseDto(
+                logic.getConditions().stream()
+                        .map(condition -> condition.getAnswer().getContent())
+                        .collect(Collectors.toList()),
+                logic.getNextQuestion().getQuestionNumber()
+        );
+    }
 }
 
 /**

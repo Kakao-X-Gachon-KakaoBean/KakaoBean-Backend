@@ -1,5 +1,7 @@
 package com.kakaobean.core.survey.application.dto.question;
 
+import com.kakaobean.core.survey.domain.question.Question;
+import com.kakaobean.core.survey.domain.question.range.RangeQuestion;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,14 +15,15 @@ public class GetRangeQuestionResponseDto extends GetQuestionResponseDto{
     private Integer max;
 
     @Builder
-    public GetRangeQuestionResponseDto(String title,
+    public GetRangeQuestionResponseDto(Long questionId,
+                                       String title,
                                        String explanation,
                                        String questionNumber,
                                        Boolean finalQuestion,
                                        String nextQuestion,
                                        Integer min,
                                        Integer max) {
-        super(title, explanation, questionNumber, finalQuestion, nextQuestion);
+        super(questionId, title, explanation, questionNumber, finalQuestion, nextQuestion);
         this.min = min;
         this.max = max;
     }

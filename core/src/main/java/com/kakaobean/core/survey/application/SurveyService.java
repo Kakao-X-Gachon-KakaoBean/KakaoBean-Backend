@@ -29,8 +29,7 @@ public class SurveyService {
 
     public GetSurveyResponseDto getSurvey(Long surveyId) {
         Survey findSurvey = surveyRepository.findById(surveyId).get();
-        System.out.println("-----------------------------------");
-        return new GetSurveyResponseDto(findSurvey.getQuestions());
+        return new GetSurveyResponseDto(findSurvey.getQuestions(),surveyId);
     }
 
 }

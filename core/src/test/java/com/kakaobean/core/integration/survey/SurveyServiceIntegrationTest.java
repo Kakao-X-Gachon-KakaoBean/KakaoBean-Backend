@@ -3,8 +3,8 @@ package com.kakaobean.core.integration.survey;
 import com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory;
 import com.kakaobean.core.integration.IntegrationTest;
 import com.kakaobean.core.survey.application.SurveyService;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;

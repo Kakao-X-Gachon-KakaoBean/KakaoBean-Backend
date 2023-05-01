@@ -1,6 +1,6 @@
 package com.kakaobean.survey.dto.request.question;
 
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionFlowLogicRequestDto;
+import com.kakaobean.core.survey.application.dto.response.question.RegisterQuestionFlowLogicRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

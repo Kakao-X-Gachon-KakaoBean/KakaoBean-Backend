@@ -1,6 +1,6 @@
 package com.kakaobean.core.survey.application;
 
-import com.kakaobean.core.survey.application.dto.GetSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.GetSurveyResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.exception.NotExistsSurveyException;

@@ -1,9 +1,9 @@
 package com.kakaobean.core.survey.domain.question.multiplechoice;
 
-import com.kakaobean.core.survey.application.dto.question.GetMultipleChoiceQuestionAnswerDto;
-import com.kakaobean.core.survey.application.dto.question.GetMultipleChoiceQuestionResonseDto;
-import com.kakaobean.core.survey.application.dto.question.GetQuestionFlowLogicResponseDto;
-import com.kakaobean.core.survey.application.dto.question.GetQuestionResponseDto;
+import com.kakaobean.core.survey.application.dto.request.question.GetMultipleChoiceQuestionAnswerDto;
+import com.kakaobean.core.survey.application.dto.request.question.GetMultipleChoiceQuestionResonseDto;
+import com.kakaobean.core.survey.application.dto.request.question.GetQuestionFlowLogicResponseDto;
+import com.kakaobean.core.survey.application.dto.request.question.GetQuestionResponseDto;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
 import lombok.Getter;

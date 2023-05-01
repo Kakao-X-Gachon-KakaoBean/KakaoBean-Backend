@@ -1,7 +1,7 @@
 package com.kakaobean.core.survey.domain.question.range;
 
-import com.kakaobean.core.survey.application.dto.question.GetQuestionResponseDto;
-import com.kakaobean.core.survey.application.dto.question.GetRangeQuestionResponseDto;
+import com.kakaobean.core.survey.application.dto.request.question.GetQuestionResponseDto;
+import com.kakaobean.core.survey.application.dto.request.question.GetRangeQuestionResponseDto;
 import com.kakaobean.core.survey.domain.question.Question;
 import com.kakaobean.core.survey.exception.RangeQuestionBoundaryValueException;
 import lombok.AccessLevel;

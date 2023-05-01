@@ -1,8 +1,8 @@
 package com.kakaobean.core.factory.survey.question;
 
-import com.kakaobean.core.survey.application.dto.question.RegisterEssayQuestionRequestDto;
-import com.kakaobean.core.survey.application.dto.question.RegisterMultipleChoiceQuestionRequestDto;
-import com.kakaobean.core.survey.application.dto.question.RegisterRangeQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.response.question.RegisterEssayQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.response.question.RegisterMultipleChoiceQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.response.question.RegisterRangeQuestionRequestDto;
 
 
 import java.util.List;

@@ -1,9 +1,6 @@
 package com.kakaobean.core.factory.survey;
 
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionRequestDto;
-
-import java.util.List;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
 
 import static com.kakaobean.core.factory.survey.question.RegisterQuestionRequestListDtoFactory.*;
 

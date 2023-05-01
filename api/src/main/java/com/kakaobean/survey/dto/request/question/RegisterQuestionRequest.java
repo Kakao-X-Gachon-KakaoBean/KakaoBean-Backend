@@ -2,14 +2,13 @@ package com.kakaobean.survey.dto.request.question;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.kakaobean.core.survey.application.dto.QuestionRequestType;
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.request.QuestionRequestType;
+import com.kakaobean.core.survey.application.dto.response.question.RegisterQuestionRequestDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.*;

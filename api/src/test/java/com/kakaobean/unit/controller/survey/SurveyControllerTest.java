@@ -1,8 +1,8 @@
 package com.kakaobean.unit.controller.survey;
 
 
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.survey.RegisterSurveyRequestFactory;
@@ -117,6 +117,15 @@ public class SurveyControllerTest extends ControllerTest {
                         fieldWithPath("surveyId").type(NUMBER).description("등록한 설문 id")
                 )
         ));
+    }
+
+
+
+    @Test
+    @WithMockUser
+    @DisplayName("설문 등록 API 명세서 테스트.")
+    void showSurveyTest(){
+
     }
 }
 

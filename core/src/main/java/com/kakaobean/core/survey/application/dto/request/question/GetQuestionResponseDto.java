@@ -1,13 +1,9 @@
-package com.kakaobean.core.survey.application.dto.question;
+package com.kakaobean.core.survey.application.dto.request.question;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.kakaobean.core.survey.domain.question.Question;
-import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogic;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor

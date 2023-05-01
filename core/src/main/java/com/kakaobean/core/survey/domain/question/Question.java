@@ -2,18 +2,13 @@ package com.kakaobean.core.survey.domain.question;
 
 import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;
-import com.kakaobean.core.survey.application.dto.question.GetQuestionFlowLogicResponseDto;
-import com.kakaobean.core.survey.application.dto.question.GetQuestionResponseDto;
+import com.kakaobean.core.survey.application.dto.request.question.GetQuestionResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
-import com.kakaobean.core.survey.domain.question.multiplechoice.MultipleChoiceQuestionFlowLogic;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Entity

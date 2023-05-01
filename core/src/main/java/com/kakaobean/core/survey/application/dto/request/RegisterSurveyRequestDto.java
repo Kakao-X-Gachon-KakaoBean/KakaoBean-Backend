@@ -1,6 +1,6 @@
-package com.kakaobean.core.survey.application.dto;
+package com.kakaobean.core.survey.application.dto.request;
 
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.response.question.RegisterQuestionRequestDto;
 import lombok.Getter;
 
 import java.util.ArrayList;

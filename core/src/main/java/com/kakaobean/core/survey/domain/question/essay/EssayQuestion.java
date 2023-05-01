@@ -1,8 +1,7 @@
 package com.kakaobean.core.survey.domain.question.essay;
 
-import com.kakaobean.core.survey.application.dto.question.GetEssayQuestionResponseDto;
-import com.kakaobean.core.survey.application.dto.question.GetQuestionResponseDto;
-import com.kakaobean.core.survey.domain.Survey;
+import com.kakaobean.core.survey.application.dto.request.question.GetEssayQuestionResponseDto;
+import com.kakaobean.core.survey.application.dto.request.question.GetQuestionResponseDto;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

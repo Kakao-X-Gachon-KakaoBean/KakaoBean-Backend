@@ -2,8 +2,8 @@ package com.kakaobean.survey;
 
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
-import com.kakaobean.core.survey.application.dto.GetSurveyResponseDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.GetSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

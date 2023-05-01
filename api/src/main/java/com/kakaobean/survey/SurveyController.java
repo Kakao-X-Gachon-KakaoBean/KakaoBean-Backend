@@ -1,5 +1,6 @@
 package com.kakaobean.survey;
 
+import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.core.survey.application.dto.GetSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class SurveyController{
 
     private final SurveyService surveyService;
+    private final SurveyProvider surveyProvider;
 
     @PostMapping
     public ResponseEntity registerSurvey(@AuthenticationPrincipal Long memberId,
@@ -28,7 +30,7 @@ public class SurveyController{
 
     @GetMapping("/{surveyId}")
     public ResponseEntity getSurvey(@PathVariable Long surveyId){
-        GetSurveyResponseDto res = surveyService.getSurvey(surveyId);
+        GetSurveyResponseDto res = surveyProvider.getSurvey(surveyId);
         return new ResponseEntity(res, HttpStatus.OK);
     }
 

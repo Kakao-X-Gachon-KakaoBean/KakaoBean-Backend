@@ -28,11 +28,4 @@ public class SurveyService {
         Survey saveSurvey = surveyRepository.save(survey);
         return new RegisterSurveyResponseDto(saveSurvey.getId());
     }
-
-    public GetSurveyResponseDto getSurvey(Long surveyId) {
-        Survey findSurvey = surveyRepository.findById(surveyId)
-                .orElseThrow(() -> new NotExistsSurveyException());
-        return new GetSurveyResponseDto(findSurvey.getQuestions(), surveyId);
-    }
-
 }

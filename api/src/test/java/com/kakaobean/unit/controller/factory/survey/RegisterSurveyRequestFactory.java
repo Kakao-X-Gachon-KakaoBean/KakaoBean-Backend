@@ -12,6 +12,6 @@ public class RegisterSurveyRequestFactory {
     private RegisterSurveyRequestFactory(){}
 
     public static RegisterSurveyRequest createSuccessCase1Request(){
-        return new RegisterSurveyRequest(createSuccessListRequest());
+        return new RegisterSurveyRequest("survey title", createSuccessListRequest());
     }
 }

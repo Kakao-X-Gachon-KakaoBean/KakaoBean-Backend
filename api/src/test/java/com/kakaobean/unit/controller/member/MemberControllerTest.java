@@ -116,7 +116,7 @@ public class MemberControllerTest extends ControllerTest {
 
         //given
         FindEmailRequest req = new FindEmailRequest("bean", LocalDate.of(1999, 6, 27));
-        given(memberService.findEmailByBirthAndName(Mockito.any(String.class), Mockito.any(LocalDate.class)))
+        given(memberProvider.findEmailByBirthAndName(Mockito.any(String.class), Mockito.any(LocalDate.class)))
                 .willReturn(new FindEmailResponseDto("example@gmail.com"));
         String requestBody = objectMapper.writeValueAsString(req);
 
@@ -148,7 +148,7 @@ public class MemberControllerTest extends ControllerTest {
     void findMemberInfo() throws Exception {
 
         //given
-        given(memberService.findMemberInfoByMemberId(1L))
+        given(memberProvider.findMemberInfoByMemberId(1L))
                 .willReturn(new FindMemberInfoResponseDto("조연겸", 25, Gender.MALE, "whdusrua@naver.com", LocalDate.parse("1998-03-04")));
 
         //when

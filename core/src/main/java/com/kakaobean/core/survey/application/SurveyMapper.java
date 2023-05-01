@@ -28,7 +28,7 @@ import static java.util.stream.Collectors.toList;
 public class SurveyMapper {
 
     public Survey mapFrom(RegisterSurveyRequestDto dto){
-        Survey survey = new Survey(new SurveyOwner(dto.getMemberId()), createQuestion(dto));
+        Survey survey = new Survey(dto.getSurveyTitle(), new SurveyOwner(dto.getMemberId()), createQuestion(dto));
         initNextQuestionForAllQuestions(survey.getQuestions(), dto.getDtoList());
         initChoiceQuestionLogic(survey.getQuestions(), dto.getDtoList());
         return survey;

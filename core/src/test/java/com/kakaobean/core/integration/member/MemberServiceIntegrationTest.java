@@ -1,6 +1,7 @@
 package com.kakaobean.core.integration.member;
 
 import com.kakaobean.core.factory.member.MemberFactory;
+import com.kakaobean.core.member.application.MemberProvider;
 import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
 import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponseDto;
 import com.kakaobean.core.member.domain.*;
@@ -53,6 +54,9 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
 
     @Autowired
     RedisTemplate redisTemplate;
+
+    @Autowired
+    MemberProvider memberProvider;
 
     @BeforeEach
     void beforeEach(){
@@ -179,7 +183,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
         memberRepository.save(member);
 
         //when
-        FindEmailResponseDto res = memberService.findEmailByBirthAndName(name, birth);
+        FindEmailResponseDto res = memberProvider.findEmailByBirthAndName(name, birth);
 
         //then
         Assertions.assertThat(res.getEmail()).isEqualTo(email);
@@ -193,7 +197,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
         Member member = memberRepository.save(MemberFactory.create());
 
         //when
-        FindMemberInfoResponseDto res = memberService.findMemberInfoByMemberId(member.getId());
+        FindMemberInfoResponseDto res = memberProvider.findMemberInfoByMemberId(member.getId());
 
         //then
         assertThat(res.getName()).isEqualTo(member.getName());
@@ -212,7 +216,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
-            memberService.findMemberInfoByMemberId(member.getId());
+            memberProvider.findMemberInfoByMemberId(member.getId());
         });
 
         //then

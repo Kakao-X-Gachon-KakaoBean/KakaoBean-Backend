@@ -27,19 +27,28 @@ public class Survey extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "survey", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 
-    public Survey(SurveyOwner surveyOwner, List<Question> questions) {
+    private String title;
+
+    public Survey(String title,
+                  SurveyOwner surveyOwner,
+                  List<Question> questions) {
         super(BaseStatus.ACTIVE);
         this.surveyOwner = surveyOwner;
         this.questions.addAll(questions);
+        this.title = title;
         questions.forEach(question -> question.addSurvey(this));
     }
 
     @Builder
-    public Survey(Long id, SurveyOwner surveyOwner, List<Question> questions) {
+    public Survey(Long id,
+                  SurveyOwner surveyOwner,
+                  List<Question> questions,
+                  String title) {
         super(BaseStatus.ACTIVE);
         this.id = id;
         this.surveyOwner = surveyOwner;
         this.questions = questions;
+        this.title = title;
     }
 
     public void place(SurveyValidator surveyValidator) {

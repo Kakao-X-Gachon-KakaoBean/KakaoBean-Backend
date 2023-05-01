@@ -16,11 +16,14 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RegisterSurveyRequest {
 
+    private String surveyTitle;
+
     @NotEmpty
     private List<RegisterQuestionRequest> questions = new ArrayList<>();
 
     public RegisterSurveyRequestDto toServiceDto(Long memberId) {
         return new RegisterSurveyRequestDto(
+                surveyTitle,
                 memberId,
                 questions.stream()
                         .map(RegisterQuestionRequest::toServiceDto)
@@ -31,7 +34,8 @@ public class RegisterSurveyRequest {
     /**
      * 테스트 코드에서만 사용할 것.
      */
-    public RegisterSurveyRequest(List<RegisterQuestionRequest> questions) {
+    public RegisterSurveyRequest(String surveyTitle, List<RegisterQuestionRequest> questions) {
+        this.surveyTitle = surveyTitle;
         this.questions = questions;
     }
 }

@@ -82,18 +82,6 @@ public abstract class Question extends BaseEntity {
         }
     }
 
-    /**
-     * 객관식에 존재하는 로직에 대한 dto를 만든다.
-     */
-    protected GetQuestionFlowLogicResponseDto getLogicDto(MultipleChoiceQuestionFlowLogic logic){
-
-        return new GetQuestionFlowLogicResponseDto(
-                logic.getConditions().stream()
-                        .map(condition -> condition.getAnswer().getContent())
-                        .collect(Collectors.toList()),
-                logic.getNextQuestion().getQuestionNumber()
-        );
-    }
 }
 
 /**

@@ -1,6 +1,8 @@
 package com.kakaobean.core.survey.domain.question.multiplechoice;
 
+import com.kakaobean.core.survey.application.dto.question.GetMultipleChoiceQuestionAnswerDto;
 import com.kakaobean.core.survey.application.dto.question.GetMultipleChoiceQuestionResonseDto;
+import com.kakaobean.core.survey.application.dto.question.GetQuestionFlowLogicResponseDto;
 import com.kakaobean.core.survey.application.dto.question.GetQuestionResponseDto;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
@@ -85,9 +87,32 @@ public class MultipleChoiceQuestion extends Question {
                 hasNextQuestion(getNextQuestion()),
                 getNumberOfAnswerChoices(),
                 getAnswers().stream()
-                        .map(answer->answer.getContent())
+                        .map(answer-> getAnswerDto(answer))
                         .collect(Collectors.toList()),
                 getLogics().stream().map(logic -> getLogicDto(logic)).collect(Collectors.toList())
+        );
+    }
+
+    /**
+     * 객관식에 들어가는 질문에 대한 dto를 만든다.
+     * dto 안에는 질문id와 질문content가 들어간다.
+     */
+    protected GetMultipleChoiceQuestionAnswerDto getAnswerDto(MultipleChoiceQuestionAnswer answer){
+        return new GetMultipleChoiceQuestionAnswerDto(
+                answer.getId(),
+                answer.getContent()
+        );
+    }
+
+    /**
+     * 객관식에 존재하는 로직에 대한 dto를 만든다.
+     */
+    protected GetQuestionFlowLogicResponseDto getLogicDto(MultipleChoiceQuestionFlowLogic logic){
+        return new GetQuestionFlowLogicResponseDto(
+                logic.getConditions().stream()
+                        .map(condition -> condition.getAnswer().getContent())
+                        .collect(Collectors.toList()),
+                logic.getNextQuestion().getQuestionNumber()
         );
     }
 }

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class GetMultipleChoiceQuestionResonseDto extends GetQuestionResponseDto{
 
     private Integer numberOfAnswerChoices;
-    private List<String> answers;
+    private List<GetMultipleChoiceQuestionAnswerDto> answers;
     private List<GetQuestionFlowLogicResponseDto> logics;
 
     @Builder
@@ -26,7 +26,7 @@ public class GetMultipleChoiceQuestionResonseDto extends GetQuestionResponseDto{
                                                Boolean finalQuestion,
                                                String nextQuestion,
                                                Integer numberOfAnswerChoices,
-                                               List<String> answers,
+                                               List<GetMultipleChoiceQuestionAnswerDto> answers,
                                                List<GetQuestionFlowLogicResponseDto> logics) {
         super(questionId, title, explanation, questionNumber, finalQuestion, nextQuestion);
         this.numberOfAnswerChoices = numberOfAnswerChoices;

@@ -17,6 +17,6 @@ public class SurveyProvider {
 
     public GetSurveyResponseDto getSurvey(Long surveyId) {
         Survey findSurvey = surveyRepository.findById(surveyId).orElseThrow(NotExistsSurveyException::new);
-        return new GetSurveyResponseDto(findSurvey.getQuestions(), surveyId);
+        return GetSurveyResponseDto.from(findSurvey);
     }
 }

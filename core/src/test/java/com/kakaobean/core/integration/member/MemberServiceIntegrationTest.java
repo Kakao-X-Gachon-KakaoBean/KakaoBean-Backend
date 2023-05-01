@@ -7,15 +7,12 @@ import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponse
 import com.kakaobean.core.member.domain.*;
 import com.kakaobean.core.member.domain.email.Email;
 import com.kakaobean.core.member.domain.email.EmailRepository;
-import com.kakaobean.core.member.exception.member.AlreadyExistsEmailException;
+import com.kakaobean.core.member.exception.member.*;
 import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
 import com.kakaobean.core.integration.IntegrationTest;
 import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
-import com.kakaobean.core.member.exception.member.NotExistsEmailException;
-import com.kakaobean.core.member.exception.member.NotExistsMembersInfoException;
-import com.kakaobean.core.member.exception.member.WrongEmailAuthKeyException;
 import com.kakaobean.independentlysystem.email.EmailSender;
 import org.assertj.core.api.AbstractThrowableAssert;
 import org.assertj.core.api.Assertions;
@@ -186,8 +183,30 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
         FindEmailResponseDto res = memberProvider.findEmailByBirthAndName(name, birth);
 
         //then
-        Assertions.assertThat(res.getEmail()).isEqualTo(email);
+        assertThat(res.getEmail()).isEqualTo(email);
+    }
 
+    @DisplayName("이메일을 찾을 수 없다.")
+    @Test
+    void failFindEmail(){
+        //given
+        String name = "bean";
+        String email = "123@gmail.com";
+        LocalDate birth = LocalDate.of(1999, 6, 27);
+        Member member = Member.builder()
+                .name(name)
+                .auth(new Auth(email, "pwd"))
+                .birth(birth)
+                .build();
+        memberRepository.save(member);
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            memberProvider.findEmailByBirthAndName("xxx", birth);
+        });
+
+        //then
+        result.isInstanceOf(NotExistsMemberException.class);
     }
 
     @DisplayName("멤버 정보를 찾을 수 있어야 한다.")
@@ -209,7 +228,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
 
     @DisplayName("저장된 멤버 ID와는 다른 ID로 멤버 정보를 호출한다.")
     @Test
-    void findMemberInfoException() {
+    void failFindMemberInfo() {
         //given
         Member member = MemberFactory.create();
         memberRepository.save(member);

@@ -1,8 +1,8 @@
 package com.kakaobean.survey.dto.request.question;
 
 import com.kakaobean.core.survey.application.dto.request.QuestionRequestType;
-import com.kakaobean.core.survey.application.dto.response.question.RegisterQuestionRequestDto;
-import com.kakaobean.core.survey.application.dto.response.question.RegisterRangeQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterRangeQuestionRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

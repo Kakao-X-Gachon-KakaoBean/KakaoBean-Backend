@@ -3,7 +3,7 @@ package com.kakaobean.survey.dto.request.question;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.kakaobean.core.survey.application.dto.request.QuestionRequestType;
-import com.kakaobean.core.survey.application.dto.response.question.RegisterQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionRequestDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

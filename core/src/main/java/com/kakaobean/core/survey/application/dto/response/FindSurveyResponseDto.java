@@ -1,6 +1,6 @@
 package com.kakaobean.core.survey.application.dto.response;
 
-import com.kakaobean.core.survey.application.dto.request.question.GetQuestionResponseDto;
+import com.kakaobean.core.survey.application.dto.response.question.FindQuestionResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.Getter;
@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
-public class GetSurveyResponseDto {
+public class FindSurveyResponseDto {
 
     private Long surveyId;
     private String surveyTitle;
-    private List<GetQuestionResponseDto> questions;
+    private List<FindQuestionResponseDto> questions;
 
-    public GetSurveyResponseDto(String surveyTitle, List<Question> questions, Long surveyId) {
+    public FindSurveyResponseDto(String surveyTitle, List<Question> questions, Long surveyId) {
         this.surveyTitle = surveyTitle;
         this.surveyId = surveyId;
         this.questions = questions.stream()
@@ -26,7 +26,7 @@ public class GetSurveyResponseDto {
 
     }
 
-    public static GetSurveyResponseDto from(Survey findSurvey) {
-        return new GetSurveyResponseDto(findSurvey.getTitle(), findSurvey.getQuestions(), findSurvey.getId());
+    public static FindSurveyResponseDto from(Survey findSurvey) {
+        return new FindSurveyResponseDto(findSurvey.getTitle(), findSurvey.getQuestions(), findSurvey.getId());
     }
 }

@@ -1,9 +1,9 @@
 package com.kakaobean.core.survey.domain.question.multiplechoice;
 
-import com.kakaobean.core.survey.application.dto.request.question.GetMultipleChoiceQuestionAnswerDto;
-import com.kakaobean.core.survey.application.dto.request.question.GetMultipleChoiceQuestionResonseDto;
-import com.kakaobean.core.survey.application.dto.request.question.GetQuestionFlowLogicResponseDto;
-import com.kakaobean.core.survey.application.dto.request.question.GetQuestionResponseDto;
+import com.kakaobean.core.survey.application.dto.response.question.FindMultipleChoiceQuestionAnswerDto;
+import com.kakaobean.core.survey.application.dto.response.question.FindMultipleChoiceQuestionResonseDto;
+import com.kakaobean.core.survey.application.dto.response.question.FindQuestionFlowLogicResponseDto;
+import com.kakaobean.core.survey.application.dto.response.question.FindQuestionResponseDto;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -77,8 +77,8 @@ public class MultipleChoiceQuestion extends Question {
     }
 
     @Override
-    protected GetQuestionResponseDto createDetailServiceDto() {
-        return new GetMultipleChoiceQuestionResonseDto(
+    protected FindQuestionResponseDto createDetailServiceDto() {
+        return new FindMultipleChoiceQuestionResonseDto(
                 getId(),
                 getTitle(),
                 getExplanation(),
@@ -97,8 +97,8 @@ public class MultipleChoiceQuestion extends Question {
      * 객관식에 들어가는 질문에 대한 dto를 만든다.
      * dto 안에는 질문id와 질문content가 들어간다.
      */
-    protected GetMultipleChoiceQuestionAnswerDto getAnswerDto(MultipleChoiceQuestionAnswer answer){
-        return new GetMultipleChoiceQuestionAnswerDto(
+    protected FindMultipleChoiceQuestionAnswerDto getAnswerDto(MultipleChoiceQuestionAnswer answer){
+        return new FindMultipleChoiceQuestionAnswerDto(
                 answer.getId(),
                 answer.getContent()
         );
@@ -107,8 +107,8 @@ public class MultipleChoiceQuestion extends Question {
     /**
      * 객관식에 존재하는 로직에 대한 dto를 만든다.
      */
-    protected GetQuestionFlowLogicResponseDto getLogicDto(MultipleChoiceQuestionFlowLogic logic){
-        return new GetQuestionFlowLogicResponseDto(
+    protected FindQuestionFlowLogicResponseDto getLogicDto(MultipleChoiceQuestionFlowLogic logic){
+        return new FindQuestionFlowLogicResponseDto(
                 logic.getConditions().stream()
                         .map(condition -> getAnswerDto(condition.getAnswer()))
                         .collect(Collectors.toList()),

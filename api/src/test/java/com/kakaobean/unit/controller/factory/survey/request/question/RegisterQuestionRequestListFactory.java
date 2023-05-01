@@ -1,10 +1,10 @@
-package com.kakaobean.unit.controller.factory.survey.question;
+package com.kakaobean.unit.controller.factory.survey.request.question;
 
 import com.kakaobean.survey.dto.request.question.RegisterQuestionRequest;
 
 import java.util.List;
 
-import static com.kakaobean.unit.controller.factory.survey.question.RegisterQuestionRequestFactory.*;
+import static com.kakaobean.unit.controller.factory.survey.request.question.RegisterQuestionRequestFactory.*;
 
 public class RegisterQuestionRequestListFactory {
 

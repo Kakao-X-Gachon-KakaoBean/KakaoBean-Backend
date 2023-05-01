@@ -1,11 +1,10 @@
 package com.kakaobean.core.integration.survey;
 
-import com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory;
 import com.kakaobean.core.integration.IntegrationTest;
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.response.GetSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
@@ -13,7 +12,6 @@ import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
 import com.kakaobean.core.survey.exception.NotExistsSurveyException;
 import org.assertj.core.api.AbstractThrowableAssert;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -105,7 +103,7 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         RegisterSurveyResponseDto res = surveyService.registerSurvey(dto);
 
         //when
-        GetSurveyResponseDto result = surveyProvider.getSurvey(res.getSurveyId());
+        FindSurveyResponseDto result = surveyProvider.getSurvey(res.getSurveyId());
 
         //then
         assertThat(result.getSurveyTitle()).isEqualTo("title");

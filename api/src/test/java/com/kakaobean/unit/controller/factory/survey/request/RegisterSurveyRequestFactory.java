@@ -1,11 +1,8 @@
-package com.kakaobean.unit.controller.factory.survey;
+package com.kakaobean.unit.controller.factory.survey.request;
 
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
-import com.kakaobean.survey.dto.request.question.RegisterQuestionRequest;
 
-import java.util.List;
-
-import static com.kakaobean.unit.controller.factory.survey.question.RegisterQuestionRequestListFactory.*;
+import static com.kakaobean.unit.controller.factory.survey.request.question.RegisterQuestionRequestListFactory.*;
 
 public class RegisterSurveyRequestFactory {
 

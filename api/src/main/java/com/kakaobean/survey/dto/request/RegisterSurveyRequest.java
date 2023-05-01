@@ -5,6 +5,7 @@ import com.kakaobean.survey.dto.request.question.RegisterQuestionRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RegisterSurveyRequest {
 
+    @NotBlank
     private String surveyTitle;
 
     @NotEmpty

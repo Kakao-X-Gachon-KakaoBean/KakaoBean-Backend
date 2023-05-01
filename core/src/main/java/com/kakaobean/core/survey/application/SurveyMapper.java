@@ -1,9 +1,9 @@
 package com.kakaobean.core.survey.application;
 
 import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.response.question.RegisterMultipleChoiceQuestionRequestDto;
-import com.kakaobean.core.survey.application.dto.response.question.RegisterQuestionFlowLogicRequestDto;
-import com.kakaobean.core.survey.application.dto.response.question.RegisterQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterMultipleChoiceQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionFlowLogicRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionRequestDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyOwner;
 import com.kakaobean.core.survey.domain.question.Question;

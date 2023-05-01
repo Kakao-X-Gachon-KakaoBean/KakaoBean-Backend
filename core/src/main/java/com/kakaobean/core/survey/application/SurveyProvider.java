@@ -1,6 +1,6 @@
 package com.kakaobean.core.survey.application;
 
-import com.kakaobean.core.survey.application.dto.response.GetSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.exception.NotExistsSurveyException;
@@ -15,8 +15,8 @@ public class SurveyProvider {
 
     private final SurveyRepository surveyRepository;
 
-    public GetSurveyResponseDto getSurvey(Long surveyId) {
+    public FindSurveyResponseDto getSurvey(Long surveyId) {
         Survey findSurvey = surveyRepository.findById(surveyId).orElseThrow(NotExistsSurveyException::new);
-        return GetSurveyResponseDto.from(findSurvey);
+        return FindSurveyResponseDto.from(findSurvey);
     }
 }

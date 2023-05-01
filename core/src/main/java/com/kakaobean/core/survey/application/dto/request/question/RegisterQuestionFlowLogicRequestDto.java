@@ -8,14 +8,13 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class GetQuestionFlowLogicResponseDto {
+public class RegisterQuestionFlowLogicRequestDto {
 
-
-    private List<GetMultipleChoiceQuestionAnswerDto> conditionOfQuestionAnswers;
+    private List<String> conditionOfQuestionAnswers;
     private String nextQuestionNumber;
 
     @Builder
-    public GetQuestionFlowLogicResponseDto(List<GetMultipleChoiceQuestionAnswerDto> conditionOfQuestionAnswers, String nextQuestionNumber) {
+    public RegisterQuestionFlowLogicRequestDto(List<String> conditionOfQuestionAnswers, String nextQuestionNumber) {
         this.conditionOfQuestionAnswers = conditionOfQuestionAnswers;
         this.nextQuestionNumber = nextQuestionNumber;
     }

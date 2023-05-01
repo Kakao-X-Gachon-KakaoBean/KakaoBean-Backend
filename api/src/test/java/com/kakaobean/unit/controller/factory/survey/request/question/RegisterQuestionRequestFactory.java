@@ -1,4 +1,4 @@
-package com.kakaobean.unit.controller.factory.survey.question;
+package com.kakaobean.unit.controller.factory.survey.request.question;
 
 import com.kakaobean.core.survey.application.dto.request.QuestionRequestType;
 import com.kakaobean.survey.dto.request.question.RegisterEssayQuestionRequest;

@@ -1,4 +1,4 @@
-package com.kakaobean.core.survey.application.dto.request.question;
+package com.kakaobean.core.survey.application.dto.response.question;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = GetMultipleChoiceQuestionResonseDto.class, name = "MULTIPLE"),
-        @JsonSubTypes.Type(value = GetEssayQuestionResponseDto.class, name = "ESSAY"),
-        @JsonSubTypes.Type(value = GetRangeQuestionResponseDto.class, name = "RANGE"),
+        @JsonSubTypes.Type(value = FindMultipleChoiceQuestionResonseDto.class, name = "MULTIPLE"),
+        @JsonSubTypes.Type(value = FindEssayQuestionResponseDto.class, name = "ESSAY"),
+        @JsonSubTypes.Type(value = FindRangeQuestionResponseDto.class, name = "RANGE"),
 })
-public abstract class GetQuestionResponseDto {
+public abstract class FindQuestionResponseDto {
 
     private Long questionId;
     protected String title;
@@ -22,12 +22,12 @@ public abstract class GetQuestionResponseDto {
     protected Boolean finalQuestion;
     private String nextQuestionNumber;
 
-    public GetQuestionResponseDto(Long questionId,
-                                  String title,
-                                  String explanation,
-                                  String questionNumber,
-                                  Boolean finalQuestion,
-                                  String nextQuestionNumber) {
+    public FindQuestionResponseDto(Long questionId,
+                                   String title,
+                                   String explanation,
+                                   String questionNumber,
+                                   Boolean finalQuestion,
+                                   String nextQuestionNumber) {
         this.questionId = questionId;
         this.title = title;
         this.explanation = explanation;

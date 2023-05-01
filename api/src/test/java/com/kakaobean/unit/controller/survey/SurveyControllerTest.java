@@ -5,7 +5,7 @@ import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDt
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import com.kakaobean.unit.controller.ControllerTest;
-import com.kakaobean.unit.controller.factory.survey.RegisterSurveyRequestFactory;
+import com.kakaobean.unit.controller.factory.survey.request.RegisterSurveyRequestFactory;
 import com.kakaobean.unit.controller.security.WithMockUser;
 
 import org.junit.jupiter.api.DisplayName;
@@ -125,7 +125,11 @@ public class SurveyControllerTest extends ControllerTest {
     @WithMockUser
     @DisplayName("설문 등록 API 명세서 테스트.")
     void showSurveyTest(){
+        //given
 
+        //when
+
+        //then
     }
 }
 

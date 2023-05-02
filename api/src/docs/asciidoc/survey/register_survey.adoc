@@ -4,7 +4,7 @@
 
 == 요청
 
-include::{snippets}/find_survey/p
+include::{snippets}/register_survey_main/http-request.adoc[]
 
 === 설문 요청 바디
 

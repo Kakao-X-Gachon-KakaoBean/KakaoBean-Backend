@@ -1,7 +1,8 @@
-package com.kakaobean.unit.controller.survey.extractor.request;
+package com.kakaobean.docs.extractor.survey.request;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
+import com.kakaobean.survey.dto.request.question.RegisterEssayQuestionRequest;
 import com.kakaobean.survey.dto.request.question.RegisterQuestionRequest;
 import com.kakaobean.survey.dto.request.question.RegisterRangeQuestionRequest;
 import org.springframework.http.MediaType;
@@ -9,8 +10,7 @@ import org.springframework.restdocs.payload.PayloadSubsectionExtractor;
 
 import java.io.IOException;
 
-public class RangeQuestionPayloadSubsectionExtractor implements PayloadSubsectionExtractor {
-
+class EssayQuestionPayloadSubsectionExtractor implements PayloadSubsectionExtractor {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -19,10 +19,10 @@ public class RangeQuestionPayloadSubsectionExtractor implements PayloadSubsectio
         try {
             //List<RegisterRangeQuestionRequest> result = new ArrayList<>();
             RegisterSurveyRequest request = objectMapper.readValue(payload, RegisterSurveyRequest.class);
-            RegisterRangeQuestionRequest result = null;
+            RegisterEssayQuestionRequest result = null;
             for (RegisterQuestionRequest question : request.getQuestions()) {
-                if(question.getClass() == RegisterRangeQuestionRequest.class ){
-                    RegisterRangeQuestionRequest findQuestion = (RegisterRangeQuestionRequest) question;
+                if(question.getClass() == RegisterEssayQuestionRequest.class ){
+                    RegisterEssayQuestionRequest findQuestion = (RegisterEssayQuestionRequest) question;
                     //result.add(findQuestion);
                     result  = findQuestion;
                     break;

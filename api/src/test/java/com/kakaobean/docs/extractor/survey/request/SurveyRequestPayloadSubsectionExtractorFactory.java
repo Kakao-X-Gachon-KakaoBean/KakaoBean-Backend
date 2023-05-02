@@ -1,4 +1,4 @@
-package com.kakaobean.unit.controller.survey.extractor.request;
+package com.kakaobean.docs.extractor.survey.request;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
@@ -35,18 +35,16 @@ public class SurveyRequestPayloadSubsectionExtractorFactory {
             public byte[] extractSubsection(byte[] payload, MediaType contentType) {
                 try {
                     RegisterSurveyRequest request = objectMapper.readValue(payload, RegisterSurveyRequest.class);
-                    System.out.println(request.getSurveyTitle());
                     return objectMapper.writeValueAsBytes(new Dto(request.getSurveyTitle()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 return new byte[0];
             }
 
             @Override
             public String getSubsectionId() {
-                return "surveyTitle";
+                return "";
             }
 
             @Override

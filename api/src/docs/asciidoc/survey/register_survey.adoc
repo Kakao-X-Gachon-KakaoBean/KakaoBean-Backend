@@ -4,23 +4,21 @@
 
 == 요청
 
-include::{snippets}/register_essay_question/http-request.adoc[]
+include::{snippets}/find_survey/p
 
-== 설문 요청 바디
+=== 설문 요청 바디
 
-include::{snippets}/register_survey/request-fields-surveyTitle.adoc[]
+include::{snippets}/register_survey_main/request-fields-.adoc[]
 
-=== 서술형 질문 요청 바디
+==== 서술형 질문 요청 바디
 
 include::{snippets}/register_essay_question/request-fields-questions.adoc[]
 
-
-=== Range Bar 질문 요청 바디
+==== Range Bar 질문 요청 바디
 
 include::{snippets}/register_range_bar_question/request-fields-questions.adoc[]
 
-
-=== 객관식 질문 요청 바디
+==== 객관식 질문 요청 바디
 
 include::{snippets}/register_multiple_choice_question/request-fields-questions.adoc[]
 

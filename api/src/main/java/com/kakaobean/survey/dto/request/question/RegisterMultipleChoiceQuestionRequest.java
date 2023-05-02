@@ -1,7 +1,7 @@
 package com.kakaobean.survey.dto.request.question;
 
 
-import com.kakaobean.core.survey.application.dto.request.QuestionRequestType;
+import com.kakaobean.core.survey.application.dto.QuestionDTOType;
 import com.kakaobean.core.survey.application.dto.request.question.RegisterMultipleChoiceQuestionRequestDto;
 import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionRequestDto;
 import lombok.Builder;
@@ -49,7 +49,7 @@ public class RegisterMultipleChoiceQuestionRequest extends RegisterQuestionReque
             String title,
             String explanation,
             String questionNumber,
-            QuestionRequestType type,
+            QuestionDTOType type,
             Integer numberOfAnswerChoices,
             List<String> answers,
             List<RegisterQuestionFlowLogicRequest> logics,

@@ -1,9 +1,6 @@
 package com.kakaobean.unit.controller.factory.survey.response.question;
 
-import com.kakaobean.core.survey.application.dto.request.QuestionRequestType;
 import com.kakaobean.core.survey.application.dto.response.question.*;
-import com.kakaobean.survey.dto.request.question.RegisterMultipleChoiceQuestionRequest;
-import com.kakaobean.survey.dto.request.question.RegisterQuestionFlowLogicRequest;
 
 import java.util.List;
 

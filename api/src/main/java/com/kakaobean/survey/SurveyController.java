@@ -29,7 +29,7 @@ public class SurveyController{
     }
 
     @GetMapping("/{surveyId}")
-    public ResponseEntity getSurvey(@PathVariable Long surveyId){
+    public ResponseEntity findSurvey(@PathVariable Long surveyId){
         FindSurveyResponseDto res = surveyProvider.getSurvey(surveyId);
         return new ResponseEntity(res, HttpStatus.OK);
     }

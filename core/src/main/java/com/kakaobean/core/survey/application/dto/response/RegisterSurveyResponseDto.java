@@ -1,4 +1,4 @@
-package com.kakaobean.core.survey.application.dto;
+package com.kakaobean.core.survey.application.dto.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

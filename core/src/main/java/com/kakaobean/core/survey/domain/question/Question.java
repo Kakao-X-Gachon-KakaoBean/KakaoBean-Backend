@@ -2,14 +2,13 @@ package com.kakaobean.core.survey.domain.question;
 
 import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;
+import com.kakaobean.core.survey.application.dto.response.question.FindQuestionResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
@@ -60,6 +59,24 @@ public abstract class Question extends BaseEntity {
     }
 
     protected abstract void detailValidate();
+
+    public FindQuestionResponseDto toServiceDto(){
+        return createDetailServiceDto();
+    }
+
+    protected abstract FindQuestionResponseDto createDetailServiceDto();
+
+    /**
+     * 해당 질문이 마지막 값인지 확인한다.
+     */
+    protected String hasNextQuestion(Question question){
+        if (question!=null){
+            return question.getQuestionNumber();
+        }else {
+            return "0";
+        }
+    }
+
 }
 
 /**

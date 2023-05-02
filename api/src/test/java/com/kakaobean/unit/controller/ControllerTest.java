@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaobean.config.AppProperties;
 import com.kakaobean.config.SecurityConfig;
 import com.kakaobean.config.WebMvcConfig;
+import com.kakaobean.core.member.application.MemberProvider;
 import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.core.member.application.MemberService;
+import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.member.MemberController;
 import com.kakaobean.security.TokenProvider;
@@ -13,6 +15,7 @@ import com.kakaobean.security.TokenProvider;
 import com.kakaobean.survey.SurveyController;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -60,5 +63,11 @@ public abstract class ControllerTest {
 
     @MockBean
     protected SurveyService surveyService;
+
+    @MockBean
+    protected SurveyProvider surveyProvider;
+
+    @MockBean
+    protected MemberProvider memberProvider;
 
 }

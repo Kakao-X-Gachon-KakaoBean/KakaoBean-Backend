@@ -1,15 +1,17 @@
 package com.kakaobean.unit.controller.member;
 
 import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
+import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponseDto;
+import com.kakaobean.core.member.domain.Gender;
 import com.kakaobean.member.dto.FindEmailRequest;
 import com.kakaobean.member.dto.SendVerifiedEmailRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.member.dto.RegisterMemberRequest;
+import com.kakaobean.unit.controller.security.WithMockUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -108,7 +110,7 @@ public class MemberControllerTest extends ControllerTest {
 
         //given
         FindEmailRequest req = new FindEmailRequest("bean", LocalDate.of(1999, 6, 27));
-        given(memberService.findEmailByBirthAndName(Mockito.any(String.class), Mockito.any(LocalDate.class)))
+        given(memberProvider.findEmailByBirthAndName(Mockito.any(String.class), Mockito.any(LocalDate.class)))
                 .willReturn(new FindEmailResponseDto("example@gmail.com"));
         String requestBody = objectMapper.writeValueAsString(req);
 
@@ -130,6 +132,36 @@ public class MemberControllerTest extends ControllerTest {
                         fieldWithPath("birth").type(STRING).description("이메일을 찾을 멤버 생년월일")),
                 responseFields(
                         fieldWithPath("email").type(STRING).description("찾은 이메일")
+                )
+        ));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("멤버 정보 API 명세서 테스트.")
+    void findMemberInfo() throws Exception {
+
+        //given
+        given(memberProvider.findMemberInfoByMemberId(1L))
+                .willReturn(new FindMemberInfoResponseDto("조연겸", 25, Gender.MALE, "whdusrua@naver.com", LocalDate.parse("1998-03-04")));
+
+        //when
+        ResultActions perform = mockMvc.perform(get("/members/info")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        );
+
+        //then
+        perform.andDo(print());
+        perform.andExpect(status().is2xxSuccessful());
+        perform.andDo(document("find_member_info",
+                getDocumentResponse(),
+                responseFields(
+                        fieldWithPath("name").type(STRING).description("찾은 멤버 이름"),
+                        fieldWithPath("age").type(NUMBER).description("찾은 멤버 나이"),
+                        fieldWithPath("gender").type(STRING).description("찾은 멤버 성별"),
+                        fieldWithPath("email").type(STRING).description("찾은 멤버 이메일"),
+                        fieldWithPath("birth").type(STRING).description("찾은 멤버 생일")
                 )
         ));
     }

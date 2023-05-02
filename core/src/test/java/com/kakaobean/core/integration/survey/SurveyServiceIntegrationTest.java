@@ -1,13 +1,15 @@
 package com.kakaobean.core.integration.survey;
 
-import com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory;
 import com.kakaobean.core.integration.IntegrationTest;
+import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
+import com.kakaobean.core.survey.exception.NotExistsSurveyException;
 import org.assertj.core.api.AbstractThrowableAssert;
 
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,12 +26,15 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
     @Autowired
     SurveyService surveyService;
 
+    @Autowired
+    SurveyProvider surveyProvider;
+
     @DisplayName("설문 등록을 성공한다.")
     @Test
     void registerSurvey(){
 
         //given
-        RegisterSurveyRequestDto dto = RegisterSurveyServiceDtoFactory.createSuccessCase1Request();
+        RegisterSurveyRequestDto dto = createSuccessCase1Request();
 
         //when
         RegisterSurveyResponseDto result = surveyService.registerSurvey(dto);
@@ -42,7 +48,7 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
     void registerFailCase1Survey(){
 
         //given
-        RegisterSurveyRequestDto dto = RegisterSurveyServiceDtoFactory.createFailCase1Request();
+        RegisterSurveyRequestDto dto = createFailCase1Request();
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
@@ -59,7 +65,7 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
     void registerFailCase2Survey(){
 
         //given
-        RegisterSurveyRequestDto dto = RegisterSurveyServiceDtoFactory.createFailCase2Request();
+        RegisterSurveyRequestDto dto = createFailCase2Request();
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
@@ -76,7 +82,7 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
     void registerFailCase3Survey(){
 
         //given
-        RegisterSurveyRequestDto dto = RegisterSurveyServiceDtoFactory.createFailCase3Request();
+        RegisterSurveyRequestDto dto = createFailCase3Request();
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
@@ -86,5 +92,40 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         //then
         result.isInstanceOf(NoMatchingQuestionNumberException.class);
         result.hasMessage("9번 질문에 해당하는 번호가 없습니다.");
+    }
+
+    @Test
+    @DisplayName("설문 조회를 성공한다.")
+    void successGetSurvey(){
+
+        //given
+        RegisterSurveyRequestDto dto = createSuccessCase1Request();
+        RegisterSurveyResponseDto res = surveyService.registerSurvey(dto);
+
+        //when
+        FindSurveyResponseDto result = surveyProvider.getSurvey(res.getSurveyId());
+
+        //then
+        assertThat(result.getSurveyTitle()).isEqualTo("title");
+        assertThat(result.getSurveyId()).isEqualTo(res.getSurveyId());
+
+    }
+
+    @Test
+    @DisplayName("설문 조회를 실패한다.")
+    void failGetSurvey(){
+
+        //given
+        RegisterSurveyRequestDto dto = createSuccessCase1Request();
+        RegisterSurveyResponseDto res = surveyService.registerSurvey(dto);
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            surveyProvider.getSurvey(33L);
+        });
+
+        //then
+        result.isInstanceOf(NotExistsSurveyException.class);
+        result.hasMessage("존재하지 않는 설문입니다.");
     }
 }

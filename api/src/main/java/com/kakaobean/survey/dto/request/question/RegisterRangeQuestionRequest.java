@@ -1,8 +1,8 @@
 package com.kakaobean.survey.dto.request.question;
 
-import com.kakaobean.core.survey.application.dto.QuestionRequestType;
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionRequestDto;
-import com.kakaobean.core.survey.application.dto.question.RegisterRangeQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.QuestionDTOType;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterRangeQuestionRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +37,7 @@ public class RegisterRangeQuestionRequest extends RegisterQuestionRequest{
             String title,
             String explanation,
             String questionNumber,
-            QuestionRequestType type,
+            QuestionDTOType type,
             Integer min,
             Integer max,
             Boolean finalQuestion,

@@ -1,10 +1,11 @@
 package com.kakaobean.survey.dto.request;
 
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
 import com.kakaobean.survey.dto.request.question.RegisterQuestionRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +17,15 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RegisterSurveyRequest {
 
+    @NotBlank
+    private String surveyTitle;
+
     @NotEmpty
     private List<RegisterQuestionRequest> questions = new ArrayList<>();
 
     public RegisterSurveyRequestDto toServiceDto(Long memberId) {
         return new RegisterSurveyRequestDto(
+                surveyTitle,
                 memberId,
                 questions.stream()
                         .map(RegisterQuestionRequest::toServiceDto)
@@ -31,7 +36,8 @@ public class RegisterSurveyRequest {
     /**
      * 테스트 코드에서만 사용할 것.
      */
-    public RegisterSurveyRequest(List<RegisterQuestionRequest> questions) {
+    public RegisterSurveyRequest(String surveyTitle, List<RegisterQuestionRequest> questions) {
+        this.surveyTitle = surveyTitle;
         this.questions = questions;
     }
 }

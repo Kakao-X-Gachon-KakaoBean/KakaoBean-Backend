@@ -1,4 +1,4 @@
-package com.kakaobean.core.survey.application.dto.question;
+package com.kakaobean.core.survey.application.dto.request.question;
 
 import com.kakaobean.core.survey.domain.question.Question;
 import com.kakaobean.core.survey.domain.question.range.RangeQuestion;

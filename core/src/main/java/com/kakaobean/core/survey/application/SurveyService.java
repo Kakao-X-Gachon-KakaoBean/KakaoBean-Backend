@@ -1,7 +1,7 @@
 package com.kakaobean.core.survey.application;
 
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.domain.SurveyValidator;

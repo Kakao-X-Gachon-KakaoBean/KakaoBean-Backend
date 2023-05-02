@@ -1,6 +1,6 @@
-package com.kakaobean.unit.controller.factory.survey.question;
+package com.kakaobean.unit.controller.factory.survey.request.question;
 
-import com.kakaobean.core.survey.application.dto.QuestionRequestType;
+import com.kakaobean.core.survey.application.dto.QuestionDTOType;
 import com.kakaobean.survey.dto.request.question.RegisterEssayQuestionRequest;
 import com.kakaobean.survey.dto.request.question.RegisterMultipleChoiceQuestionRequest;
 import com.kakaobean.survey.dto.request.question.RegisterQuestionFlowLogicRequest;
@@ -29,7 +29,7 @@ public class RegisterQuestionRequestFactory {
                 .title("Range Bar Question")
                 .explanation("ex1")
                 .questionNumber(questionNumber)
-                .type(QuestionRequestType.RANGE)
+                .type(QuestionDTOType.RANGE)
                 .min(1)
                 .max(10)
                 .nextQuestionNumber(nextQuestionNumber)
@@ -48,7 +48,7 @@ public class RegisterQuestionRequestFactory {
                 .title("Essay Question Title")
                 .explanation("ex2")
                 .questionNumber(questionNumber)
-                .type(QuestionRequestType.ESSAY)
+                .type(QuestionDTOType.ESSAY)
                 .nextQuestionNumber(nextQuestionNumber)
                 .finalQuestion(isFinalQuestion)
                 .build();
@@ -86,7 +86,7 @@ public class RegisterQuestionRequestFactory {
                                       .build()
                       )
                 )
-                .type(QuestionRequestType.MULTIPLE)
+                .type(QuestionDTOType.MULTIPLE)
                 .nextQuestionNumber(nextQuestionNumber)
                 .finalQuestion(isFinalQuestion)
                 .build();
@@ -113,7 +113,7 @@ public class RegisterQuestionRequestFactory {
                 .logics(
                         List.of()
                 )
-                .type(QuestionRequestType.MULTIPLE)
+                .type(QuestionDTOType.MULTIPLE)
                 .finalQuestion(isFinalQuestion)
                 .build();
     }

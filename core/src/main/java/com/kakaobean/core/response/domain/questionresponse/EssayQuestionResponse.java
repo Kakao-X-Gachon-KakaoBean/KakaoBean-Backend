@@ -18,4 +18,6 @@ public class EssayQuestionResponse extends QuestionResponse {
     public EssayQuestionResponse(String answer) {
         this.answer = answer;
     }
+
+    // 생성자 super
 }

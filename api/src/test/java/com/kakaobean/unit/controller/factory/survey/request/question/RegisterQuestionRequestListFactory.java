@@ -1,10 +1,10 @@
-package com.kakaobean.unit.controller.factory.survey.question;
+package com.kakaobean.unit.controller.factory.survey.request.question;
 
 import com.kakaobean.survey.dto.request.question.RegisterQuestionRequest;
 
 import java.util.List;
 
-import static com.kakaobean.unit.controller.factory.survey.question.RegisterQuestionRequestFactory.*;
+import static com.kakaobean.unit.controller.factory.survey.request.question.RegisterQuestionRequestFactory.*;
 
 public class RegisterQuestionRequestListFactory {
 
@@ -16,7 +16,7 @@ public class RegisterQuestionRequestListFactory {
     public static List<RegisterQuestionRequest> createSuccessListRequest(){
         return List.of(
                 createEssayQuestionSuccessRequest("1", "2", false),
-                createMultipleQuestionSuccessRequestWithLogic("2", "0",false),
+                createMultipleQuestionSuccessRequestWithLogic("2", "5",false),
                 createRangeQuestionSuccessRequest("3", "5", false),
                 createMultipleQuestionSuccessRequestWithoutLogic("4", 1, "5", false),
                 createEssayQuestionSuccessRequest("5" , "7", false),

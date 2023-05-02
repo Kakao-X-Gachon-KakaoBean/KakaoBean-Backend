@@ -1,8 +1,9 @@
 package com.kakaobean.survey;
 
+import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
-import com.kakaobean.core.survey.application.dto.GetSurveyResponseDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class SurveyController{
 
     private final SurveyService surveyService;
+    private final SurveyProvider surveyProvider;
 
     @PostMapping
     public ResponseEntity registerSurvey(@AuthenticationPrincipal Long memberId,
@@ -27,8 +29,8 @@ public class SurveyController{
     }
 
     @GetMapping("/{surveyId}")
-    public ResponseEntity getSurvey(@PathVariable Long surveyId){
-        GetSurveyResponseDto res = surveyService.getSurvey(surveyId);
+    public ResponseEntity findSurvey(@PathVariable Long surveyId){
+        FindSurveyResponseDto res = surveyProvider.getSurvey(surveyId);
         return new ResponseEntity(res, HttpStatus.OK);
     }
 

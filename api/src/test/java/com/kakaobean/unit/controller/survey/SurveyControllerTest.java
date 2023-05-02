@@ -1,11 +1,11 @@
 package com.kakaobean.unit.controller.survey;
 
 
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import com.kakaobean.unit.controller.ControllerTest;
-import com.kakaobean.unit.controller.factory.survey.RegisterSurveyRequestFactory;
+import com.kakaobean.unit.controller.factory.survey.request.RegisterSurveyRequestFactory;
 import com.kakaobean.unit.controller.security.WithMockUser;
 
 import org.junit.jupiter.api.DisplayName;
@@ -16,12 +16,12 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentRequest;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentResponse;
-import static com.kakaobean.unit.controller.survey.CustomPayloadSubsectionExtractorFactory.*;
+import static com.kakaobean.docs.extractor.survey.request.SurveyRequestPayloadSubsectionExtractorFactory.*;
 
 import static org.mockito.BDDMockito.given;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -51,9 +51,22 @@ public class SurveyControllerTest extends ControllerTest {
         //then
         perform.andDo(print());
         perform.andExpect(status().is2xxSuccessful());
+        createRegisterSurveySnippet(perform);
         createRegisterRangeBarQuestionSnippet(perform);
         createRegisterEssayQuestionSnippet(perform);
         createRegisterMultipleChoiceQuestionSnippet(perform);
+    }
+
+    private void createRegisterSurveySnippet(ResultActions perform) throws Exception {
+        perform.andDo(document("register_survey_main",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                requestFields(
+                        getSurveyExtractor(),
+                        fieldWithPath("surveyTitle").type(STRING).description("설문 제목"),
+                        fieldWithPath("questions").type(ARRAY).description("설문 질문 리스트")
+                ))
+        );
     }
 
     private void createRegisterRangeBarQuestionSnippet(ResultActions perform) throws Exception {
@@ -102,7 +115,7 @@ public class SurveyControllerTest extends ControllerTest {
                 getDocumentResponse(),
                 requestFields(
                         getMultipleChoiceQuestionExtractor(),
-                        fieldWithPath("type").type(STRING).description("질문 타ㅋ"),
+                        fieldWithPath("type").type(STRING).description("질문 타입"),
                         fieldWithPath("title").type(STRING).description("질문 제목"),
                         fieldWithPath("explanation").type(STRING).description("질문 설명"),
                         fieldWithPath("questionNumber").type(STRING).description("질문 번호"),

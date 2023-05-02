@@ -2,14 +2,13 @@ package com.kakaobean.survey.dto.request.question;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.kakaobean.core.survey.application.dto.QuestionRequestType;
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.QuestionDTOType;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionRequestDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.*;
@@ -34,7 +33,7 @@ public abstract class RegisterQuestionRequest {
     protected String questionNumber;
 
     @NotNull
-    protected QuestionRequestType type;
+    protected QuestionDTOType type;
 
     @NotNull
     protected Boolean finalQuestion;
@@ -55,7 +54,7 @@ public abstract class RegisterQuestionRequest {
             String title,
             String explanation,
             String questionNumber,
-            QuestionRequestType type,
+            QuestionDTOType type,
             Boolean finalQuestion,
             String nextQuestionNumber
     ) {

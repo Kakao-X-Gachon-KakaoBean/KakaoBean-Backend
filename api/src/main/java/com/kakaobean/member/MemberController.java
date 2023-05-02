@@ -1,6 +1,7 @@
 package com.kakaobean.member;
 
 import com.kakaobean.common.dto.CommandSuccessResponse;
+import com.kakaobean.core.member.application.MemberProvider;
 import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
 import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponseDto;
@@ -28,9 +29,10 @@ import static org.springframework.http.HttpStatus.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final MemberProvider memberProvider;
+
     private final PasswordEncoder passwordEncoder;
 
-    private final MemberRepository memberRepository;
 
     @PostMapping("/members")
     public ResponseEntity<RegisterMemberResponseDto> registerMember(@Validated @RequestBody RegisterMemberRequest request){
@@ -46,13 +48,13 @@ public class MemberController {
 
     @PostMapping("/members/find-email")
     public ResponseEntity findEmail(@RequestBody @Validated FindEmailRequest request){
-        FindEmailResponseDto res = memberService.findEmailByBirthAndName(request.getName(), request.getBirth());
+        FindEmailResponseDto res = memberProvider.findEmailByBirthAndName(request.getName(), request.getBirth());
         return new ResponseEntity(res, OK);
     }
 
     @GetMapping("/members/info")
     public ResponseEntity findMemberInfo(@AuthenticationPrincipal Long memberId) {
-        FindMemberInfoResponseDto res = memberService.findMemberInfoByMemberId(memberId);
+        FindMemberInfoResponseDto res = memberProvider.findMemberInfoByMemberId(memberId);
         return new ResponseEntity(res, OK);
     }
 

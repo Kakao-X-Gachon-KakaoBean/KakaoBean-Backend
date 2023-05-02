@@ -3,23 +3,17 @@ package com.kakaobean.unit.controller.member;
 import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
 import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponseDto;
 import com.kakaobean.core.member.domain.Gender;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
 import com.kakaobean.member.dto.FindEmailRequest;
 import com.kakaobean.member.dto.SendVerifiedEmailRequest;
-import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.member.dto.RegisterMemberRequest;
-import com.kakaobean.unit.controller.factory.survey.RegisterSurveyRequestFactory;
 import com.kakaobean.unit.controller.security.WithMockUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDate;
@@ -116,7 +110,7 @@ public class MemberControllerTest extends ControllerTest {
 
         //given
         FindEmailRequest req = new FindEmailRequest("bean", LocalDate.of(1999, 6, 27));
-        given(memberService.findEmailByBirthAndName(Mockito.any(String.class), Mockito.any(LocalDate.class)))
+        given(memberProvider.findEmailByBirthAndName(Mockito.any(String.class), Mockito.any(LocalDate.class)))
                 .willReturn(new FindEmailResponseDto("example@gmail.com"));
         String requestBody = objectMapper.writeValueAsString(req);
 
@@ -148,11 +142,11 @@ public class MemberControllerTest extends ControllerTest {
     void findMemberInfo() throws Exception {
 
         //given
-        given(memberService.findMemberInfoByMemberId(1L))
+        given(memberProvider.findMemberInfoByMemberId(1L))
                 .willReturn(new FindMemberInfoResponseDto("조연겸", 25, Gender.MALE, "whdusrua@naver.com", LocalDate.parse("1998-03-04")));
 
         //when
-        ResultActions perform = mockMvc.perform(get("/members/find-member-info")
+        ResultActions perform = mockMvc.perform(get("/members/info")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         );

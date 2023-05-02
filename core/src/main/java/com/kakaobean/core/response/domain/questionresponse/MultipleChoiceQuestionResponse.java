@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.util.List;
 
 @Getter
 @Entity
@@ -14,9 +15,9 @@ import javax.persistence.Entity;
 @DiscriminatorValue("multiple_choice_question_response")
 public class MultipleChoiceQuestionResponse extends QuestionResponse {
 
-    private String answer;
+    private List<String> answer;
 
-    public MultipleChoiceQuestionResponse(Long questionId, SurveyResponse surveyResponse, String answer) {
+    public MultipleChoiceQuestionResponse(Long questionId, SurveyResponse surveyResponse, List<String> answer) {
         super(questionId, surveyResponse);
         this.answer = answer;
     }

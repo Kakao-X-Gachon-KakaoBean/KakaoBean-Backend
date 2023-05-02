@@ -3,6 +3,7 @@ package com.kakaobean.core.survey.application.dto.response;
 import com.kakaobean.core.survey.application.dto.response.question.FindQuestionResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.question.Question;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,5 +29,12 @@ public class FindSurveyResponseDto {
 
     public static FindSurveyResponseDto from(Survey findSurvey) {
         return new FindSurveyResponseDto(findSurvey.getTitle(), findSurvey.getQuestions(), findSurvey.getId());
+    }
+
+    @Builder
+    public FindSurveyResponseDto(Long surveyId, String surveyTitle, List<FindQuestionResponseDto> questions) {
+        this.surveyId = surveyId;
+        this.surveyTitle = surveyTitle;
+        this.questions = questions;
     }
 }

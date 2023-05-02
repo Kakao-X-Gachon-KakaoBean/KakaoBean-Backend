@@ -6,22 +6,24 @@ import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponse
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.survey.request.RegisterSurveyRequestFactory;
+import com.kakaobean.unit.controller.factory.survey.response.FindSurveyResponseFactory;
 import com.kakaobean.unit.controller.security.WithMockUser;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.PayloadSubsectionExtractor;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentRequest;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentResponse;
-import static com.kakaobean.unit.controller.survey.CustomPayloadSubsectionExtractorFactory.*;
+import static com.kakaobean.unit.controller.survey.extractor.request.SurveyRequestPayloadSubsectionExtractorFactory.*;
 
 import static org.mockito.BDDMockito.given;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -51,9 +53,22 @@ public class SurveyControllerTest extends ControllerTest {
         //then
         perform.andDo(print());
         perform.andExpect(status().is2xxSuccessful());
+        createRegisterSurveySnippet(perform);
         createRegisterRangeBarQuestionSnippet(perform);
         createRegisterEssayQuestionSnippet(perform);
         createRegisterMultipleChoiceQuestionSnippet(perform);
+    }
+
+    private void createRegisterSurveySnippet(ResultActions perform) throws Exception {
+        perform.andDo(document("register_survey",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                requestFields(
+                        getSurveyExtractor(),
+                        fieldWithPath("surveyTitle").type(STRING).description("설문 제목"),
+                        fieldWithPath("questions").type(ARRAY).description("설문 질문 리스트")
+                ))
+        );
     }
 
     private void createRegisterRangeBarQuestionSnippet(ResultActions perform) throws Exception {
@@ -123,13 +138,22 @@ public class SurveyControllerTest extends ControllerTest {
 
     @Test
     @WithMockUser
-    @DisplayName("설문 등록 API 명세서 테스트.")
-    void showSurveyTest(){
+    @DisplayName("설문 조회 API 명세서 테스트.")
+    void findSurveyTest() throws Exception {
         //given
+        given(surveyProvider.getSurvey(Mockito.any(Long.class))).willReturn(FindSurveyResponseFactory.create());
 
         //when
+        ResultActions perform = mockMvc.perform(get("/surveys/{surveyId}", 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        );
 
         //then
+        perform.andDo(print());
+        perform.andExpect(status().is2xxSuccessful());
+
+
     }
 }
 

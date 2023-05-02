@@ -18,10 +18,10 @@ public class FindRangeQuestionResponseDto extends FindQuestionResponseDto {
                                         String explanation,
                                         String questionNumber,
                                         Boolean finalQuestion,
-                                        String nextQuestion,
+                                        String nextQuestionNumber,
                                         Integer min,
                                         Integer max) {
-        super(questionId, title, explanation, questionNumber, finalQuestion, nextQuestion);
+        super(questionId, title, explanation, questionNumber, finalQuestion, nextQuestionNumber);
         this.min = min;
         this.max = max;
     }

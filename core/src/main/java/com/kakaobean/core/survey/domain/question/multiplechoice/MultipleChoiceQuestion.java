@@ -1,7 +1,7 @@
 package com.kakaobean.core.survey.domain.question.multiplechoice;
 
 import com.kakaobean.core.survey.application.dto.response.question.FindMultipleChoiceQuestionAnswerDto;
-import com.kakaobean.core.survey.application.dto.response.question.FindMultipleChoiceQuestionResonseDto;
+import com.kakaobean.core.survey.application.dto.response.question.FindMultipleChoiceQuestionResponseDto;
 import com.kakaobean.core.survey.application.dto.response.question.FindQuestionFlowLogicResponseDto;
 import com.kakaobean.core.survey.application.dto.response.question.FindQuestionResponseDto;
 import com.kakaobean.core.survey.domain.question.Question;
@@ -78,7 +78,7 @@ public class MultipleChoiceQuestion extends Question {
 
     @Override
     protected FindQuestionResponseDto createDetailServiceDto() {
-        return new FindMultipleChoiceQuestionResonseDto(
+        return new FindMultipleChoiceQuestionResponseDto(
                 getId(),
                 getTitle(),
                 getExplanation(),

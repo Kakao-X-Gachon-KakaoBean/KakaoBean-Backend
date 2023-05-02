@@ -1,4 +1,4 @@
-package com.kakaobean.unit.controller.survey;
+package com.kakaobean.unit.controller.survey.extractor.request;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;

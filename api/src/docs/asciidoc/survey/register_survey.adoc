@@ -6,6 +6,9 @@
 
 include::{snippets}/register_essay_question/http-request.adoc[]
 
+== 설문 요청 바디
+
+include::{snippets}/register_survey/request-fields-surveyTitle.adoc[]
 
 === 서술형 질문 요청 바디
 

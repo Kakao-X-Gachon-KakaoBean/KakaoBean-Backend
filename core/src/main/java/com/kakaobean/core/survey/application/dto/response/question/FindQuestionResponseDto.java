@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = FindMultipleChoiceQuestionResonseDto.class, name = "MULTIPLE"),
+        @JsonSubTypes.Type(value = FindMultipleChoiceQuestionResponseDto.class, name = "MULTIPLE"),
         @JsonSubTypes.Type(value = FindEssayQuestionResponseDto.class, name = "ESSAY"),
         @JsonSubTypes.Type(value = FindRangeQuestionResponseDto.class, name = "RANGE"),
 })

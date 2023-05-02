@@ -14,8 +14,8 @@ public class FindEssayQuestionResponseDto extends FindQuestionResponseDto {
                                         String explanation,
                                         String questionNumber,
                                         Boolean finalQuestion,
-                                        String nextQuestion) {
-        super(questionId, title, explanation, questionNumber, finalQuestion, nextQuestion);
+                                        String nextQuestionNumber) {
+        super(questionId, title, explanation, questionNumber, finalQuestion, nextQuestionNumber);
     }
 
 }

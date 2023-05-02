@@ -1,13 +1,10 @@
 package com.kakaobean.core.survey.application;
 
-import com.kakaobean.core.member.exception.member.NotExistsMemberException;
-import com.kakaobean.core.survey.application.dto.GetSurveyResponseDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.domain.SurveyValidator;
-import com.kakaobean.core.survey.exception.NotExistsSurveyException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,11 +25,4 @@ public class SurveyService {
         Survey saveSurvey = surveyRepository.save(survey);
         return new RegisterSurveyResponseDto(saveSurvey.getId());
     }
-
-    public GetSurveyResponseDto getSurvey(Long surveyId) {
-        Survey findSurvey = surveyRepository.findById(surveyId)
-                .orElseThrow(() -> new NotExistsSurveyException());
-        return new GetSurveyResponseDto(findSurvey.getQuestions(), surveyId);
-    }
-
 }

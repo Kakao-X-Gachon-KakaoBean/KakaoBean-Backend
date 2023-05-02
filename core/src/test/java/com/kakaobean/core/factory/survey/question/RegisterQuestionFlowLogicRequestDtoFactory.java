@@ -1,6 +1,6 @@
 package com.kakaobean.core.factory.survey.question;
 
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionFlowLogicRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionFlowLogicRequestDto;
 
 import java.util.List;
 

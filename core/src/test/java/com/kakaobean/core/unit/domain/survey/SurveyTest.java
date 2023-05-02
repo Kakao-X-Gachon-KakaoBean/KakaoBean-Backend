@@ -2,7 +2,7 @@ package com.kakaobean.core.unit.domain.survey;
 
 import com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory;
 import com.kakaobean.core.survey.application.SurveyMapper;
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyValidator;
 import com.kakaobean.core.survey.exception.SameQuestionNumberException;

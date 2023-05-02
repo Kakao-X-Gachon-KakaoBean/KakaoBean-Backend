@@ -1,8 +1,6 @@
 package com.kakaobean.core.factory.survey.question;
 
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionRequestDto;
-import org.springframework.scheduling.config.FixedRateTask;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionRequestDto;
 
 import java.util.List;
 

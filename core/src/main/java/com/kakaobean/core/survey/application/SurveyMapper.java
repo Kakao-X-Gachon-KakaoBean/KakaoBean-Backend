@@ -1,9 +1,9 @@
 package com.kakaobean.core.survey.application;
 
-import com.kakaobean.core.survey.application.dto.RegisterSurveyRequestDto;
-import com.kakaobean.core.survey.application.dto.question.RegisterMultipleChoiceQuestionRequestDto;
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionFlowLogicRequestDto;
-import com.kakaobean.core.survey.application.dto.question.RegisterQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterMultipleChoiceQuestionRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionFlowLogicRequestDto;
+import com.kakaobean.core.survey.application.dto.request.question.RegisterQuestionRequestDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyOwner;
 import com.kakaobean.core.survey.domain.question.Question;
@@ -28,7 +28,7 @@ import static java.util.stream.Collectors.toList;
 public class SurveyMapper {
 
     public Survey mapFrom(RegisterSurveyRequestDto dto){
-        Survey survey = new Survey(new SurveyOwner(dto.getMemberId()), createQuestion(dto));
+        Survey survey = new Survey(dto.getSurveyTitle(), new SurveyOwner(dto.getMemberId()), createQuestion(dto));
         initNextQuestionForAllQuestions(survey.getQuestions(), dto.getDtoList());
         initChoiceQuestionLogic(survey.getQuestions(), dto.getDtoList());
         return survey;

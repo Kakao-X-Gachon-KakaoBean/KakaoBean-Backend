@@ -1,6 +1,5 @@
 package com.kakaobean.core.response.domain.questionresponse;
 
-import com.kakaobean.core.response.domain.SurveyResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.List;
 @DiscriminatorValue("multiple_choice_question_response")
 public class MultipleChoiceQuestionResponse extends QuestionResponse {
 
-    @OneToMany(mappedBy = "multipleChoiceQuestion", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "multipleChoiceQuestionResponse", cascade = CascadeType.ALL)
     private List<MultipleChoiceAnswerResponse> answerResponses;
 
     public MultipleChoiceQuestionResponse(Long questionId,

@@ -26,7 +26,7 @@ public class SurveyResponse extends BaseEntity {
     @Embedded
     private Respondent respondent;
 
-    @OneToMany(mappedBy = "surveyResponse")
+    @OneToMany(mappedBy = "surveyResponse", cascade = CascadeType.ALL)
     private List<QuestionResponse> questionResponses = new ArrayList<>();
 
     public SurveyResponse(Long surveyId, Respondent respondent, List<QuestionResponse> questionResponses) {

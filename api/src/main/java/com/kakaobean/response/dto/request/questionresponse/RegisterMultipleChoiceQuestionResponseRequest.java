@@ -6,6 +6,7 @@ import com.kakaobean.core.survey.application.dto.QuestionDTOType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RegisterMultipleChoiceQuestionResponseRequest extends RegisterQuestionResponseRequest{
 
+    @NotNull
     private List<RegisterMutipleChoiceAnswerResponseRequest> answers;
 
     public RegisterMultipleChoiceQuestionResponseRequest(QuestionDTOType type,

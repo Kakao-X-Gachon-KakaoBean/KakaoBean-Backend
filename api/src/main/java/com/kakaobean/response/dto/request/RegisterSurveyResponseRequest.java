@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RegisterSurveyResponseRequest {
 
-    @NotBlank
+    @Positive
     private Long surveyId;
 
     @NotEmpty

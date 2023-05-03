@@ -34,7 +34,7 @@ public class SurveyResponse extends BaseEntity {
         this.surveyId = surveyId;
         this.respondent = respondent;
         this.questionResponses = questionResponses;
-        questionResponses.forEach(questionResponse -> questionResponse.addSurveyId(this));
+        questionResponses.forEach(questionResponse -> questionResponse.addSurvey(this));
     }
 
 }

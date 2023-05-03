@@ -28,7 +28,7 @@ public abstract class QuestionResponse extends BaseEntity {
         this.questionId = questionId;
     }
 
-    public void addSurveyId(SurveyResponse surveyResponse){
+    public void addSurvey(SurveyResponse surveyResponse){
         this.surveyResponse = surveyResponse;
     }
 }

@@ -19,6 +19,7 @@ public class MultipleChoiceAnswerResponse {
 
     private String content;
 
+    @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY)
     private MultipleChoiceQuestionResponse multipleChoiceQuestionResponse;
 

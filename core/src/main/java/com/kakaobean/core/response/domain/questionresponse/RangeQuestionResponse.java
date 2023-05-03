@@ -16,8 +16,8 @@ public class RangeQuestionResponse extends QuestionResponse{
 
     private Integer answerValue;
 
-    public RangeQuestionResponse(Long questionId, SurveyResponse surveyResponse, Integer value) {
-        super(questionId, surveyResponse);
+    public RangeQuestionResponse(Long questionId, Integer value) {
+        super(questionId);
         this.answerValue = value;
     }
 }

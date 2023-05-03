@@ -15,9 +15,9 @@ public class EssayQuestionResponse extends QuestionResponse {
 
     private String answer;
 
-    public EssayQuestionResponse(String answer) {
+    public EssayQuestionResponse(Long questionId, String answer) {
+        super(questionId);
         this.answer = answer;
     }
 
-    // 생성자 super
 }

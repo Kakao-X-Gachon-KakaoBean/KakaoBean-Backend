@@ -22,9 +22,8 @@ public abstract class QuestionResponse extends BaseEntity {
     @JoinColumn
     private SurveyResponse surveyResponse;
 
-    public QuestionResponse(Long questionId, SurveyResponse surveyResponse) {
+    public QuestionResponse(Long questionId) {
         this.questionId = questionId;
-        this.surveyResponse = surveyResponse;
     }
 
     public void addSurveyId(SurveyResponse surveyResponse){

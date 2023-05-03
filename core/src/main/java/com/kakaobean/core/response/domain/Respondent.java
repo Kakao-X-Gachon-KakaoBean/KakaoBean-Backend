@@ -7,4 +7,8 @@ import javax.persistence.*;
 @Embeddable
 public class Respondent{
     private Long memberId;
+
+    public Respondent(Long memberId) {
+        this.memberId = memberId;
+    }
 }

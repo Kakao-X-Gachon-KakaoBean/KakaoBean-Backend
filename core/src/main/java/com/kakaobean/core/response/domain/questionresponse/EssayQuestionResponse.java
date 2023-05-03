@@ -16,8 +16,8 @@ public class EssayQuestionResponse extends QuestionResponse {
 
     private String answer;
 
-    public EssayQuestionResponse(Long questionId, SurveyResponse surveyResponse, String answer) {
-        super(questionId, surveyResponse);
+    public EssayQuestionResponse(Long questionId, String answer) {
+        super(questionId);
         this.answer = answer;
     }
 

@@ -26,7 +26,8 @@ public class DatabaseCleaner implements InitializingBean {
             "rangequestionresponse",
             "essayquestion",
             "multiplechoicequestion",
-            "rangequestion"
+            "rangequestion",
+            "multiplechoiceanswerresponse"
     );
 
     @Override

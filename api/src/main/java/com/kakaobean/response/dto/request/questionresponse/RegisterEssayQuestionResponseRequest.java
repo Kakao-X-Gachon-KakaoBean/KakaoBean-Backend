@@ -6,23 +6,21 @@ import com.kakaobean.core.survey.application.dto.QuestionDTOType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
 @Getter
 @NoArgsConstructor
 public class RegisterEssayQuestionResponseRequest extends RegisterQuestionResponseRequest{
 
-    private String answer;
+    private String answers;
 
-    public RegisterEssayQuestionResponseRequest(QuestionDTOType type, Long queestionId, String answer) {
+    public RegisterEssayQuestionResponseRequest(QuestionDTOType type, Long queestionId, String answers) {
         super(type, queestionId);
-        this.answer = answer;
+        this.answers = answers;
     }
 
     @Override
     protected RegisterQuestionResponseRequestDto createDetailServiceDto() {
         return new RegisterEssayQuestionResponseRequestDto(
-            questionId, answer
+            questionId, answers
         );
     }
 }

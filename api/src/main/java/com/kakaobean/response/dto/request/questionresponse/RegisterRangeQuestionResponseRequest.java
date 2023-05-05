@@ -10,17 +10,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterRangeQuestionResponseRequest extends RegisterQuestionResponseRequest{
 
-    private Integer answerValue;
+    private Integer answers;
 
-    public RegisterRangeQuestionResponseRequest(QuestionDTOType type, Long questionId, Integer answerValue) {
+    public RegisterRangeQuestionResponseRequest(QuestionDTOType type, Long questionId, Integer answers) {
         super(type, questionId);
-        this.answerValue = answerValue;
+        this.answers = answers;
     }
 
     @Override
     protected RegisterQuestionResponseRequestDto createDetailServiceDto() {
         return new RegisterRangeQuestionResponseReqeusetDto(
-                questionId, answerValue
+                questionId, answers
         );
     }
 }

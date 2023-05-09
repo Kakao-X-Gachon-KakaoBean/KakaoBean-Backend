@@ -3,6 +3,7 @@ package com.kakaobean.response.dto.request.questionresponse;
 import com.kakaobean.core.response.application.dto.request.questionresponse.RegisterEssayQuestionResponseRequestDto;
 import com.kakaobean.core.response.application.dto.request.questionresponse.RegisterQuestionResponseRequestDto;
 import com.kakaobean.core.survey.application.dto.QuestionDTOType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ public class RegisterEssayQuestionResponseRequest extends RegisterQuestionRespon
 
     private String answers;
 
+    @Builder
     public RegisterEssayQuestionResponseRequest(QuestionDTOType type, Long queestionId, String answers) {
         super(type, queestionId);
         this.answers = answers;

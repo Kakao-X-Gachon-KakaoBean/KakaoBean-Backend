@@ -9,6 +9,6 @@ public class RegisterSurveyResponseRequestFactory {
     private RegisterSurveyResponseRequestFactory(){}
 
     public static RegisterSurveyResponseRequest createSuccessSurveyResponseRequest() {
-        return new RegisterSurveyResponseRequest(1L, createSuccessQuestionResponseRequestList());
+        return new RegisterSurveyResponseRequest(2L, createSuccessQuestionResponseRequestList());
     }
 }

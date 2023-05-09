@@ -31,6 +31,7 @@ public class RegisterQuestionResponseRequestFactory {
             return RegisterRangeQuestionResponseRequest
                     .builder()
                     .type(QuestionDTOType.RANGE)
+                    .questionId(questionId)
                     .answers(7)
                     .build();
     }

@@ -7,9 +7,11 @@ import com.kakaobean.config.WebMvcConfig;
 import com.kakaobean.core.member.application.MemberProvider;
 import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.core.member.application.MemberService;
+import com.kakaobean.core.response.application.ResponseService;
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.member.MemberController;
+import com.kakaobean.response.ResponseController;
 import com.kakaobean.security.TokenProvider;
 
 import com.kakaobean.survey.SurveyController;
@@ -19,7 +21,9 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.restdocs.RestDocumentationExtension;
@@ -33,7 +37,8 @@ import org.springframework.test.web.servlet.MockMvc;
 })
 @WebMvcTest(controllers = {
         MemberController.class,
-        SurveyController.class
+        SurveyController.class,
+        ResponseController.class
 })
 @AutoConfigureRestDocs
 @MockBean(JpaMetamodelMappingContext.class)
@@ -69,5 +74,8 @@ public abstract class ControllerTest {
 
     @MockBean
     protected MemberProvider memberProvider;
+
+    @MockBean
+    protected ResponseService responseService;
 
 }

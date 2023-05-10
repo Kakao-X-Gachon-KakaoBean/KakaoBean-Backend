@@ -1,0 +1,31 @@
+= 응답 생성
+
+**로그인한 유저만 사용할 수 있다.**
+
+== 요청
+
+include::{snippets}/register_survey_response/http-request.adoc[]
+
+=== [설문 응답] 요청 바디
+
+include::{snippets}/register_survey_response/request-fields-.adoc[]
+
+=== [서술형 질문 응답] 요청 바디
+
+include::{snippets}/register_essay_question_response/request-fields-null.adoc[]
+
+=== [Range Bar 질문 응답] 요청 바디
+
+include::{snippets}/register_range_bar_question_response/request-fields-null.adoc[]
+
+=== [객관식 질문 응답] 요청 바디
+
+include::{snippets}/register_multiple_choice_question_response/request-fields-null.adoc[]
+
+== 응답
+
+include::{snippets}/register_survey_response/http-response.adoc[]
+
+=== 응답 바디
+
+include::{snippets}/register_survey_response/response-fields.adoc[]

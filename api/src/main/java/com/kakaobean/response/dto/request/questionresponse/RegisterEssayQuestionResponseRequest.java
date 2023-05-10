@@ -3,26 +3,26 @@ package com.kakaobean.response.dto.request.questionresponse;
 import com.kakaobean.core.response.application.dto.request.questionresponse.RegisterEssayQuestionResponseRequestDto;
 import com.kakaobean.core.response.application.dto.request.questionresponse.RegisterQuestionResponseRequestDto;
 import com.kakaobean.core.survey.application.dto.QuestionDTOType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
 public class RegisterEssayQuestionResponseRequest extends RegisterQuestionResponseRequest{
 
-    private String answer;
+    private String answers;
 
-    public RegisterEssayQuestionResponseRequest(QuestionDTOType type, Long queestionId, String answer) {
+    @Builder
+    public RegisterEssayQuestionResponseRequest(QuestionDTOType type, Long queestionId, String answers) {
         super(type, queestionId);
-        this.answer = answer;
+        this.answers = answers;
     }
 
     @Override
     protected RegisterQuestionResponseRequestDto createDetailServiceDto() {
         return new RegisterEssayQuestionResponseRequestDto(
-            questionId, answer
+            questionId, answers
         );
     }
 }

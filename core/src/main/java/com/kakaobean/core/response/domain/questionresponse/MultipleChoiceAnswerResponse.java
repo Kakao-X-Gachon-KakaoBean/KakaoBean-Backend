@@ -1,5 +1,6 @@
 package com.kakaobean.core.response.domain.questionresponse;
 
+import com.kakaobean.core.common.domain.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MultipleChoiceAnswerResponse {
+public class MultipleChoiceAnswerResponse extends BaseEntity {
 
     @Id
     @GeneratedValue

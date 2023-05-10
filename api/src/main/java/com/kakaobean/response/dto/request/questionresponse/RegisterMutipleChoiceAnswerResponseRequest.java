@@ -1,6 +1,7 @@
 package com.kakaobean.response.dto.request.questionresponse;
 
 import com.kakaobean.core.response.application.dto.request.questionresponse.RegisterMultipleChoiceAnswerResponseRequestDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ public class RegisterMutipleChoiceAnswerResponseRequest {
 
     private String content;
 
+    @Builder
     public RegisterMutipleChoiceAnswerResponseRequest(Long answerId, String content) {
         this.answerId = answerId;
         this.content = content;

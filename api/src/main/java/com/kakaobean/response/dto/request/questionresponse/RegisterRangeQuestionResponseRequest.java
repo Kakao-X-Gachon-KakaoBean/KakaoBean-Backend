@@ -3,6 +3,7 @@ package com.kakaobean.response.dto.request.questionresponse;
 import com.kakaobean.core.response.application.dto.request.questionresponse.RegisterQuestionResponseRequestDto;
 import com.kakaobean.core.response.application.dto.request.questionresponse.RegisterRangeQuestionResponseReqeusetDto;
 import com.kakaobean.core.survey.application.dto.QuestionDTOType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,17 +11,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterRangeQuestionResponseRequest extends RegisterQuestionResponseRequest{
 
-    private Integer answerValue;
+    private Integer answers;
 
-    public RegisterRangeQuestionResponseRequest(QuestionDTOType type, Long questionId, Integer answerValue) {
+    @Builder
+    public RegisterRangeQuestionResponseRequest(QuestionDTOType type, Long questionId, Integer answers) {
         super(type, questionId);
-        this.answerValue = answerValue;
+        this.answers = answers;
     }
 
     @Override
     protected RegisterQuestionResponseRequestDto createDetailServiceDto() {
         return new RegisterRangeQuestionResponseReqeusetDto(
-                questionId, answerValue
+                questionId, answers
         );
     }
 }

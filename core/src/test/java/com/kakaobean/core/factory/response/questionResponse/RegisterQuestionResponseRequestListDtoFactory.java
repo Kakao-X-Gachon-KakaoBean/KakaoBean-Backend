@@ -10,6 +10,7 @@ public class RegisterQuestionResponseRequestListDtoFactory {
 
     private RegisterQuestionResponseRequestListDtoFactory(){}
 
+    // 설문 응답 생성 성공 case1의 Dto 리스트
     public static List<RegisterQuestionResponseRequestDto> createSuccessListRequest(){
         return List.of(
                 createEssayQuestionResponseSuccessRequest(1L),

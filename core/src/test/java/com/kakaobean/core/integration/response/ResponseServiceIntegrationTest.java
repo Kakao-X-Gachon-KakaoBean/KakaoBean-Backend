@@ -19,7 +19,7 @@ public class ResponseServiceIntegrationTest extends IntegrationTest {
 
     @DisplayName("설문조사에 대한 응답 제출에 성공한다.")
     @Test
-    public void registerSurveyResponse(){
+    void registerSurveyResponse(){
 
         // given
         RegisterSurveyResponseRequestDto dto = createSuccessCase1Request();

@@ -12,7 +12,7 @@ public class RegisterQuestionResponseRequestDtoFactory {
     private RegisterQuestionResponseRequestDtoFactory(){}
 
     /**
-     * Essay
+     * Essay Service Dto 생성
      */
     public static RegisterEssayQuestionResponseRequestDto createEssayQuestionResponseSuccessRequest(Long questionId){
         return RegisterEssayQuestionResponseRequestDto
@@ -23,7 +23,7 @@ public class RegisterQuestionResponseRequestDtoFactory {
     }
 
     /**
-     * Range
+     * Range Service Dto 생성
      */
     public static RegisterRangeQuestionResponseReqeusetDto createRangeQuestionResponseSuccessRequest(Long questionId,
                                                                                                      Integer answerValue){
@@ -34,6 +34,9 @@ public class RegisterQuestionResponseRequestDtoFactory {
                 .build();
     }
 
+    /**
+     * Multiple Choice Service Dto 생성
+     */
     public static RegisterMultipleChoiceQuestionResponseRequestDto createMultipleChoiceQuestionResponseSuccessRequest(Long questionId){
         return RegisterMultipleChoiceQuestionResponseRequestDto
                 .builder()

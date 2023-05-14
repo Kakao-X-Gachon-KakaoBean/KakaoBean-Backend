@@ -3,7 +3,7 @@ package com.kakaobean.unit.controller.factory.response.request.question;
 import com.kakaobean.core.survey.application.dto.QuestionDTOType;
 import com.kakaobean.response.dto.request.questionresponse.RegisterEssayQuestionResponseRequest;
 import com.kakaobean.response.dto.request.questionresponse.RegisterMultipleChoiceQuestionResponseRequest;
-import com.kakaobean.response.dto.request.questionresponse.RegisterMutipleChoiceAnswerResponseRequest;
+import com.kakaobean.response.dto.request.questionresponse.RegisterMultipleChoiceAnswerResponseRequest;
 import com.kakaobean.response.dto.request.questionresponse.RegisterRangeQuestionResponseRequest;
 
 import java.util.List;
@@ -45,12 +45,12 @@ public class RegisterQuestionResponseRequestFactory {
                     .type(QuestionDTOType.MULTIPLE)
                     .questionId(questionId)
                     .answers(List.of(
-                                RegisterMutipleChoiceAnswerResponseRequest
+                                RegisterMultipleChoiceAnswerResponseRequest
                                         .builder()
                                         .answerId(1L)
                                         .content("손흥민")
                                         .build(),
-                                RegisterMutipleChoiceAnswerResponseRequest
+                                RegisterMultipleChoiceAnswerResponseRequest
                                         .builder()
                                         .answerId(2L)
                                         .content("조연겸")
@@ -68,7 +68,7 @@ public class RegisterQuestionResponseRequestFactory {
                 .type(QuestionDTOType.MULTIPLE)
                 .questionId(questionId)
                 .answers(List.of(
-                                RegisterMutipleChoiceAnswerResponseRequest
+                                RegisterMultipleChoiceAnswerResponseRequest
                                         .builder()
                                         .answerId(1L)
                                         .content(content)

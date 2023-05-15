@@ -3,6 +3,7 @@ package com.kakaobean.response.dto.request.questionresponse;
 import com.kakaobean.core.response.application.dto.request.questionresponse.RegisterMultipleChoiceQuestionResponseRequestDto;
 import com.kakaobean.core.response.application.dto.request.questionresponse.RegisterQuestionResponseRequestDto;
 import com.kakaobean.core.survey.application.dto.QuestionDTOType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,11 +16,12 @@ import java.util.stream.Collectors;
 public class RegisterMultipleChoiceQuestionResponseRequest extends RegisterQuestionResponseRequest{
 
     @NotNull
-    private List<RegisterMutipleChoiceAnswerResponseRequest> answers;
+    private List<RegisterMultipleChoiceAnswerResponseRequest> answers;
 
+    @Builder
     public RegisterMultipleChoiceQuestionResponseRequest(QuestionDTOType type,
                                                          Long questionId,
-                                                         List<RegisterMutipleChoiceAnswerResponseRequest> answers) {
+                                                         List<RegisterMultipleChoiceAnswerResponseRequest> answers) {
         super(type, questionId);
         this.answers = answers;
     }

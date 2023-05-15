@@ -9,7 +9,7 @@ import javax.validation.constraints.Positive;
 
 @Getter
 @NoArgsConstructor
-public class RegisterMutipleChoiceAnswerResponseRequest {
+public class RegisterMultipleChoiceAnswerResponseRequest {
 
     @Positive
     private Long answerId;
@@ -17,7 +17,7 @@ public class RegisterMutipleChoiceAnswerResponseRequest {
     private String content;
 
     @Builder
-    public RegisterMutipleChoiceAnswerResponseRequest(Long answerId, String content) {
+    public RegisterMultipleChoiceAnswerResponseRequest(Long answerId, String content) {
         this.answerId = answerId;
         this.content = content;
     }

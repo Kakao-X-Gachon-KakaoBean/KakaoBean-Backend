@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class RegisterMultipleChoiceQuestionResponseRequest extends RegisterQuestionResponseRequest{
 
     @NotNull
-    private List<RegisterMutipleChoiceAnswerResponseRequest> answers;
+    private List<RegisterMultipleChoiceAnswerResponseRequest> answers;
 
     @Builder
     public RegisterMultipleChoiceQuestionResponseRequest(QuestionDTOType type,
                                                          Long questionId,
-                                                         List<RegisterMutipleChoiceAnswerResponseRequest> answers) {
+                                                         List<RegisterMultipleChoiceAnswerResponseRequest> answers) {
         super(type, questionId);
         this.answers = answers;
     }

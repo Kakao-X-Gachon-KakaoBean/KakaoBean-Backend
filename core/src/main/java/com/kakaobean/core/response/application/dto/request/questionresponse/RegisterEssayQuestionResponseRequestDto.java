@@ -2,6 +2,7 @@ package com.kakaobean.core.response.application.dto.request.questionresponse;
 
 import com.kakaobean.core.response.domain.questionresponse.EssayQuestionResponse;
 import com.kakaobean.core.response.domain.questionresponse.QuestionResponse;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ public class RegisterEssayQuestionResponseRequestDto extends RegisterQuestionRes
 
     private String answer;
 
+    @Builder
     public RegisterEssayQuestionResponseRequestDto(Long questionId, String answer) {
         super(questionId);
         this.answer = answer;

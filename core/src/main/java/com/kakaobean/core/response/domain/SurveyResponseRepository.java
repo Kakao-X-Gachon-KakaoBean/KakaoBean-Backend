@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SurveyResponseRepository extends JpaRepository<SurveyResponse, Long> {
 
-    @Query("select count(r) from survey_response r where r.surveyId = :surveyId")
+    @Query("select count(r) from survey_response r where r.surveyId = :surveyId and r.status = 'ACTIVE'")
     Integer getNumberOfResponseBySurveyId(Long surveyId);
 
 }

@@ -35,7 +35,7 @@ public class SurveyController {
         return new ResponseEntity(res, HttpStatus.OK);
     }
 
-    @GetMapping("/ownSurvey")
+    @GetMapping("/own-survey")
     public ResponseEntity findOwnSurvey(@AuthenticationPrincipal Long memberId) {
         FindOwnSurveyListResponseDto res = surveyProvider.getOwnSurvey(memberId);
         return new ResponseEntity(res, HttpStatus.OK);

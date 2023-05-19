@@ -2,7 +2,6 @@ package com.kakaobean.core.survey.application;
 
 import com.kakaobean.core.response.domain.SurveyResponseRepository;
 import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyListResponseDto;
-import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyRepository;
@@ -28,7 +27,7 @@ public class SurveyProvider {
         return FindSurveyResponseDto.from(findSurvey);
     }
 
-    public FindOwnSurveyListResponseDto getOwnSurvey(Long memberId){
+    public FindOwnSurveyListResponseDto getOwnSurvey(Long memberId) {
         List<Survey> myOwnSurveys = surveyRepository.findSurveyByMemberId(memberId);
         List<Integer> numberOfResponseEachSurveys = myOwnSurveys.stream()
                 .map(survey -> surveyResponseRepository.getNumberOfResponseBySurveyId(survey.getId()))

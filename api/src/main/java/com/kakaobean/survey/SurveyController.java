@@ -2,6 +2,7 @@ package com.kakaobean.survey;
 
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
+import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyListResponseDto;
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
@@ -31,6 +32,12 @@ public class SurveyController{
     @GetMapping("/{surveyId}")
     public ResponseEntity findSurvey(@PathVariable Long surveyId){
         FindSurveyResponseDto res = surveyProvider.getSurvey(surveyId);
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/ownSurvey")
+    public ResponseEntity findOwnSurvey(@AuthenticationPrincipal Long memberId){
+        FindOwnSurveyListResponseDto res = surveyProvider.getOwnSurvey(memberId);
         return new ResponseEntity(res, HttpStatus.OK);
     }
 

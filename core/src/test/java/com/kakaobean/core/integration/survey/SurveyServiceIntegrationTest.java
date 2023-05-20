@@ -4,12 +4,14 @@ import com.kakaobean.core.integration.IntegrationTest;
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyListResponseDto;
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
 import com.kakaobean.core.survey.exception.NotExistsSurveyException;
+import com.sun.xml.bind.v2.TODO;
 import org.assertj.core.api.AbstractThrowableAssert;
 
 import org.junit.jupiter.api.DisplayName;
@@ -128,4 +130,24 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         result.isInstanceOf(NotExistsSurveyException.class);
         result.hasMessage("존재하지 않는 설문입니다.");
     }
+
+    @Test
+    @DisplayName("내가 만든 설문 조회를 성공한다.")
+    void successGetOwnSurvey(){
+        //given
+        RegisterSurveyRequestDto dto1 = createSuccessCase1Request();
+        RegisterSurveyResponseDto mySurvey1 = surveyService.registerSurvey(dto1);
+        RegisterSurveyRequestDto dto2 = createSuccessCase1Request();
+        RegisterSurveyResponseDto mySurvey2 = surveyService.registerSurvey(dto2);
+
+        //when
+        FindOwnSurveyListResponseDto result = surveyProvider.getOwnSurvey(1L);
+
+        //then
+        // 2개 등록 했으니까 조회로 가져온 설문 개수가 2개이면 통과
+        assertThat(result.getMyOwnSurveys().size()).isEqualTo(2);
+        assertThat(result.getMyOwnSurveys().get(0).getSurveyId()).isEqualTo(mySurvey1.getSurveyId());
+        assertThat(result.getMyOwnSurveys().get(1).getSurveyId()).isEqualTo(mySurvey2.getSurveyId());
+    }
+
 }

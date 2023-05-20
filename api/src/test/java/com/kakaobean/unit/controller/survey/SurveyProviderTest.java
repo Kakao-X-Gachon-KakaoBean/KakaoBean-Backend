@@ -1,6 +1,8 @@
 package com.kakaobean.unit.controller.survey;
 
+import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyListResponseDto;
 import com.kakaobean.unit.controller.ControllerTest;
+import com.kakaobean.unit.controller.factory.survey.response.FindOwnSurveyListResponseFactory;
 import com.kakaobean.unit.controller.factory.survey.response.FindSurveyResponseFactory;
 import com.kakaobean.unit.controller.security.WithMockUser;
 
@@ -26,6 +28,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class SurveyProviderTest extends ControllerTest {
+
+    @Test
+    void findOwnSurveyTest() throws Exception{
+        // given
+        given(surveyProvider.getOwnSurvey(Mockito.any(Long.class))).willReturn(FindOwnSurveyListResponseFactory.create());
+
+        // when
+        ResultActions perform = mockMvc.perform((get("/surveys/own-survey"))
+                .accept(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+
+
+    }
 
     @Test
     @WithMockUser

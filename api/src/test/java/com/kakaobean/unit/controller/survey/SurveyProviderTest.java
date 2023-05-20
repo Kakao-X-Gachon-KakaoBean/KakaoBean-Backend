@@ -30,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SurveyProviderTest extends ControllerTest {
 
     @Test
+    @WithMockUser
+    @DisplayName("내가 만든 설문 조회 API 명세서 테스트.")
     void findOwnSurveyTest() throws Exception{
         // given
         given(surveyProvider.getOwnSurvey(Mockito.any(Long.class))).willReturn(FindOwnSurveyListResponseFactory.create());
@@ -40,7 +42,19 @@ public class SurveyProviderTest extends ControllerTest {
         );
 
         // then
+        perform.andDo(print());
+        perform.andExpect(status().is2xxSuccessful());
 
+        perform.andDo(document("find_own_survey",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                responseFields(
+                        fieldWithPath("myOwnSurveys").type(ARRAY).description("내가 만든 설문 리스트"),
+                        fieldWithPath("myOwnSurveys[].surveyId").type(NUMBER).description("설문 아이디"),
+                        fieldWithPath("myOwnSurveys[].surveyTitle").type(STRING).description("설문 제목"),
+                        fieldWithPath("myOwnSurveys[].numberOfResponse").type(NUMBER).description("설문을 제출한 응답 수")
+                ))
+        );
 
     }
 

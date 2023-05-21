@@ -1,12 +1,15 @@
 package com.kakaobean.core.member.application;
 
-import com.kakaobean.core.member.domain.MemberRepository;
+import com.kakaobean.core.member.application.dto.request.ModifyMemberPasswordRequestDto;
+import com.kakaobean.core.member.domain.repository.MemberRepository;
 import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.MemberValidator;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
-import com.kakaobean.core.member.domain.email.MemberVerifiedEmailService;
+import com.kakaobean.core.member.domain.service.ModifyMemberService;
+import com.kakaobean.core.member.domain.service.VerifiedEmailService;
 
+import com.kakaobean.core.member.exception.member.NotExistsMemberException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -19,7 +22,8 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberValidator memberValidator;
-    private final MemberVerifiedEmailService memberVerifiedEmailService;
+    private final VerifiedEmailService memberVerifiedEmailService;
+    private final ModifyMemberService modifyMemberService;
 
     @Transactional(readOnly = false)
     public RegisterMemberResponseDto registerMember(RegisterMemberRequestDto dto){
@@ -31,5 +35,11 @@ public class MemberService {
 
     public void sendVerificationEmail(String email) {
         memberVerifiedEmailService.sendVerificationEmail(email);
+    }
+
+    @Transactional(readOnly = false)
+    public void modifyMemberPassword(ModifyMemberPasswordRequestDto dto){
+        Member member = memberRepository.findMemberById(dto.getMemberId()).orElseThrow(NotExistsMemberException::new);
+        member.modifyPassword(modifyMemberService, dto.getNowPassword(), dto.getPasswordToChange(), dto.getCheckPasswordToChange());
     }
 }

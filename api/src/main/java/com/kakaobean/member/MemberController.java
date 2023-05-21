@@ -6,8 +6,8 @@ import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
 import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponseDto;
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
-import com.kakaobean.core.member.domain.MemberRepository;
 import com.kakaobean.member.dto.FindEmailRequest;
+import com.kakaobean.member.dto.ModifyMemberPasswordRequest;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 
 import com.kakaobean.member.dto.SendVerifiedEmailRequest;
@@ -17,10 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -56,6 +53,13 @@ public class MemberController {
     public ResponseEntity findMemberInfo(@AuthenticationPrincipal Long memberId) {
         FindMemberInfoResponseDto res = memberProvider.findMemberInfoByMemberId(memberId);
         return new ResponseEntity(res, OK);
+    }
+
+    @PatchMapping("/members/password")
+    public ResponseEntity modifyMemberPassword(@AuthenticationPrincipal Long memberId,
+                                               @RequestBody @Validated ModifyMemberPasswordRequest request){
+        memberService.modifyMemberPassword(request.toServiceDto(memberId));
+        return new ResponseEntity(new CommandSuccessResponse(), OK)
     }
 
 

@@ -1,6 +1,6 @@
-package com.kakaobean.core.member.domain.email;
+package com.kakaobean.core.member.domain.service;
 
-public interface MemberVerifiedEmailService {
+public interface VerifiedEmailService {
     void sendVerificationEmail(String receiveEmail);
     void verifyAuthEmailKey(String email, String authKey);
 }

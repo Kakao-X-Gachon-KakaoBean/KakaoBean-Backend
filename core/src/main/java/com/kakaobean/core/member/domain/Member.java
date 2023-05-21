@@ -2,13 +2,15 @@ package com.kakaobean.core.member.domain;
 
 import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;
-import com.kakaobean.core.member.domain.email.MemberVerifiedEmailService;
+import com.kakaobean.core.member.domain.service.ModifyMemberService;
+import com.kakaobean.core.member.domain.service.VerifiedEmailService;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.net.PasswordAuthentication;
 import java.time.LocalDate;
 
 @Getter
@@ -84,9 +86,20 @@ public class Member extends BaseEntity {
     }
 
     public void place(MemberValidator memberValidator,
-                      MemberVerifiedEmailService memberVerifiedEmailService,
+                      VerifiedEmailService memberVerifiedEmailService,
                       String authKey) {
         memberValidator.validate(auth.getEmail());
         memberVerifiedEmailService.verifyAuthEmailKey(auth.getEmail(), authKey);
+    }
+
+    public void modifyPassword(ModifyMemberService modifyMemberService,
+                      String nowPassword,
+                      String passwordToChange,
+                      String checkPasswordToChange) {
+        modifyMemberService.modifyPassword(this, nowPassword, passwordToChange, checkPasswordToChange);
+    }
+
+    public void updatePassword(String newPassword) {
+        this.auth = new Auth(this.auth.getEmail(), newPassword);
     }
 }

@@ -1,12 +1,10 @@
 package com.kakaobean.core.unit.domain.member;
 
 import com.kakaobean.core.factory.member.MemberFactory;
-import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
-import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
 import com.kakaobean.core.member.domain.Member;
-import com.kakaobean.core.member.domain.MemberRepository;
+import com.kakaobean.core.member.domain.repository.MemberRepository;
 import com.kakaobean.core.member.domain.MemberValidator;
-import com.kakaobean.core.member.domain.email.MemberVerifiedEmailService;
+import com.kakaobean.core.member.domain.service.VerifiedEmailService;
 import com.kakaobean.core.member.exception.member.AlreadyExistsEmailException;
 import com.kakaobean.core.unit.UnitTest;
 import org.assertj.core.api.Assertions;
@@ -30,7 +28,7 @@ public class MemberTest extends UnitTest {
     MemberRepository memberRepository;
 
     @Mock
-    MemberVerifiedEmailService memberVerifiedEmailService;
+    VerifiedEmailService memberVerifiedEmailService;
 
     @BeforeEach
     void beforeEach(){

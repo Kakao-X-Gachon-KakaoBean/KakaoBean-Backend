@@ -51,6 +51,7 @@
 * link:/docs/survey/register_survey.html[설문 생성 API, window=_blank ]
 * link:/docs/survey/find_survey.html[설문 조회 API, window=_blank ]
 * link:/docs/survey/find_own_survey.html[내가 만든 설문 조회 API, window=_blank ]
+* link:/docs/survey/find_submitted_survey.html[내가 참여한 설문 조회 API, window=_blank ]
 
 == 응답 API
 * link:/docs/response/register_response.html[응답 생성 API, window=_blank ]

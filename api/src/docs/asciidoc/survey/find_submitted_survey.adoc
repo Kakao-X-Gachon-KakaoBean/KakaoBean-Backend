@@ -1,0 +1,15 @@
+= 내가 참여한 설문 조회
+
+**로그인한 유저만 사용할 수 있다.**
+
+== 요청
+
+include::{snippets}/find_submitted_survey/http-request.adoc[]
+
+== 응답
+
+include::{snippets}/find_submitted_survey/http-response.adoc[]
+
+=== 설문 응답 바디
+
+include::{snippets}/find_submitted_survey/response-fields.adoc[]

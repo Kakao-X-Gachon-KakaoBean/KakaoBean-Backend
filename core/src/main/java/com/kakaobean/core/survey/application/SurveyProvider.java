@@ -37,7 +37,7 @@ public class SurveyProvider {
         return FindOwnSurveyListResponseDto.from(myOwnSurveys, numberOfResponseEachSurvey);
     }
 
-    public FindSubmittedSurveyListResponseDto findSubmittedSurvey(Long memberId){
+    public FindSubmittedSurveyListResponseDto getSubmittedSurvey(Long memberId){
         List<SurveyResponse> mySurveyResponses = surveyResponseRepository.findSurveyResponseByMemberId(memberId);
         List<Survey> mySubmittedSurveys = mySurveyResponses.stream()
                 .map(mySurveyResponse -> surveyRepository.findById(mySurveyResponse.getSurveyId()).get())

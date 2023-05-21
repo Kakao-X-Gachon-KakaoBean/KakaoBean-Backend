@@ -44,7 +44,7 @@ public class SurveyController {
 
     @GetMapping("/submitted-survey")
     public ResponseEntity findSubmittedSurvey(@AuthenticationPrincipal Long memberId){
-        FindSubmittedSurveyListResponseDto res = surveyProvider.findSubmittedSurvey(memberId);
+        FindSubmittedSurveyListResponseDto res = surveyProvider.getSubmittedSurvey(memberId);
         return new ResponseEntity(res, HttpStatus.OK);
     }
 

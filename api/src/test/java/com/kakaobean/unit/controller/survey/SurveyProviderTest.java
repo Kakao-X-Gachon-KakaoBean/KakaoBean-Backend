@@ -1,8 +1,10 @@
 package com.kakaobean.unit.controller.survey;
 
 import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyListResponseDto;
+import com.kakaobean.core.survey.application.dto.response.FindSubmittedSurveyListResponseDto;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.survey.response.FindOwnSurveyListResponseFactory;
+import com.kakaobean.unit.controller.factory.survey.response.FindSubmittedSurveyListResponseFactory;
 import com.kakaobean.unit.controller.factory.survey.response.FindSurveyResponseFactory;
 import com.kakaobean.unit.controller.security.WithMockUser;
 
@@ -28,35 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class SurveyProviderTest extends ControllerTest {
-
-    @Test
-    @WithMockUser
-    @DisplayName("내가 만든 설문 조회 API 명세서 테스트.")
-    void findOwnSurveyTest() throws Exception{
-        // given
-        given(surveyProvider.getOwnSurvey(Mockito.any(Long.class))).willReturn(FindOwnSurveyListResponseFactory.create());
-
-        // when
-        ResultActions perform = mockMvc.perform((get("/surveys/own-survey"))
-                .accept(MediaType.APPLICATION_JSON)
-        );
-
-        // then
-        perform.andDo(print());
-        perform.andExpect(status().is2xxSuccessful());
-
-        perform.andDo(document("find_own_survey",
-                getDocumentRequest(),
-                getDocumentResponse(),
-                responseFields(
-                        fieldWithPath("myOwnSurveys").type(ARRAY).description("내가 만든 설문 리스트"),
-                        fieldWithPath("myOwnSurveys[].surveyId").type(NUMBER).description("설문 아이디"),
-                        fieldWithPath("myOwnSurveys[].surveyTitle").type(STRING).description("설문 제목"),
-                        fieldWithPath("myOwnSurveys[].numberOfResponse").type(NUMBER).description("설문을 제출한 응답 수")
-                ))
-        );
-
-    }
 
     @Test
     @WithMockUser
@@ -166,5 +139,66 @@ public class SurveyProviderTest extends ControllerTest {
                         fieldWithPath("questionId").type(NUMBER).description("질문의 id(pk)")
                 ))
         );
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("내가 만든 설문 조회 API 명세서 테스트.")
+    void findOwnSurveyTest() throws Exception{
+        // given
+        given(surveyProvider.getOwnSurvey(Mockito.any(Long.class)))
+                .willReturn(FindOwnSurveyListResponseFactory.create());
+
+        // when
+        ResultActions perform = mockMvc.perform((get("/surveys/own-survey"))
+                .accept(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        perform.andDo(print());
+        perform.andExpect(status().is2xxSuccessful());
+
+        perform.andDo(document("find_own_survey",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                responseFields(
+                        fieldWithPath("myOwnSurveys").type(ARRAY).description("내가 만든 설문 리스트"),
+                        fieldWithPath("myOwnSurveys[].surveyId").type(NUMBER).description("설문 아이디"),
+                        fieldWithPath("myOwnSurveys[].surveyTitle").type(STRING).description("설문 제목"),
+                        fieldWithPath("myOwnSurveys[].numberOfResponse").type(NUMBER).description("설문을 제출한 응답 수")
+                ))
+        );
+
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("내가 참여한 설문 조회 API 명세서 테스트.")
+    void findSubmittedSurveyTest() throws Exception{
+        // given
+        given(surveyProvider.getSubmittedSurvey(Mockito.any(Long.class)))
+                .willReturn(FindSubmittedSurveyListResponseFactory.create());
+
+        // when
+        ResultActions perform = mockMvc.perform((get("/surveys/submitted-survey"))
+                .accept(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        perform.andDo(print());
+        perform.andExpect(status().is2xxSuccessful());
+
+        perform.andDo(document("find_submitted_survey",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                responseFields(
+                        fieldWithPath("mySubmittedSurveys").type(ARRAY).description("내가 참여한 설문 리스트"),
+                        fieldWithPath("mySubmittedSurveys[].surveyId").type(NUMBER).description("설문 아이디"),
+                        fieldWithPath("mySubmittedSurveys[].surveyResponseId").type(NUMBER).description("설문 응답 아이디"),
+                        fieldWithPath("mySubmittedSurveys[].surveyTitle").type(STRING).description("설문 제목"),
+                        fieldWithPath("mySubmittedSurveys[].submittedDate").type(STRING).description("설문 제출한 날짜")
+                ))
+        );
+
     }
 }

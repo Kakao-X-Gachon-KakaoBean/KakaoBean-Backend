@@ -1,7 +1,9 @@
 package com.kakaobean.core.survey.application;
 
+import com.kakaobean.core.response.domain.SurveyResponse;
 import com.kakaobean.core.response.domain.SurveyResponseRepository;
 import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyListResponseDto;
+import com.kakaobean.core.survey.application.dto.response.FindSubmittedSurveyListResponseDto;
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyRepository;
@@ -29,9 +31,17 @@ public class SurveyProvider {
 
     public FindOwnSurveyListResponseDto getOwnSurvey(Long memberId) {
         List<Survey> myOwnSurveys = surveyRepository.findSurveyByMemberId(memberId);
-        List<Integer> numberOfResponseEachSurveys = myOwnSurveys.stream()
+        List<Integer> numberOfResponseEachSurvey = myOwnSurveys.stream()
                 .map(survey -> surveyResponseRepository.getNumberOfResponseBySurveyId(survey.getId()))
                 .collect(Collectors.toList());
-        return FindOwnSurveyListResponseDto.from(myOwnSurveys, numberOfResponseEachSurveys);
+        return FindOwnSurveyListResponseDto.from(myOwnSurveys, numberOfResponseEachSurvey);
+    }
+
+    public FindSubmittedSurveyListResponseDto findSubmittedSurvey(Long memberId){
+        List<SurveyResponse> mySurveyResponses = surveyResponseRepository.findSurveyResponseByMemberId(memberId);
+        List<Survey> mySubmittedSurveys = mySurveyResponses.stream()
+                .map(mySurveyResponse -> surveyRepository.findById(mySurveyResponse.getSurveyId()).get())
+                .collect(Collectors.toList());
+        return FindSubmittedSurveyListResponseDto.from(mySurveyResponses, mySubmittedSurveys);
     }
 }

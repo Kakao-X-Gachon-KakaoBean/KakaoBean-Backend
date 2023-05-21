@@ -32,7 +32,8 @@ public class SurveyProvider {
     public FindOwnSurveyListResponseDto getOwnSurvey(Long memberId) {
         List<Survey> myOwnSurveys = surveyRepository.findSurveyByMemberId(memberId);
         List<Integer> numberOfResponseEachSurvey = myOwnSurveys.stream()
-                .map(survey -> surveyResponseRepository.getNumberOfResponseBySurveyId(survey.getId()))
+                .map(survey -> surveyResponseRepository.getNumberOfResponseBySurveyId(survey.getId())
+                        .orElseThrow(NotExistsSurveyException::new))
                 .collect(Collectors.toList());
         return FindOwnSurveyListResponseDto.from(myOwnSurveys, numberOfResponseEachSurvey);
     }
@@ -40,8 +41,10 @@ public class SurveyProvider {
     public FindSubmittedSurveyListResponseDto getSubmittedSurvey(Long memberId){
         List<SurveyResponse> mySurveyResponses = surveyResponseRepository.findSurveyResponseByMemberId(memberId);
         List<Survey> mySubmittedSurveys = mySurveyResponses.stream()
-                .map(mySurveyResponse -> surveyRepository.findById(mySurveyResponse.getSurveyId()).get())
+                .map(mySurveyResponse -> surveyRepository.findSurveyBySurveyId(mySurveyResponse.getSurveyId())
+                        .orElseThrow(NotExistsSurveyException::new))
                 .collect(Collectors.toList());
+
         return FindSubmittedSurveyListResponseDto.from(mySurveyResponses, mySubmittedSurveys);
     }
 }

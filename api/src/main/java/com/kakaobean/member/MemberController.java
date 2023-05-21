@@ -59,12 +59,6 @@ public class MemberController {
     public ResponseEntity modifyMemberPassword(@AuthenticationPrincipal Long memberId,
                                                @RequestBody @Validated ModifyMemberPasswordRequest request){
         memberService.modifyMemberPassword(request.toServiceDto(memberId));
-        return new ResponseEntity(new CommandSuccessResponse(), OK)
+        return new ResponseEntity(new CommandSuccessResponse(), OK);
     }
-
-
-//    @GetMapping
-//    public String test(@AuthenticationPrincipal Long id){
-//        return String.valueOf(id);
-//    }
 }

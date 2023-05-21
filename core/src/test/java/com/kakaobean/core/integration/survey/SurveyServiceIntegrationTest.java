@@ -1,10 +1,14 @@
 package com.kakaobean.core.integration.survey;
 
 import com.kakaobean.core.integration.IntegrationTest;
+import com.kakaobean.core.response.application.ResponseService;
+import com.kakaobean.core.response.application.dto.request.RegisterSurveyResponseRequestDto;
+import com.kakaobean.core.response.application.dto.response.RegisterSurveyResponseSubmmitDto;
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
 import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyListResponseDto;
+import com.kakaobean.core.survey.application.dto.response.FindSubmittedSurveyListResponseDto;
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 
@@ -19,6 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.kakaobean.core.factory.response.RegisterSurveyResponseServiceDtoFactory.createSuccessSurveyResponseCase1Request;
 import static com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,6 +35,9 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
 
     @Autowired
     SurveyProvider surveyProvider;
+
+    @Autowired
+    ResponseService responseService;
 
     @DisplayName("설문 등록을 성공한다.")
     @Test
@@ -135,6 +143,7 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
     @DisplayName("내가 만든 설문 조회를 성공한다.")
     void successGetOwnSurvey(){
         //given
+        //설문 생성
         RegisterSurveyRequestDto dto1 = createSuccessCase1Request();
         RegisterSurveyResponseDto mySurvey1 = surveyService.registerSurvey(dto1);
         RegisterSurveyRequestDto dto2 = createSuccessCase1Request();
@@ -148,6 +157,29 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         assertThat(result.getMyOwnSurveys().size()).isEqualTo(2);
         assertThat(result.getMyOwnSurveys().get(0).getSurveyId()).isEqualTo(mySurvey1.getSurveyId());
         assertThat(result.getMyOwnSurveys().get(1).getSurveyId()).isEqualTo(mySurvey2.getSurveyId());
+    }
+
+    @Test
+    @DisplayName("내가 참여한 설문 조회를 성공한다.")
+    void successGetSubmittedSurvey(){
+        //given
+        //설문 생성
+        RegisterSurveyRequestDto dto1 = createSuccessCase1Request();
+        RegisterSurveyResponseDto mySurvey1 = surveyService.registerSurvey(dto1);
+        RegisterSurveyRequestDto dto2 = createSuccessCase1Request();
+        RegisterSurveyResponseDto mySurvey2 = surveyService.registerSurvey(dto2);
+
+        //응답 생성
+        RegisterSurveyResponseRequestDto responseDto1 = createSuccessSurveyResponseCase1Request(mySurvey1.getSurveyId());
+        RegisterSurveyResponseSubmmitDto mySurveyResponse1 = responseService.registerSurveyResponse(responseDto1);
+        RegisterSurveyResponseRequestDto responseDto2 = createSuccessSurveyResponseCase1Request(mySurvey2.getSurveyId());
+        RegisterSurveyResponseSubmmitDto mySurveyResponse2 = responseService.registerSurveyResponse(responseDto2);
+
+        //when
+        FindSubmittedSurveyListResponseDto result = surveyProvider.getSubmittedSurvey(1L);
+
+        //then
+        assertThat(result.getMySubmittedSurveys().size()).isEqualTo(2);
     }
 
 }

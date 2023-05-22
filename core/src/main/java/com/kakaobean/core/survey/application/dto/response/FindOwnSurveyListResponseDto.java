@@ -15,20 +15,20 @@ public class FindOwnSurveyListResponseDto {
     private List<FindOwnSurveyResponseDto> myOwnSurveys;
 
     public FindOwnSurveyListResponseDto(List<Survey> myOwnSurveyList,
-                                        List<Integer> numberOfResponseEachSurveys) {
-        this.myOwnSurveys = createDto(myOwnSurveyList, numberOfResponseEachSurveys);
+                                        List<Integer> numberOfResponseEachSurvey) {
+        this.myOwnSurveys = createDto(myOwnSurveyList, numberOfResponseEachSurvey);
     }
 
     public static FindOwnSurveyListResponseDto from(List<Survey> myOwnSurveyList,
-                                                    List<Integer> numberOfResponseEachSurveys) {
-        return new FindOwnSurveyListResponseDto(myOwnSurveyList, numberOfResponseEachSurveys);
+                                                    List<Integer> numberOfResponseEachSurvey) {
+        return new FindOwnSurveyListResponseDto(myOwnSurveyList, numberOfResponseEachSurvey);
     }
 
     /**
      * Dto 생성
      */
     public List<FindOwnSurveyResponseDto> createDto(List<Survey> myOwnSurveyList,
-                                                    List<Integer> numberOfResponseEachSurveys) {
+                                                    List<Integer> numberOfResponseEachSurvey) {
 
         List<FindOwnSurveyResponseDto> tempDto = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class FindOwnSurveyListResponseDto {
                     new FindOwnSurveyResponseDto(
                             myOwnSurveyList.get(i).getId(),
                             myOwnSurveyList.get(i).getTitle(),
-                            numberOfResponseEachSurveys.get(i)
+                            numberOfResponseEachSurvey.get(i)
                     )
             );
         }

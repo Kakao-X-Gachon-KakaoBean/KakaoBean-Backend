@@ -22,7 +22,7 @@ public class ResponseServiceIntegrationTest extends IntegrationTest {
     void registerSurveyResponse(){
 
         // given
-        RegisterSurveyResponseRequestDto dto = createSuccessCase1Request();
+        RegisterSurveyResponseRequestDto dto = createSuccessSurveyResponseCase1Request(2L);
 
         // when
         RegisterSurveyResponseSubmmitDto result = responseService.registerSurveyResponse(dto);
@@ -31,5 +31,7 @@ public class ResponseServiceIntegrationTest extends IntegrationTest {
         assertThat(result.getSurveyResponseId()).isNotNull();
 
     }
+
+
 
 }

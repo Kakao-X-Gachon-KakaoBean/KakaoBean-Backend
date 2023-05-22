@@ -2,7 +2,7 @@ package com.kakaobean.acceptance.auth;
 
 import com.kakaobean.acceptance.AcceptanceTest;
 import com.kakaobean.acceptance.member.MemberAcceptanceTask;
-import com.kakaobean.core.member.domain.email.EmailRepository;
+import com.kakaobean.core.member.domain.repository.EmailRepository;
 import com.kakaobean.security.local.LocalLoginRequest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
 

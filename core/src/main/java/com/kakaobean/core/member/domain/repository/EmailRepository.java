@@ -1,4 +1,6 @@
-package com.kakaobean.core.member.domain.email;
+package com.kakaobean.core.member.domain.repository;
+
+import com.kakaobean.core.member.domain.Email;
 
 public interface EmailRepository {
     void save(Email email);

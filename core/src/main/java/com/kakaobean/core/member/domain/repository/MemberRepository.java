@@ -1,5 +1,6 @@
-package com.kakaobean.core.member.domain;
+package com.kakaobean.core.member.domain.repository;
 
+import com.kakaobean.core.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

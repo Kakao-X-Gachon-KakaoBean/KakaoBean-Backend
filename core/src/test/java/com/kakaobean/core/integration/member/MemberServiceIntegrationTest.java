@@ -2,11 +2,13 @@ package com.kakaobean.core.integration.member;
 
 import com.kakaobean.core.factory.member.MemberFactory;
 import com.kakaobean.core.member.application.MemberProvider;
+import com.kakaobean.core.member.application.dto.request.ModifyMemberPasswordRequestDto;
 import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
 import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponseDto;
 import com.kakaobean.core.member.domain.*;
-import com.kakaobean.core.member.domain.email.Email;
-import com.kakaobean.core.member.domain.email.EmailRepository;
+import com.kakaobean.core.member.domain.Email;
+import com.kakaobean.core.member.domain.repository.EmailRepository;
+import com.kakaobean.core.member.domain.repository.MemberRepository;
 import com.kakaobean.core.member.exception.member.*;
 import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
 import com.kakaobean.core.integration.IntegrationTest;
@@ -15,24 +17,21 @@ import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDt
 import com.kakaobean.core.member.application.dto.response.RegisterMemberResponseDto;
 import com.kakaobean.independentlysystem.email.EmailSender;
 import org.assertj.core.api.AbstractThrowableAssert;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.mail.MailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
 import static org.mockito.BDDMockito.given;
 
 public class MemberServiceIntegrationTest extends IntegrationTest {
@@ -55,12 +54,16 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
     @Autowired
     MemberProvider memberProvider;
 
+    PasswordEncoder passwordEncoder;
+
     @BeforeEach
     void beforeEach(){
         redisTemplate.execute((RedisCallback<Void>) connection -> {
             connection.flushDb();
             return null;
-        });    }
+        });
+        this.passwordEncoder = new BCryptPasswordEncoder(); //임시 처리
+    }
 
     @DisplayName("멤버를 등록한다.")
     @Test
@@ -241,5 +244,72 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
         //then
         result.isInstanceOf(NotExistsMembersInfoException.class);
         result.hasMessage("멤버 정보가 없습니다.");
+    }
+
+    @DisplayName("비밀번호 변경을 성공한다.")
+    @Test
+    void successModifyMemberPassword(){
+
+        //given
+        String pwd = "1q2w3e4r";
+        String newPwd = "1q2w3e4r!";
+        String newCheckPwd = "1q2w3e4r!";
+
+        Member member = Member.builder()
+                .auth(new Auth("123@gmail.com", passwordEncoder.encode(pwd)))
+                .build();
+        Member findMember = memberRepository.save(member);
+
+        //when
+        memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(findMember.getId(), pwd, newPwd, newCheckPwd));
+
+        //then
+        assertThat(passwordEncoder.matches(newPwd, member.getAuth().getPassword())).isTrue();
+    }
+
+    @DisplayName("비밀번호 변경에서 기존 비밀번호와 입력한 검증 비밀번호가 다르므로 변경을 실패한다.")
+    @Test
+    void failModifyMemberPasswordCase1(){
+
+        //given
+        String pwd = "1q2w3e4r";
+        String newPwd = "1q2w3e4r!";
+        String newCheckPwd = "1q2w3e4r!";
+
+        Member member = Member.builder()
+                .auth(new Auth("123@gmail.com", passwordEncoder.encode("notSamePwd")))
+                .build();
+        Member findMember = memberRepository.save(member);
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(findMember.getId(), pwd, newPwd, newCheckPwd));
+        });
+
+        //then
+        result.isInstanceOf(NotValidPasswordException.class);
+    }
+
+    @DisplayName("비밀번호 변경에서 입력한 새로운 비밀번호와 새로운 비밀번호를 확인할 비밀번호가 다르므로 변경을 실패한다.")
+    @Test
+    void failModifyMemberPasswordCase2(){
+
+        //given
+        String pwd = "1q2w3e4r";
+        String newPwd = "1q2w3e4r!";
+        String newCheckPwd = "1q2w3e4r!!";
+
+        Member member = Member.builder()
+                .auth(new Auth("123@gmail.com", passwordEncoder.encode(pwd)))
+                .build();
+        Member findMember = memberRepository.save(member);
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(findMember.getId(), pwd, newPwd, newCheckPwd));
+        });
+
+        //then
+        result.isInstanceOf(DiffrentPasswordAndCheckPasswordException.class);
     }
 }

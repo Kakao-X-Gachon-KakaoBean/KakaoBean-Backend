@@ -4,6 +4,7 @@ import com.kakaobean.core.member.application.dto.response.FindEmailResponseDto;
 import com.kakaobean.core.member.application.dto.response.FindMemberInfoResponseDto;
 import com.kakaobean.core.member.domain.Gender;
 import com.kakaobean.member.dto.FindEmailRequest;
+import com.kakaobean.member.dto.ModifyMemberPasswordRequest;
 import com.kakaobean.member.dto.SendVerifiedEmailRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
@@ -162,6 +163,41 @@ public class MemberControllerTest extends ControllerTest {
                         fieldWithPath("gender").type(STRING).description("찾은 멤버 성별"),
                         fieldWithPath("email").type(STRING).description("찾은 멤버 이메일"),
                         fieldWithPath("birth").type(STRING).description("찾은 멤버 생일")
+                )
+        ));
+    }
+
+
+    @Test
+    @WithMockUser
+    @DisplayName("멤버 정보 API 명세서 테스트.")
+    void modifyMemberPassword() throws Exception {
+
+        ModifyMemberPasswordRequest request =
+                new ModifyMemberPasswordRequest("1q2w3e4r", "1q2w3e4r!", "1q2w3e4r!");
+        String requestBody = objectMapper.writeValueAsString(request);
+
+
+        //when
+        ResultActions perform = mockMvc.perform(patch("/members/password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(requestBody)
+        );
+
+        //then
+        perform.andDo(print());
+        perform.andExpect(status().is2xxSuccessful());
+        perform.andDo(document("modify_member_password",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                requestFields(
+                        fieldWithPath("nowPassword").type(STRING).description("현재 비밀번호"),
+                        fieldWithPath("passwordToChange").type(STRING).description("변경할 비밀번호"),
+                        fieldWithPath("checkPasswordToChange").type(STRING).description("변경할 비밀번호를 체크할 비밀번호")
+                ),
+                responseFields(
+                        fieldWithPath("message").type(STRING).description("성공메시지")
                 )
         ));
     }

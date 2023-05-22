@@ -1,7 +1,7 @@
 package com.kakaobean.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kakaobean.core.member.domain.MemberRepository;
+import com.kakaobean.core.member.domain.repository.MemberRepository;
 import com.kakaobean.security.*;
 import com.kakaobean.security.local.LoginFilter;
 import com.kakaobean.security.local.LoginSuccessHandler;

@@ -1,7 +1,6 @@
 package com.kakaobean.acceptance.member;
 
 import com.kakaobean.acceptance.AcceptanceTest;
-import com.kakaobean.core.member.domain.email.EmailRepository;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 import com.kakaobean.unit.controller.factory.member.RegisterMemberRequestFactory;
 

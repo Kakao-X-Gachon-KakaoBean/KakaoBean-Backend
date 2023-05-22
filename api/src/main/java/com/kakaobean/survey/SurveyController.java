@@ -40,5 +40,4 @@ public class SurveyController {
         FindOwnSurveyListResponseDto res = surveyProvider.getOwnSurvey(memberId);
         return new ResponseEntity(res, HttpStatus.OK);
     }
-
 }

@@ -1,8 +1,8 @@
 package com.kakaobean.core.member.infrastructure;
 
-import com.kakaobean.core.member.domain.email.Email;
-import com.kakaobean.core.member.domain.email.EmailRepository;
-import com.kakaobean.core.member.domain.email.MemberVerifiedEmailService;
+import com.kakaobean.core.member.domain.Email;
+import com.kakaobean.core.member.domain.repository.EmailRepository;
+import com.kakaobean.core.member.domain.service.VerifiedEmailService;
 import com.kakaobean.core.member.exception.member.NotExistsEmailException;
 import com.kakaobean.core.member.exception.member.WrongEmailAuthKeyException;
 import com.kakaobean.independentlysystem.email.EmailSender;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class MemberVerifiedEmailServiceImpl implements MemberVerifiedEmailService {
+public class MemberVerifiedEmailServiceImpl implements VerifiedEmailService {
 
     private final EmailSender emailSender;
     private final EmailRepository emailRepository;

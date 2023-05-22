@@ -2,7 +2,7 @@ package com.kakaobean.security.oauth2;
 
 import com.kakaobean.core.member.domain.AuthProvider;
 import com.kakaobean.core.member.domain.Member;
-import com.kakaobean.core.member.domain.MemberRepository;
+import com.kakaobean.core.member.domain.repository.MemberRepository;
 import com.kakaobean.core.member.domain.Role;
 import com.kakaobean.security.UserPrincipal;
 import com.kakaobean.security.oauth2.user.OAuth2UserInfo;

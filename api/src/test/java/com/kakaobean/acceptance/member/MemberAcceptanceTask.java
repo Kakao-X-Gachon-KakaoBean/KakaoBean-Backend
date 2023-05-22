@@ -1,7 +1,7 @@
 package com.kakaobean.acceptance.member;
 
-import com.kakaobean.core.member.domain.email.Email;
-import com.kakaobean.core.member.domain.email.EmailRepository;
+import com.kakaobean.core.member.domain.Email;
+import com.kakaobean.core.member.domain.repository.EmailRepository;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 
 import io.restassured.RestAssured;

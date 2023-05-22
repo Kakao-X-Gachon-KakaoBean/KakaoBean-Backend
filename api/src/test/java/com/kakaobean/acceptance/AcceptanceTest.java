@@ -1,7 +1,7 @@
 package com.kakaobean.acceptance;
 
 
-import com.kakaobean.core.member.domain.email.EmailRepository;
+import com.kakaobean.core.member.domain.repository.EmailRepository;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;

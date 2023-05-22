@@ -4,7 +4,7 @@ package com.kakaobean.security;
 import com.kakaobean.core.member.exception.member.NotExistsEmailException;
 import com.kakaobean.core.member.exception.member.NotExistsMemberException;
 import com.kakaobean.core.member.domain.Member;
-import com.kakaobean.core.member.domain.MemberRepository;
+import com.kakaobean.core.member.domain.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 

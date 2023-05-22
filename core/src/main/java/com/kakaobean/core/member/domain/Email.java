@@ -1,4 +1,4 @@
-package com.kakaobean.core.member.domain.email;
+package com.kakaobean.core.member.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

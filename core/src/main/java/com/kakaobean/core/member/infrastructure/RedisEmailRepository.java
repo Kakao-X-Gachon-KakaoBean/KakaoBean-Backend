@@ -1,7 +1,7 @@
 package com.kakaobean.core.member.infrastructure;
 
-import com.kakaobean.core.member.domain.email.Email;
-import com.kakaobean.core.member.domain.email.EmailRepository;
+import com.kakaobean.core.member.domain.Email;
+import com.kakaobean.core.member.domain.repository.EmailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;

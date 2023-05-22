@@ -1,15 +1,21 @@
 package com.kakaobean.core.integration.survey;
 
 import com.kakaobean.core.integration.IntegrationTest;
+import com.kakaobean.core.response.application.ResponseService;
+import com.kakaobean.core.response.application.dto.request.RegisterSurveyResponseRequestDto;
+import com.kakaobean.core.response.application.dto.response.RegisterSurveyResponseSubmmitDto;
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyListResponseDto;
+import com.kakaobean.core.survey.application.dto.response.FindSubmittedSurveyListResponseDto;
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
 import com.kakaobean.core.survey.exception.NotExistsSurveyException;
+import com.sun.xml.bind.v2.TODO;
 import org.assertj.core.api.AbstractThrowableAssert;
 
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.kakaobean.core.factory.response.RegisterSurveyResponseServiceDtoFactory.createSuccessSurveyResponseCase1Request;
 import static com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,6 +35,9 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
 
     @Autowired
     SurveyProvider surveyProvider;
+
+    @Autowired
+    ResponseService responseService;
 
     @DisplayName("설문 등록을 성공한다.")
     @Test
@@ -128,4 +138,48 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         result.isInstanceOf(NotExistsSurveyException.class);
         result.hasMessage("존재하지 않는 설문입니다.");
     }
+
+    @Test
+    @DisplayName("내가 만든 설문 조회를 성공한다.")
+    void successGetOwnSurvey(){
+        //given
+        //설문 생성
+        RegisterSurveyRequestDto dto1 = createSuccessCase1Request();
+        RegisterSurveyResponseDto mySurvey1 = surveyService.registerSurvey(dto1);
+        RegisterSurveyRequestDto dto2 = createSuccessCase1Request();
+        RegisterSurveyResponseDto mySurvey2 = surveyService.registerSurvey(dto2);
+
+        //when
+        FindOwnSurveyListResponseDto result = surveyProvider.getOwnSurvey(1L);
+
+        //then
+        // 2개 등록 했으니까 조회로 가져온 설문 개수가 2개이면 통과
+        assertThat(result.getMyOwnSurveys().size()).isEqualTo(2);
+        assertThat(result.getMyOwnSurveys().get(0).getSurveyId()).isEqualTo(mySurvey1.getSurveyId());
+        assertThat(result.getMyOwnSurveys().get(1).getSurveyId()).isEqualTo(mySurvey2.getSurveyId());
+    }
+
+    @Test
+    @DisplayName("내가 참여한 설문 조회를 성공한다.")
+    void successGetSubmittedSurvey(){
+        //given
+        //설문 생성
+        RegisterSurveyRequestDto dto1 = createSuccessCase1Request();
+        RegisterSurveyResponseDto mySurvey1 = surveyService.registerSurvey(dto1);
+        RegisterSurveyRequestDto dto2 = createSuccessCase1Request();
+        RegisterSurveyResponseDto mySurvey2 = surveyService.registerSurvey(dto2);
+
+        //응답 생성
+        RegisterSurveyResponseRequestDto responseDto1 = createSuccessSurveyResponseCase1Request(mySurvey1.getSurveyId());
+        RegisterSurveyResponseSubmmitDto mySurveyResponse1 = responseService.registerSurveyResponse(responseDto1);
+        RegisterSurveyResponseRequestDto responseDto2 = createSuccessSurveyResponseCase1Request(mySurvey2.getSurveyId());
+        RegisterSurveyResponseSubmmitDto mySurveyResponse2 = responseService.registerSurveyResponse(responseDto2);
+
+        //when
+        FindSubmittedSurveyListResponseDto result = surveyProvider.getSubmittedSurvey(1L);
+
+        //then
+        assertThat(result.getMySubmittedSurveys().size()).isEqualTo(2);
+    }
+
 }

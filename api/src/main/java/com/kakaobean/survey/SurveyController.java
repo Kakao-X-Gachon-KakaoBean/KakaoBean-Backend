@@ -2,9 +2,7 @@ package com.kakaobean.survey;
 
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
-import com.kakaobean.core.survey.application.dto.response.FindOwnSurveyListResponseDto;
-import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
-import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.*;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,4 +38,18 @@ public class SurveyController {
         FindOwnSurveyListResponseDto res = surveyProvider.getOwnSurvey(memberId);
         return new ResponseEntity(res, HttpStatus.OK);
     }
+
+    @GetMapping("/submitted-survey")
+    public ResponseEntity findSubmittedSurvey(@AuthenticationPrincipal Long memberId){
+        FindSubmittedSurveyListResponseDto res = surveyProvider.getSubmittedSurvey(memberId);
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{surveyId}")
+    public ResponseEntity removeSurvey(@PathVariable Long surveyId){
+        RemoveSurveyResponseDto res = surveyService.removeSurvey(surveyId);
+        // 여기에 응답 삭제하는 라인 넣으면 된다는거져?
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+
 }

@@ -25,6 +25,8 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -131,6 +133,30 @@ public class SurveyControllerTest extends ControllerTest {
                 )
         ));
     }
+
+    @Test
+    @WithMockUser
+    @DisplayName("설문 삭제 API 명세서 테스트.")
+    void removeSurveyTest() throws Exception {
+        //when
+        ResultActions perform = mockMvc.perform(delete("/surveys/{surveyId}", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        );
+
+        //then
+        perform.andDo(document("remove_survey",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                pathParameters(
+                        parameterWithName("surveyId").description("삭제할 설문 아이디")
+                ),
+                responseFields(
+                        fieldWithPath("message").type(STRING).description("성공메시지")
+                )
+        ));
+    }
+
 }
 
 

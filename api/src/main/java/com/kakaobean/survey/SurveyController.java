@@ -1,5 +1,6 @@
 package com.kakaobean.survey;
 
+import com.kakaobean.common.dto.CommandSuccessResponse;
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.core.survey.application.dto.response.*;
@@ -48,8 +49,8 @@ public class SurveyController {
     @DeleteMapping("/{surveyId}")
     public ResponseEntity removeSurvey(@AuthenticationPrincipal Long memberId,
                                        @PathVariable Long surveyId){
-        RemoveSurveyResponseDto res = surveyService.removeSurvey(memberId, surveyId);
-        return new ResponseEntity(res, HttpStatus.OK);
+        surveyService.removeSurvey(memberId, surveyId);
+        return new ResponseEntity(new CommandSuccessResponse(), HttpStatus.OK);
     }
 
 }

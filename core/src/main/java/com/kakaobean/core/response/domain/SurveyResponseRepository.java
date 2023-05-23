@@ -20,7 +20,7 @@ public interface SurveyResponseRepository extends JpaRepository<SurveyResponse, 
     List<SurveyResponse> findSurveyResponseBySurveyId(Long surveyId);
 
     @Modifying
-    @Query("delete from survey_response r where r.surveyId = :surveyId and r.status = 'ACTIVE'")
+    @Query("update survey_response r set r.status = 'INACTIVE' where r.surveyId = :surveyId and r.status = 'ACTIVE'")
     void deleteAllBySurveyId(Long surveyId);
 
 }

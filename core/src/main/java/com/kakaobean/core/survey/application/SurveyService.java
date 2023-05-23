@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 @RequiredArgsConstructor
 public class SurveyService {
 
@@ -25,7 +25,6 @@ public class SurveyService {
     private final SurveyMapper surveyMapper;
     private final SurveyValidator surveyValidator;
 
-    @Transactional
     public RegisterSurveyResponseDto registerSurvey(RegisterSurveyRequestDto dto){
         Survey survey = surveyMapper.mapFrom(dto);
         survey.place(surveyValidator);
@@ -33,11 +32,9 @@ public class SurveyService {
         return new RegisterSurveyResponseDto(saveSurvey.getId());
     }
 
-    @Transactional
-    public RemoveSurveyResponseDto removeSurvey(Long memberId, Long surveyId){
+    public void removeSurvey(Long memberId, Long surveyId){
         Survey survey = surveyRepository.findSurveyBySurveyIdAndOwnerId(surveyId, memberId)
                 .orElseThrow(NotExistsSurveyException::new);
         survey.remove();
-        return new RemoveSurveyResponseDto("해당 설문이 삭제되었습니다.");
     }
 }

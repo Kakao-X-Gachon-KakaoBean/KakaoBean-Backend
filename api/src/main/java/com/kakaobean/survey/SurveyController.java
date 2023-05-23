@@ -46,9 +46,9 @@ public class SurveyController {
     }
 
     @DeleteMapping("/{surveyId}")
-    public ResponseEntity removeSurvey(@PathVariable Long surveyId){
-        RemoveSurveyResponseDto res = surveyService.removeSurvey(surveyId);
-        // 여기에 응답 삭제하는 라인 넣으면 된다는거져?
+    public ResponseEntity removeSurvey(@AuthenticationPrincipal Long memberId,
+                                       @PathVariable Long surveyId){
+        RemoveSurveyResponseDto res = surveyService.removeSurvey(memberId, surveyId);
         return new ResponseEntity(res, HttpStatus.OK);
     }
 

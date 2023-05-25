@@ -2,6 +2,8 @@ package com.kakaobean.core.survey.domain;
 
 import com.kakaobean.core.common.domain.BaseEntity;
 import com.kakaobean.core.common.domain.BaseStatus;
+import com.kakaobean.core.common.event.Events;
+import com.kakaobean.core.survey.domain.event.RemovedSurveyEvent;
 import com.kakaobean.core.survey.domain.question.Question;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -53,5 +55,10 @@ public class Survey extends BaseEntity {
 
     public void place(SurveyValidator surveyValidator) {
         surveyValidator.validate(this);
+    }
+
+    public void remove() {
+        super.delete();
+        Events.raise(new RemovedSurveyEvent(id));
     }
 }

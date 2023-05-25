@@ -1,5 +1,6 @@
 package com.kakaobean.core.integration.survey;
 
+import com.kakaobean.core.factory.survey.SurveyFactory;
 import com.kakaobean.core.integration.IntegrationTest;
 import com.kakaobean.core.response.application.ResponseService;
 import com.kakaobean.core.response.application.dto.request.RegisterSurveyResponseRequestDto;
@@ -12,21 +13,30 @@ import com.kakaobean.core.survey.application.dto.response.FindSubmittedSurveyLis
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 
+import com.kakaobean.core.survey.domain.Survey;
+import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
 import com.kakaobean.core.survey.exception.NotExistsSurveyException;
 import com.sun.xml.bind.v2.TODO;
 import org.assertj.core.api.AbstractThrowableAssert;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.EntityManager;
+import java.util.Optional;
+
+import static com.kakaobean.core.common.domain.BaseStatus.INACTIVE;
 import static com.kakaobean.core.factory.response.RegisterSurveyResponseServiceDtoFactory.createSuccessSurveyResponseCase1Request;
 import static com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 
 public class SurveyServiceIntegrationTest extends IntegrationTest {
 
@@ -38,6 +48,12 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
 
     @Autowired
     ResponseService responseService;
+
+    @Autowired
+    SurveyRepository surveyRepository;
+
+    @Autowired
+    EntityManager em;
 
     @DisplayName("설문 등록을 성공한다.")
     @Test
@@ -182,4 +198,19 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         assertThat(result.getMySubmittedSurveys().size()).isEqualTo(2);
     }
 
+
+    @DisplayName("설문을 삭제한다.")
+    @Test
+    void removeSurvey(){
+
+        //given
+        RegisterSurveyRequestDto dto = createSuccessCase1Request();
+        RegisterSurveyResponseDto result = surveyService.registerSurvey(dto);
+
+        //when
+        surveyService.removeSurvey(1L, result.getSurveyId());
+
+        //then
+        assertThat(surveyRepository.findById(result.getSurveyId()).get().getStatus()).isSameAs(INACTIVE);
+    }
 }

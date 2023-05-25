@@ -1,5 +1,6 @@
 package com.kakaobean.survey;
 
+import com.kakaobean.common.dto.CommandSuccessResponse;
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.core.survey.application.dto.response.*;
@@ -46,10 +47,10 @@ public class SurveyController {
     }
 
     @DeleteMapping("/{surveyId}")
-    public ResponseEntity removeSurvey(@PathVariable Long surveyId){
-        RemoveSurveyResponseDto res = surveyService.removeSurvey(surveyId);
-        // 여기에 응답 삭제하는 라인 넣으면 된다는거져?
-        return new ResponseEntity(res, HttpStatus.OK);
+    public ResponseEntity removeSurvey(@AuthenticationPrincipal Long memberId,
+                                       @PathVariable Long surveyId){
+        surveyService.removeSurvey(memberId, surveyId);
+        return new ResponseEntity(new CommandSuccessResponse(), HttpStatus.OK);
     }
 
 }

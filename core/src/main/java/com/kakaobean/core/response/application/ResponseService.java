@@ -8,6 +8,7 @@ import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.exception.NotExistsSurveyException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -28,5 +29,10 @@ public class ResponseService {
         SurveyResponse surveyResponse = surveyResponseMapper.mapForm(dto);
         SurveyResponse saveSurveyResponse = surveyResponseRepository.save(surveyResponse);
         return new RegisterSurveyResponseSubmmitDto(saveSurveyResponse.getId());
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void removeSurveyResponses(Long surveyId){
+        surveyResponseRepository.deleteAllBySurveyId(surveyId);
     }
 }

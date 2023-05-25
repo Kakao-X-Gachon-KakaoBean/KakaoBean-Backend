@@ -22,5 +22,6 @@ dependencies {
 
 
     implementation 'org.springframework.security:spring-security-crypto'
+    testImplementation 'org.mockito:mockito-inline:3.6.0' //static 메서드를 mocking
 
 }

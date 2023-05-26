@@ -170,11 +170,11 @@ public class MemberControllerTest extends ControllerTest {
 
     @Test
     @WithMockUser
-    @DisplayName("멤버 비밀번호 변경 API 명세서 테스트.")
+    @DisplayName("멤버 비밀번호 수정")
     void modifyMemberPassword() throws Exception {
 
         ModifyMemberPasswordRequest request =
-                new ModifyMemberPasswordRequest("1q2w3e4r", "1q2w3e4r!", "1q2w3e4r!");
+                new ModifyMemberPasswordRequest("123@gmail.com", "111336", "1q2w3e4r!", "1q2w3e4r!");
         String requestBody = objectMapper.writeValueAsString(request);
 
 
@@ -192,7 +192,8 @@ public class MemberControllerTest extends ControllerTest {
                 getDocumentRequest(),
                 getDocumentResponse(),
                 requestFields(
-                        fieldWithPath("nowPassword").type(STRING).description("현재 비밀번호"),
+                        fieldWithPath("email").type(STRING).description("인증할 본인 이메일"),
+                        fieldWithPath("emailAuthKey").type(STRING).description("이메일 검증 키"),
                         fieldWithPath("passwordToChange").type(STRING).description("변경할 비밀번호"),
                         fieldWithPath("checkPasswordToChange").type(STRING).description("변경할 비밀번호를 체크할 비밀번호")
                 ),

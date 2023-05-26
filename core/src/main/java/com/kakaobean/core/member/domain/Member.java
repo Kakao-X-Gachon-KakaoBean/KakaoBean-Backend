@@ -73,7 +73,8 @@ public class Member extends BaseEntity {
                   Role role,
                   Gender gender,
                   LocalDate birth,
-                  AuthProvider authProvider) {
+                  AuthProvider authProvider
+    ) {
         super(BaseStatus.ACTIVE);
         this.id = id;
         this.name = name;
@@ -85,18 +86,19 @@ public class Member extends BaseEntity {
         this.authProvider = authProvider;
     }
 
-    public void place(MemberValidator memberValidator,
-                      VerifiedEmailService memberVerifiedEmailService,
-                      String authKey) {
+    public void validate(MemberValidator memberValidator) {
         memberValidator.validate(auth.getEmail());
+    }
+
+    public void verifyEmail(VerifiedEmailService memberVerifiedEmailService,
+                      String authKey){
         memberVerifiedEmailService.verifyAuthEmailKey(auth.getEmail(), authKey);
     }
 
     public void modifyPassword(ModifyMemberService modifyMemberService,
-                      String nowPassword,
-                      String passwordToChange,
-                      String checkPasswordToChange) {
-        modifyMemberService.modifyPassword(this, nowPassword, passwordToChange, checkPasswordToChange);
+                               String passwordToChange,
+                               String checkPasswordToChange) {
+        modifyMemberService.modifyPassword(this, passwordToChange, checkPasswordToChange);
     }
 
     public void updatePassword(String newPassword) {

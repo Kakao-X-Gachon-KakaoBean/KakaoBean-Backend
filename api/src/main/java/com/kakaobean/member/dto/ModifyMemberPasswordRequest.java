@@ -8,17 +8,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ModifyMemberPasswordRequest {
 
-    private String nowPassword;
+    private String email;
+    private String emailAuthKey;
     private String passwordToChange;
     private String checkPasswordToChange;
 
-    public ModifyMemberPasswordRequest(String nowPassword, String passwordToChange, String checkPasswordToChange) {
-        this.nowPassword = nowPassword;
+    public ModifyMemberPasswordRequest(String email,
+                                       String emailAuthKey,
+                                       String passwordToChange,
+                                       String checkPasswordToChange) {
+        this.email = email;
+        this.emailAuthKey = emailAuthKey;
         this.passwordToChange = passwordToChange;
         this.checkPasswordToChange = checkPasswordToChange;
     }
 
-    public ModifyMemberPasswordRequestDto toServiceDto(Long memberId) {
-        return new ModifyMemberPasswordRequestDto(memberId, nowPassword, passwordToChange, checkPasswordToChange);
+    public ModifyMemberPasswordRequestDto toServiceDto() {
+        return new ModifyMemberPasswordRequestDto(email, emailAuthKey, passwordToChange, checkPasswordToChange);
     }
 }

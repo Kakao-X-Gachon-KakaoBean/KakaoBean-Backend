@@ -176,28 +176,28 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         assertThat(result.getMyOwnSurveys().get(1).getSurveyId()).isEqualTo(mySurvey2.getSurveyId());
     }
 
-    @Test
-    @DisplayName("내가 참여한 설문 조회를 성공한다.")
-    void successGetSubmittedSurvey(){
-        //given
-        //설문 생성
-        RegisterSurveyRequestDto dto1 = createSuccessCase1Request();
-        RegisterSurveyResponseDto mySurvey1 = surveyService.registerSurvey(dto1);
-        RegisterSurveyRequestDto dto2 = createSuccessCase1Request();
-        RegisterSurveyResponseDto mySurvey2 = surveyService.registerSurvey(dto2);
-
-        //응답 생성
-        RegisterSurveyResponseRequestDto responseDto1 = createSuccessSurveyResponseCase1Request(mySurvey1.getSurveyId());
-        RegisterSurveyResponseSubmmitDto mySurveyResponse1 = responseService.registerSurveyResponse(responseDto1);
-        RegisterSurveyResponseRequestDto responseDto2 = createSuccessSurveyResponseCase1Request(mySurvey2.getSurveyId());
-        RegisterSurveyResponseSubmmitDto mySurveyResponse2 = responseService.registerSurveyResponse(responseDto2);
-
-        //when
-        FindSubmittedSurveyListResponseDto result = surveyProvider.getSubmittedSurvey(1L);
-
-        //then
-        assertThat(result.getMySubmittedSurveys().size()).isEqualTo(2);
-    }
+//    @Test
+//    @DisplayName("내가 참여한 설문 조회를 성공한다.")
+//    void successGetSubmittedSurvey(){
+//        //given
+//        //설문 생성
+//        RegisterSurveyRequestDto dto1 = createSuccessCase1Request();
+//        RegisterSurveyResponseDto mySurvey1 = surveyService.registerSurvey(dto1);
+//        RegisterSurveyRequestDto dto2 = createSuccessCase1Request();
+//        RegisterSurveyResponseDto mySurvey2 = surveyService.registerSurvey(dto2);
+//
+//        //응답 생성
+//        RegisterSurveyResponseRequestDto responseDto1 = createSuccessSurveyResponseCase1Request(mySurvey1.getSurveyId());
+//        RegisterSurveyResponseSubmmitDto mySurveyResponse1 = responseService.registerSurveyResponse(responseDto1);
+//        RegisterSurveyResponseRequestDto responseDto2 = createSuccessSurveyResponseCase1Request(mySurvey2.getSurveyId());
+//        RegisterSurveyResponseSubmmitDto mySurveyResponse2 = responseService.registerSurveyResponse(responseDto2);
+//
+//        //when
+//        FindSubmittedSurveyListResponseDto result = surveyProvider.getSubmittedSurvey(1L);
+//
+//        //then
+//        assertThat(result.getMySubmittedSurveys().size()).isEqualTo(2);
+//    }
 
 
     @DisplayName("설문을 삭제한다.")

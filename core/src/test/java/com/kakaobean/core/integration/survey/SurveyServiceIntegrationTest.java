@@ -13,6 +13,7 @@ import com.kakaobean.core.survey.application.dto.response.FindSubmittedSurveyLis
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 
+import com.kakaobean.core.survey.domain.CloseStatus;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
@@ -212,5 +213,20 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
 
         //then
         assertThat(surveyRepository.findById(result.getSurveyId()).get().getStatus()).isSameAs(INACTIVE);
+    }
+
+    @DisplayName("설문을 마감한다.")
+    @Test
+    void closeSurvey(){
+        //given
+        RegisterSurveyRequestDto dto = createSuccessCase1Request();
+        RegisterSurveyResponseDto result = surveyService.registerSurvey(dto);
+
+        //when
+        surveyService.closeSurvey(1L, result.getSurveyId());
+
+        //then
+        assertThat(surveyRepository.findById(result.getSurveyId()).get().getCloseStatus()).isSameAs(CloseStatus.ACTIVE);
+
     }
 }

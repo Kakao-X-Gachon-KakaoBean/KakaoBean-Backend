@@ -7,7 +7,6 @@ import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.survey.request.RegisterSurveyRequestFactory;
 import com.kakaobean.unit.controller.security.WithMockUser;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,14 +16,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentRequest;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentResponse;
 import static com.kakaobean.docs.extractor.survey.request.SurveyRequestPayloadSubsectionExtractorFactory.*;
-
 import static org.mockito.BDDMockito.given;
-
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -150,6 +146,28 @@ public class SurveyControllerTest extends ControllerTest {
                 getDocumentResponse(),
                 pathParameters(
                         parameterWithName("surveyId").description("삭제할 설문 아이디")
+                ),
+                responseFields(
+                        fieldWithPath("message").type(STRING).description("성공메시지")
+                )
+        ));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("설문 마감 API 명세서 테스트.")
+    public void closeSurveyTest() throws Exception{
+        // when
+        ResultActions perform  = mockMvc.perform(patch("/surveys/{surveyId}", 2L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        );
+        // then
+        perform.andDo(document("close_survey",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                pathParameters(
+                        parameterWithName("surveyId").description("마감할 설문 아이디")
                 ),
                 responseFields(
                         fieldWithPath("message").type(STRING).description("성공메시지")

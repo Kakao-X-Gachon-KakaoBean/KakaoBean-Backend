@@ -226,7 +226,8 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         surveyService.closeSurvey(1L, result.getSurveyId());
 
         //then
-        assertThat(surveyRepository.findById(result.getSurveyId()).get().getCloseStatus()).isSameAs(CloseStatus.ACTIVE);
+        assertThat(surveyRepository.findById(result.getSurveyId()).get().getCloseStatus())
+                .isSameAs(CloseStatus.ACTIVE);
 
     }
 }

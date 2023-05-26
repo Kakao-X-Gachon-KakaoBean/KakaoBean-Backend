@@ -28,7 +28,8 @@ public class MemberService {
     @Transactional(readOnly = false)
     public RegisterMemberResponseDto registerMember(RegisterMemberRequestDto dto){
         Member member = dto.toEntity();
-        member.place(memberValidator, memberVerifiedEmailService, dto.getEmailAuthKey());
+        member.validate(memberValidator);
+        member.verifyEmail(memberVerifiedEmailService, dto.getEmailAuthKey());
         Member savedMember = memberRepository.save(member);
         return new RegisterMemberResponseDto(savedMember.getId());
     }
@@ -39,7 +40,8 @@ public class MemberService {
 
     @Transactional(readOnly = false)
     public void modifyMemberPassword(ModifyMemberPasswordRequestDto dto){
-        Member member = memberRepository.findMemberById(dto.getMemberId()).orElseThrow(NotExistsMemberException::new);
-        member.modifyPassword(modifyMemberService, dto.getNowPassword(), dto.getPasswordToChange(), dto.getCheckPasswordToChange());
+        Member member = memberRepository.findMemberByEmail(dto.getEmail()).orElseThrow(NotExistsMemberException::new);
+        member.verifyEmail(memberVerifiedEmailService, dto.getEmailAuthKey());
+        member.modifyPassword(modifyMemberService, dto.getPasswordToChange(), dto.getCheckPasswordToChange());
     }
 }

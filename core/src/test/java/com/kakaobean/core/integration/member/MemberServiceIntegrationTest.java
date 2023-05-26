@@ -28,6 +28,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -189,7 +190,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
         assertThat(res.getEmail()).isEqualTo(email);
     }
 
-    @DisplayName("이메일을 찾을 수 없다.")
+    @DisplayName("계정과 다른 이름을 입력하므로 이메일을 찾을 수 없다.")
     @Test
     void failFindEmail(){
         //given
@@ -251,65 +252,106 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
     void successModifyMemberPassword(){
 
         //given
-        String pwd = "1q2w3e4r";
         String newPwd = "1q2w3e4r!";
         String newCheckPwd = "1q2w3e4r!";
-
-        Member member = Member.builder()
-                .auth(new Auth("123@gmail.com", passwordEncoder.encode(pwd)))
-                .build();
-        Member findMember = memberRepository.save(member);
+        String authKey = "111336";
+        Member member = MemberFactory.create();
+        memberRepository.save(member);
+        emailRepository.save(new Email(member.getAuth().getEmail(), authKey));
 
         //when
-        memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(findMember.getId(), pwd, newPwd, newCheckPwd));
+        memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(member.getAuth().getEmail(), authKey, newPwd, newCheckPwd));
 
         //then
-        assertThat(passwordEncoder.matches(newPwd, member.getAuth().getPassword())).isTrue();
+        Member result = memberRepository.findMemberByEmail(member.getAuth().getEmail()).get();
+        assertThat(passwordEncoder.matches(newPwd, result.getAuth().getPassword())).isTrue();
     }
 
-    @DisplayName("비밀번호 변경에서 기존 비밀번호와 입력한 검증 비밀번호가 다르므로 변경을 실패한다.")
+    @DisplayName("이메일이 레디스 저장되어 있지 않으므로 실패한다.")
     @Test
     void failModifyMemberPasswordCase1(){
 
         //given
-        String pwd = "1q2w3e4r";
         String newPwd = "1q2w3e4r!";
         String newCheckPwd = "1q2w3e4r!";
-
-        Member member = Member.builder()
-                .auth(new Auth("123@gmail.com", passwordEncoder.encode("notSamePwd")))
-                .build();
-        Member findMember = memberRepository.save(member);
+        String authKey = "111336";
+        Member member = MemberFactory.create();
+        memberRepository.save(member);
+        //emailRepository.save(new Email(member.getAuth().getEmail(), authKey));
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
-            memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(findMember.getId(), pwd, newPwd, newCheckPwd));
+            memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(member.getAuth().getEmail(), authKey, newPwd, newCheckPwd));
         });
 
         //then
-        result.isInstanceOf(NotValidPasswordException.class);
+        result.isInstanceOf(NotExistsEmailException.class);
     }
 
-    @DisplayName("비밀번호 변경에서 입력한 새로운 비밀번호와 새로운 비밀번호를 확인할 비밀번호가 다르므로 변경을 실패한다.")
+    @DisplayName("인증번호 키와  레디스 저장되어 있는 인증 키가 다르므로 실패한다.")
     @Test
     void failModifyMemberPasswordCase2(){
 
         //given
-        String pwd = "1q2w3e4r";
         String newPwd = "1q2w3e4r!";
-        String newCheckPwd = "1q2w3e4r!!";
-
-        Member member = Member.builder()
-                .auth(new Auth("123@gmail.com", passwordEncoder.encode(pwd)))
-                .build();
-        Member findMember = memberRepository.save(member);
+        String newCheckPwd = "1q2w3e4r!";
+        String authKey = "111336";
+        Member member = MemberFactory.create();
+        memberRepository.save(member);
+        emailRepository.save(new Email(member.getAuth().getEmail(), authKey));
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
-            memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(findMember.getId(), pwd, newPwd, newCheckPwd));
+            memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(member.getAuth().getEmail(), "X", newPwd, newCheckPwd));
         });
 
         //then
-        result.isInstanceOf(DiffrentPasswordAndCheckPasswordException.class);
+        result.isInstanceOf(WrongEmailAuthKeyException.class);
+    }
+
+    @DisplayName("비밀번호 변경에서 입력한 새로운 비밀번호와 새로운 비밀번호를 확인할 비밀번호가 다르므로 변경을 실패한다.")
+    @Test
+    void failModifyMemberPasswordCase3(){
+
+        //given
+        String newPwd = "1q2w3e4r!";
+        String newCheckPwd = "1q2w3e4r!!";
+        String authKey = "111336";
+        Member member = MemberFactory.create();
+        memberRepository.save(member);
+        emailRepository.save(new Email(member.getAuth().getEmail(), authKey));
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(member.getAuth().getEmail(), authKey, newPwd, newCheckPwd));
+        });
+
+        //then
+        result.isInstanceOf(PasswordAndCheckPasswordNotSameException.class);
+    }
+
+    @DisplayName("로컬 회원 가입만 비밀번호 변경을 진행할 수 있다.")
+    @Test
+    void failModifyMemberPasswordCase4(){
+
+        //given
+        String newPwd = "1q2w3e4r!";
+        String newCheckPwd = "1q2w3e4r!!";
+        String authKey = "111336";
+        String email = "123@gmail.com";
+        Member member = Member.builder()
+                .authProvider(AuthProvider.google)
+                .auth(new Auth(email, authKey))
+                .build();
+        memberRepository.save(member);
+        emailRepository.save(new Email(member.getAuth().getEmail(), authKey));
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            memberService.modifyMemberPassword(new ModifyMemberPasswordRequestDto(member.getAuth().getEmail(), authKey, newPwd, newCheckPwd));
+        });
+
+        //then
+        result.isInstanceOf(OAuthMemberCanNotChangePasswordException.class);
     }
 }

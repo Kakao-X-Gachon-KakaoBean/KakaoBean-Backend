@@ -170,7 +170,7 @@ public class MemberControllerTest extends ControllerTest {
 
     @Test
     @WithMockUser
-    @DisplayName("멤버 정보 API 명세서 테스트.")
+    @DisplayName("멤버 비밀번호 변경 API 명세서 테스트.")
     void modifyMemberPassword() throws Exception {
 
         ModifyMemberPasswordRequest request =

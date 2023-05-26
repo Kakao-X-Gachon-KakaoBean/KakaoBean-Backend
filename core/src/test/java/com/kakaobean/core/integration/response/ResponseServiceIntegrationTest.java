@@ -11,6 +11,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 
 import static com.kakaobean.core.factory.response.RegisterSurveyResponseServiceDtoFactory.*;
 import static com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory.createSuccessCase1Request;

@@ -53,6 +53,11 @@ public class SurveyController {
         return new ResponseEntity(new CommandSuccessResponse(), HttpStatus.OK);
     }
 
-
+    @PatchMapping("/{surveyId}")
+    public ResponseEntity closeSurvey(@AuthenticationPrincipal Long memberId,
+                                      @PathVariable Long surveyId){
+        surveyService.closeSurvey(memberId, surveyId);
+        return new ResponseEntity(new CommandSuccessResponse(), HttpStatus.OK);
+    }
 
 }

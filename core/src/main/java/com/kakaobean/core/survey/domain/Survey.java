@@ -5,6 +5,7 @@ import com.kakaobean.core.common.domain.BaseStatus;
 import com.kakaobean.core.common.event.Events;
 import com.kakaobean.core.survey.domain.event.RemovedSurveyEvent;
 import com.kakaobean.core.survey.domain.question.Question;
+import com.kakaobean.core.survey.exception.ClosedSurveyException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,9 @@ public class Survey extends BaseEntity {
 
     private String title;
 
+    @Enumerated(EnumType.STRING)
+    private CloseStatus closeStatus;
+
     public Survey(String title,
                   SurveyOwner surveyOwner,
                   List<Question> questions) {
@@ -38,6 +42,7 @@ public class Survey extends BaseEntity {
         this.surveyOwner = surveyOwner;
         this.questions.addAll(questions);
         this.title = title;
+        this.closeStatus = CloseStatus.INACTIVE;
         questions.forEach(question -> question.addSurvey(this));
     }
 
@@ -51,6 +56,7 @@ public class Survey extends BaseEntity {
         this.surveyOwner = surveyOwner;
         this.questions = questions;
         this.title = title;
+        this.closeStatus = CloseStatus.INACTIVE;
     }
 
     public void place(SurveyValidator surveyValidator) {
@@ -60,5 +66,15 @@ public class Survey extends BaseEntity {
     public void remove() {
         super.delete();
         Events.raise(new RemovedSurveyEvent(id));
+    }
+
+    public void close(){
+        this.closeStatus = CloseStatus.ACTIVE;
+    }
+
+    public void isSurveyClose(){
+        if(this.closeStatus == CloseStatus.ACTIVE){
+            throw new ClosedSurveyException();
+        }
     }
 }

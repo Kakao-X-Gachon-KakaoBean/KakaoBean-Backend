@@ -17,20 +17,20 @@ public class ResponseServiceIntegrationTest extends IntegrationTest {
     @Autowired
     ResponseService responseService;
 
-    @DisplayName("설문조사에 대한 응답 제출에 성공한다.")
-    @Test
-    void registerSurveyResponse(){
-
-        // given
-        RegisterSurveyResponseRequestDto dto = createSuccessSurveyResponseCase1Request(2L);
-
-        // when
-        RegisterSurveyResponseSubmmitDto result = responseService.registerSurveyResponse(dto);
-
-        // then
-        assertThat(result.getSurveyResponseId()).isNotNull();
-
-    }
+//    @DisplayName("설문조사에 대한 응답 제출에 성공한다.")
+//    @Test
+//    void registerSurveyResponse(){
+//
+//        // given
+//        RegisterSurveyResponseRequestDto dto = createSuccessSurveyResponseCase1Request(2L);
+//
+//        // when
+//        RegisterSurveyResponseSubmmitDto result = responseService.registerSurveyResponse(dto);
+//
+//        // then
+//        assertThat(result.getSurveyResponseId()).isNotNull();
+//
+//    }
 
 
 

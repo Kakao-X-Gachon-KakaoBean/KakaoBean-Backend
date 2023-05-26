@@ -56,9 +56,8 @@ public class MemberController {
     }
 
     @PatchMapping("/members/password")
-    public ResponseEntity modifyMemberPassword(@AuthenticationPrincipal Long memberId,
-                                               @RequestBody @Validated ModifyMemberPasswordRequest request){
-        memberService.modifyMemberPassword(request.toServiceDto(memberId));
+    public ResponseEntity modifyMemberPassword(@RequestBody @Validated ModifyMemberPasswordRequest request){
+        memberService.modifyMemberPassword(request.toServiceDto());
         return new ResponseEntity(new CommandSuccessResponse(), OK);
     }
 }

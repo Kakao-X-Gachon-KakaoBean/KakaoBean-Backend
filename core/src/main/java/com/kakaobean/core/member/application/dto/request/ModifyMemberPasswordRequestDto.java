@@ -5,14 +5,17 @@ import lombok.Getter;
 @Getter
 public class ModifyMemberPasswordRequestDto {
 
-    private Long memberId;
-    private String nowPassword;
+    private String email;
+    private String emailAuthKey;
     private String passwordToChange;
     private String checkPasswordToChange;
 
-    public ModifyMemberPasswordRequestDto(Long memberId, String nowPassword, String passwordToChange, String checkPasswordToChange) {
-        this.memberId = memberId;
-        this.nowPassword = nowPassword;
+    public ModifyMemberPasswordRequestDto(String email,
+                                          String emailAuthKey,
+                                          String passwordToChange,
+                                          String checkPasswordToChange) {
+        this.email = email;
+        this.emailAuthKey = emailAuthKey;
         this.passwordToChange = passwordToChange;
         this.checkPasswordToChange = checkPasswordToChange;
     }

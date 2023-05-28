@@ -72,7 +72,7 @@ public class Survey extends BaseEntity {
         this.closeStatus = CloseStatus.ACTIVE;
     }
 
-    public void isSurveyClose(){
+    public void checkSurveyExpiration(){
         if(this.closeStatus == CloseStatus.ACTIVE){
             throw new ClosedSurveyException();
         }

@@ -27,7 +27,7 @@ public class ResponseService {
         // 먼저 응답 생성할 때 해당 설문이 존재하지 않으면 예외 날리도록
         Survey selectedSurvey = surveyRepository.findSurveyBySurveyId(dto.getSurveyId())
                 .orElseThrow(NotExistsSurveyException::new);
-        selectedSurvey.isSurveyClose();
+        selectedSurvey.checkSurveyExpiration();
         SurveyResponse surveyResponse = surveyResponseMapper.mapForm(dto);
         SurveyResponse saveSurveyResponse = surveyResponseRepository.save(surveyResponse);
         return new RegisterSurveyResponseSubmmitDto(saveSurveyResponse.getId());

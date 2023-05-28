@@ -37,4 +37,10 @@ public class SurveyService {
                 .orElseThrow(NotExistsSurveyException::new);
         survey.remove();
     }
+
+    public void closeSurvey(Long memberId, Long surveyId){
+        Survey survey = surveyRepository.findSurveyBySurveyIdAndOwnerId(surveyId, memberId)
+                .orElseThrow(NotExistsSurveyException::new);
+        survey.close();
+    }
 }

@@ -9,6 +9,7 @@ import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RemoveSurveyResponseDto;
+import com.kakaobean.core.survey.domain.CloseStatus;
 import com.kakaobean.core.survey.domain.Survey;
 import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.domain.SurveyValidator;
@@ -135,5 +136,21 @@ public class SurveyServiceTest extends UnitTest {
         //then
         assertThat(survey.getStatus()).isSameAs(INACTIVE);
         mockedEvents.verify(() -> Events.raise(Mockito.any(RemovedSurveyEvent.class)), times(1));
+    }
+
+    @DisplayName("설문을 마감한다.")
+    @Test
+    void closeSurvey(){
+
+        //given
+        Survey survey = SurveyFactory.createWithId();
+        given(surveyRepository.findSurveyBySurveyIdAndOwnerId(Mockito.anyLong(), Mockito.anyLong()))
+                .willReturn(Optional.of(survey));
+
+        //when
+        surveyService.closeSurvey(1L, 1L);
+
+        //then
+        assertThat(survey.getCloseStatus()).isSameAs(CloseStatus.ACTIVE);
     }
 }

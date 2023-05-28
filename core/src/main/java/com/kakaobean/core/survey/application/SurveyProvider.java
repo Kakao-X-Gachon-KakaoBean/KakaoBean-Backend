@@ -25,7 +25,7 @@ public class SurveyProvider {
     private final SurveyResponseRepository surveyResponseRepository;
 
     public FindSurveyResponseDto getSurvey(Long surveyId) {
-        Survey findSurvey = surveyRepository.findById(surveyId).orElseThrow(NotExistsSurveyException::new);
+        Survey findSurvey = surveyRepository.findSurveyBySurveyIdWithFetchJoin(surveyId).orElseThrow(NotExistsSurveyException::new);
         return FindSurveyResponseDto.from(findSurvey);
     }
 
@@ -41,7 +41,7 @@ public class SurveyProvider {
     public FindSubmittedSurveyListResponseDto getSubmittedSurvey(Long memberId){
         List<SurveyResponse> mySurveyResponses = surveyResponseRepository.findSurveyResponseByMemberId(memberId);
         List<Survey> mySubmittedSurveys = mySurveyResponses.stream()
-                .map(mySurveyResponse -> surveyRepository.findSurveyBySurveyId(mySurveyResponse.getSurveyId())
+                .map(mySurveyResponse -> surveyRepository.findSurveyBySurveyIdWithFetchJoin(mySurveyResponse.getSurveyId())
                         .orElseThrow(NotExistsSurveyException::new))
                 .collect(Collectors.toList());
 

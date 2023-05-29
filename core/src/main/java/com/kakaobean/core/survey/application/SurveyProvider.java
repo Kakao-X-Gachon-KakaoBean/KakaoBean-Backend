@@ -26,6 +26,7 @@ public class SurveyProvider {
 
     public FindSurveyResponseDto getSurvey(Long surveyId) {
         Survey findSurvey = surveyRepository.findSurveyBySurveyIdWithFetchJoin(surveyId).orElseThrow(NotExistsSurveyException::new);
+        findSurvey.checkSurveyExpiration();
         return FindSurveyResponseDto.from(findSurvey);
     }
 

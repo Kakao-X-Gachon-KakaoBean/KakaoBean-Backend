@@ -169,6 +169,7 @@ public class MemberControllerTest extends ControllerTest {
 
 
     @Test
+    @WithMockUser
     @DisplayName("멤버 비밀번호 수정")
     void modifyMemberPassword() throws Exception {
 

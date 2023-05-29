@@ -61,3 +61,4 @@
 
 == 응답 API
 * link:/docs/response/register_response.html[응답 생성 API, window=_blank ]
+* link:/docs/response/find_responses.html[내가 만든 설문에 관한 응답 조회 API, window=_blank ]

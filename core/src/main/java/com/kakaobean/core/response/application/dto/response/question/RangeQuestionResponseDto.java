@@ -1,15 +1,18 @@
 package com.kakaobean.core.response.application.dto.response.question;
 
+import com.kakaobean.core.survey.application.dto.QuestionDTOType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Getter
+@NoArgsConstructor
 public class RangeQuestionResponseDto extends QuestionResponseDto{
 
-    private final int answer;
+    private int answer;
 
-    public RangeQuestionResponseDto(Long id, int answer) {
-        super(id);
+    public RangeQuestionResponseDto(Long questionId, QuestionDTOType questionType, int answer) {
+        super(questionId, questionType);
         this.answer = answer;
     }
 }

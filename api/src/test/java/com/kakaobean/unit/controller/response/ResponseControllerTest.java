@@ -1,25 +1,34 @@
 package com.kakaobean.unit.controller.response;
 
 import com.kakaobean.core.response.application.dto.request.RegisterSurveyResponseRequestDto;
+import com.kakaobean.core.response.application.dto.response.FindResponsesDto;
 import com.kakaobean.core.response.application.dto.response.RegisterSurveyResponseSubmmitDto;
+import com.kakaobean.core.response.application.dto.response.SurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.response.dto.request.RegisterSurveyResponseRequest;
 import com.kakaobean.unit.controller.ControllerTest;
 import com.kakaobean.unit.controller.factory.response.request.RegisterSurveyResponseRequestFactory;
 import com.kakaobean.unit.controller.security.WithMockUser;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
+
 import org.mockito.Mockito;
+
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.List;
 
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentRequest;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentResponse;
 import static com.kakaobean.docs.extractor.response.request.SurveyResponsePayloadSubsectionExtractorFactory.*;
+import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,7 +44,7 @@ public class ResponseControllerTest extends ControllerTest {
         // given
         RegisterSurveyResponseRequest request = RegisterSurveyResponseRequestFactory.createSuccessSurveyResponseRequest();
         String requestBody = this.objectMapper.writeValueAsString(request);
-        BDDMockito.given(responseService.registerSurveyResponse(Mockito.any(RegisterSurveyResponseRequestDto.class)))
+        given(responseService.registerSurveyResponse(Mockito.any(RegisterSurveyResponseRequestDto.class)))
                 .willReturn(new RegisterSurveyResponseSubmmitDto(2L));
 
         // when
@@ -110,5 +119,4 @@ public class ResponseControllerTest extends ControllerTest {
                 )
         ));
     }
-
 }

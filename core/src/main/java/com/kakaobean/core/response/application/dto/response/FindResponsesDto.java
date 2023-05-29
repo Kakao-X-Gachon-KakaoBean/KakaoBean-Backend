@@ -2,14 +2,16 @@ package com.kakaobean.core.response.application.dto.response;
 
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class FindResponsesDto {
 
-    private final FindSurveyResponseDto survey;
-    private final List<SurveyResponseDto> responses;
+    private FindSurveyResponseDto survey;
+    private List<SurveyResponseDto> responses;
 
     public FindResponsesDto(FindSurveyResponseDto surveyDto,
                             List<SurveyResponseDto> responsesDto) {

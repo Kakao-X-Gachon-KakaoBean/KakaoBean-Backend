@@ -26,8 +26,10 @@ public class ResponseProvider {
 
 
     public FindResponsesDto findResponses(Long memberId, Long surveyId){
-        //설문 주인만 조회할 수 있다.
+
         log.info("설문에 관련된 응답 조회 시작");
+
+        //설문 주인만 조회할 수 있다.
         surveyRepository.findSurveyBySurveyIdAndOwnerId(surveyId, memberId).orElseThrow(NotExistsSurveyException::new);
 
         //조회

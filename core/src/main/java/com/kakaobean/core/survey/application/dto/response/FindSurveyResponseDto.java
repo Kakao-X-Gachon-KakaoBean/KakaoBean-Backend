@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ public class FindSurveyResponseDto {
 
     private Long surveyId;
     private String surveyTitle;
-    private List<FindQuestionResponseDto> questions;
+    private List<FindQuestionResponseDto> questions = new ArrayList<>();
 
     public FindSurveyResponseDto(String surveyTitle, List<Question> questions, Long surveyId) {
         this.surveyTitle = surveyTitle;

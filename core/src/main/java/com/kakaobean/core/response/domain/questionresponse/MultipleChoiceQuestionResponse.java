@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,7 +18,7 @@ import java.util.List;
 public class MultipleChoiceQuestionResponse extends QuestionResponse {
 
     @OneToMany(mappedBy = "multipleChoiceQuestionResponse", cascade = CascadeType.ALL)
-    private List<MultipleChoiceAnswerResponse> answerResponses;
+    private List<MultipleChoiceAnswerResponse> answerResponses = new ArrayList<>();
 
     public MultipleChoiceQuestionResponse(Long questionId,
                                           List<MultipleChoiceAnswerResponse> answerResponses) {

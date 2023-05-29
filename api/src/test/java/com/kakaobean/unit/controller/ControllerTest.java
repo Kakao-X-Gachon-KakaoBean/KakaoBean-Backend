@@ -7,6 +7,7 @@ import com.kakaobean.config.WebMvcConfig;
 import com.kakaobean.core.member.application.MemberProvider;
 import com.kakaobean.core.member.domain.repository.MemberRepository;
 import com.kakaobean.core.member.application.MemberService;
+import com.kakaobean.core.response.application.ResponseProvider;
 import com.kakaobean.core.response.application.ResponseService;
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.SurveyService;
@@ -74,5 +75,8 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ResponseService responseService;
+
+    @MockBean
+    protected ResponseProvider responseProvider;
 
 }

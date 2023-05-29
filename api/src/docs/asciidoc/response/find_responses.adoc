@@ -1,0 +1,29 @@
+= 내가 만든 설문의 응답 조회
+
+**로그인한 유저만 사용할 수 있다.**
+
+== 요청
+
+include::{snippets}/find_essay_question_response/http-request.adoc[]
+
+include::{snippets}/find_essay_question_response/path-parameters.adoc[]
+
+
+== 응답
+
+include::{snippets}/find_essay_question_response/response-body.adoc[]
+
+survey 부분은 설문 조회와 동일하다.
+
+=== 설문 응답 바디
+
+모두 공통적으로 성별, 나이, 이름, 이메일 정보가 들어간다.
+
+서술형 질문 응답
+include::{snippets}/find_essay_question_response/response-fields-null.adoc[]
+
+객관식 질문 응답
+include::{snippets}/find_multiple_question_response/response-fields-null.adoc[]
+
+선형 배율 질문 응답
+include::{snippets}/find_range_question_response/response-fields-null.adoc[]

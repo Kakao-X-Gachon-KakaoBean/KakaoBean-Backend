@@ -72,7 +72,9 @@ public class ResponseProviderTest extends ControllerTest {
                         new EssayQuestionResponseDtoPayloadSubsectionExtractor(),
                         fieldWithPath("questionId").type(NUMBER).description("설문 질문의 id(pk)"),
                         fieldWithPath("answer").type(STRING).description("설문 질문 답변"),
-                        fieldWithPath("type").type(STRING).description("설문 질문 타입")
+                        fieldWithPath("type").type(STRING).description("설문 질문 타입"),
+                        fieldWithPath("title").type(STRING).description("설문 질문제목")
+
                 ))
         );
     }
@@ -88,7 +90,9 @@ public class ResponseProviderTest extends ControllerTest {
                         new MultipleChoiceQuestionResponseDtoPayloadSubsectionExtractor(),
                         fieldWithPath("questionId").type(NUMBER).description("설문 질문의 id(pk)"),
                         fieldWithPath("answers").type(ARRAY).description("설문 질문 객관식 답변"),
-                        fieldWithPath("type").type(STRING).description("설문 질문 타입")
+                        fieldWithPath("type").type(STRING).description("설문 질문 타입"),
+                        fieldWithPath("title").type(STRING).description("설문 질문제목")
+
                 ))
         );
     }
@@ -104,7 +108,8 @@ public class ResponseProviderTest extends ControllerTest {
                         new RangeQuestionResponseDtoPayloadSubsectionExtractor(),
                         fieldWithPath("questionId").type(NUMBER).description("설문 질문의 id(pk)"),
                         fieldWithPath("answer").type(NUMBER).description("설문 질문 선형 배 답변"),
-                        fieldWithPath("type").type(STRING).description("설문 질문 타입")
+                        fieldWithPath("type").type(STRING).description("설문 질문 타입"),
+                        fieldWithPath("title").type(STRING).description("설문 질문제목")
                 ))
         );
     }

@@ -14,4 +14,9 @@ public class EssayQuestionResponseDto extends QuestionResponseDto {
         super(questionId, questionType);
         this.answer = answer;
     }
+
+    public EssayQuestionResponseDto(Long questionId, QuestionDTOType type, String title, String answer) {
+        super(questionId, type, title);
+        this.answer = answer;
+    }
 }

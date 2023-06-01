@@ -15,4 +15,9 @@ public class RangeQuestionResponseDto extends QuestionResponseDto{
         super(questionId, questionType);
         this.answer = answer;
     }
+
+    public RangeQuestionResponseDto(Long questionId, QuestionDTOType type, String title, int answer) {
+        super(questionId, type, title);
+        this.answer = answer;
+    }
 }

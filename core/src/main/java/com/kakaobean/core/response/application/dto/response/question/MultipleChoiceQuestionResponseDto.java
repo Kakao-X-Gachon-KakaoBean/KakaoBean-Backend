@@ -16,4 +16,9 @@ public class MultipleChoiceQuestionResponseDto extends QuestionResponseDto{
         super(questionId, questionType);
         this.answers = answers;
     }
+
+    public MultipleChoiceQuestionResponseDto(Long questionId, QuestionDTOType type, String title, List<String> answers) {
+        super(questionId, type, title);
+        this.answers = answers;
+    }
 }

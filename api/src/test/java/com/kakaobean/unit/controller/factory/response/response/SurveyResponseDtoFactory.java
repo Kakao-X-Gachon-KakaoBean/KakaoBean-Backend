@@ -23,13 +23,13 @@ public class SurveyResponseDtoFactory {
                         "123@gmail.com",
                         "김민수",
                         List.of(
-                                new EssayQuestionResponseDto(1L, ESSAY,"essay answer 2"),
-                                new MultipleChoiceQuestionResponseDto(8L, MULTIPLE, List.of("third choice answer")),
-                                new RangeQuestionResponseDto(12L, RANGE, 6),
-                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, List.of("fourth choice answer")),
-                                new EssayQuestionResponseDto(15L, ESSAY, "essay answer 8"),
-                                new EssayQuestionResponseDto(16L, ESSAY, "essay answer 9"),
-                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, List.of("fifth choice answer"))
+                                new EssayQuestionResponseDto(1L, ESSAY,"Essay Question Title", "essay answer 2"),
+                                new MultipleChoiceQuestionResponseDto(8L, MULTIPLE, "Multiple Question Title",List.of("third choice answer")),
+                                new RangeQuestionResponseDto(12L, RANGE, "Range Question Title", 6),
+                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, "Multiple Question Title", List.of("fourth choice answer")),
+                                new EssayQuestionResponseDto(15L, ESSAY, "Essay Question Title", "essay answer 8"),
+                                new EssayQuestionResponseDto(16L, ESSAY, "Essay Question Title", "essay answer 9"),
+                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, "Multiple Question Title", List.of("fifth choice answer"))
                                 )
                 ),
                 new SurveyResponseDto(
@@ -38,13 +38,13 @@ public class SurveyResponseDtoFactory {
                         "1234@gmail.com",
                         "이민수",
                         List.of(
-                                new EssayQuestionResponseDto(1L, ESSAY, "essay answer 1"),
-                                new MultipleChoiceQuestionResponseDto(8L, MULTIPLE, List.of("first choice answer", "second choice answer")),
-                                new RangeQuestionResponseDto(12L, RANGE, 5),
-                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, List.of("third choice answer")),
-                                new EssayQuestionResponseDto(15L, ESSAY,"essay answer 4"),
-                                new EssayQuestionResponseDto(16L, ESSAY,"essay answer 5"),
-                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, List.of("fifth choice answer"))
+                                new EssayQuestionResponseDto(1L, ESSAY, "Essay Question Title", "essay answer 1"),
+                                new MultipleChoiceQuestionResponseDto(8L, MULTIPLE,"Multiple Question Title", List.of("first choice answer", "second choice answer")),
+                                new RangeQuestionResponseDto(12L, RANGE, "Range Question Title",  5),
+                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, "Multiple Question Title", List.of("third choice answer")),
+                                new EssayQuestionResponseDto(15L, ESSAY, "Essay Question Title", "essay answer 4"),
+                                new EssayQuestionResponseDto(16L, ESSAY, "Essay Question Title", "essay answer 5"),
+                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, "Multiple Question Title", List.of("fifth choice answer"))
                         )
                 ),
                 new SurveyResponseDto(
@@ -53,13 +53,13 @@ public class SurveyResponseDtoFactory {
                         "12345@gmail.com",
                         "박민수",
                         List.of(
-                                new EssayQuestionResponseDto(1L, ESSAY, "essay answer 10"),
-                                new MultipleChoiceQuestionResponseDto(8L, MULTIPLE, List.of("second choice answer", "third choice answer")),
-                                new RangeQuestionResponseDto(12L, RANGE, 9),
-                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, List.of("fourth choice answer")),
-                                new EssayQuestionResponseDto(15L, ESSAY,  "essay answer 11"),
-                                new EssayQuestionResponseDto(16L, ESSAY, "essay answer 12"),
-                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, List.of("second choice answer"))
+                                new EssayQuestionResponseDto(1L, ESSAY, "Essay Question Title", "essay answer 10"),
+                                new MultipleChoiceQuestionResponseDto(8L, MULTIPLE, "Multiple Question Title", List.of("second choice answer", "third choice answer")),
+                                new RangeQuestionResponseDto(12L, RANGE, "Range Question Title",  9),
+                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, "Multiple Question Title", List.of("fourth choice answer")),
+                                new EssayQuestionResponseDto(15L, ESSAY, "Essay Question Title",  "essay answer 11"),
+                                new EssayQuestionResponseDto(16L, ESSAY, "Essay Question Title", "essay answer 12"),
+                                new MultipleChoiceQuestionResponseDto(14L, MULTIPLE, "Multiple Question Title", List.of("second choice answer"))
                         )
                 )
         );

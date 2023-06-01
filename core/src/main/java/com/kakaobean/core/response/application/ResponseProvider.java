@@ -2,9 +2,11 @@ package com.kakaobean.core.response.application;
 
 import com.kakaobean.core.response.application.dto.response.FindResponsesDto;
 import com.kakaobean.core.response.application.dto.response.SurveyResponseDto;
+import com.kakaobean.core.response.application.dto.response.question.QuestionResponseDto;
 import com.kakaobean.core.response.infrastructure.ResponseQueryRepository;
 import com.kakaobean.core.survey.application.SurveyProvider;
 import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
+import com.kakaobean.core.survey.application.dto.response.question.FindQuestionResponseDto;
 import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.exception.NotExistsSurveyException;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,22 @@ public class ResponseProvider {
         //조회
         FindSurveyResponseDto surveyDto = surveyProvider.getSurvey(surveyId);
         List<SurveyResponseDto> responsesDto = responseQueryRepository.findResponses(surveyId);
+
+        setTitle(surveyDto, responsesDto);
+
         log.info("설문에 관련된 응답 조회 끝");
         return new FindResponsesDto(surveyDto, responsesDto);
+    }
+
+    private void setTitle(FindSurveyResponseDto surveyDto, List<SurveyResponseDto> responsesDto) {
+        for (int i = 0; i < responsesDto.size(); i++) {
+            for (int j = 0; j < surveyDto.getQuestions().size(); j++) {
+                SurveyResponseDto surveyResponseDto = responsesDto.get(i);
+
+                FindQuestionResponseDto findQuestionResponseDto = surveyDto.getQuestions().get(j);
+                QuestionResponseDto questionResponseDto = surveyResponseDto.getQuestionResponses().get(j);
+                questionResponseDto.setTitle(findQuestionResponseDto.getTitle());
+            }
+        }
     }
 }

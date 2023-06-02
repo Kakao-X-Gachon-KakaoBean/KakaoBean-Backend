@@ -20,13 +20,24 @@ public abstract class QuestionResponseDto {
 
     private Long questionId;
     private QuestionDTOType type;
+    private String title;
 
     public QuestionResponseDto(Long questionId, QuestionDTOType questionType) {
         this.questionId = questionId;
         this.type = questionType;
     }
 
+    public QuestionResponseDto(Long questionId, QuestionDTOType type, String title) {
+        this.questionId = questionId;
+        this.type = type;
+        this.title = title;
+    }
+
     public static QuestionResponseDto from(QuestionResponse questionResponse) {
         return QuestionResponseDtoFactory.createDto(questionResponse);
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

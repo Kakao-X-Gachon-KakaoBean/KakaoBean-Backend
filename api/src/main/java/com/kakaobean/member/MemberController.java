@@ -11,6 +11,7 @@ import com.kakaobean.member.dto.ModifyMemberPasswordRequest;
 import com.kakaobean.member.dto.RegisterMemberRequest;
 
 import com.kakaobean.member.dto.SendVerifiedEmailRequest;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.*;
 
+@Timed("api.member")
 @RestController
 @RequiredArgsConstructor
 public class MemberController {

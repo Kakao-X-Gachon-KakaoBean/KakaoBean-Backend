@@ -23,10 +23,9 @@ public abstract class QuestionStatisticsDto {
     }
 
     public static QuestionStatisticsDto from(Question question,
-                                             Integer numberOfResponse,
                                              List<SurveyResponseDto> allResponses){
 
-        return QuestionStatisticsDtoFactory.createDto(question, numberOfResponse, allResponses);
+        return QuestionStatisticsDtoFactory.createDto(question, allResponses);
     }
 
 }

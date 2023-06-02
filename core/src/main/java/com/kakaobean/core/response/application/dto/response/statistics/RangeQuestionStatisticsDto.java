@@ -5,6 +5,7 @@ import com.kakaobean.core.response.application.dto.response.question.QuestionRes
 import com.kakaobean.core.response.application.dto.response.question.RangeQuestionResponseDto;
 import com.kakaobean.core.survey.application.dto.QuestionDTOType;
 import com.kakaobean.core.survey.domain.question.range.RangeQuestion;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ public class RangeQuestionStatisticsDto extends QuestionStatisticsDto {
 
     private List<AnswerStatisticsDto> answers = new ArrayList<>();
 
+    @Builder
     public RangeQuestionStatisticsDto(QuestionDTOType type,
                                       String title,
                                       String explanation,

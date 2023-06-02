@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,20 +37,16 @@ public class FindSurveyStatisticsResponseDto {
                                            Integer numberOfResponse,
                                            List<Member> respondents,
                                            List<SurveyResponseDto> allResponses
-                                           ) {
+    ) {
         this.surveyId = mySurvey.getId();
         this.surveyTitle = mySurvey.getTitle();
-        this.surveyDate = Arrays.stream(mySurvey.getCreatedAt().split(" "))  // 날짜 변환 2020-1-1
-                .limit(3).collect(Collectors.joining("-")).replace(".","");
+        this.surveyDate = changeDateFormat(mySurvey); //2022-01-01
         this.numberOfResponse = numberOfResponse;
-
         this.surveyGenderPercent = GenderRatioDto.calculateRatio(respondents, numberOfResponse);
         this.surveyAgePercent = AgeRatioDto.calculateRatio(respondents, numberOfResponse);
-
         this.questionsResult = mySurvey.getQuestions().stream()
                 .map(question -> QuestionStatisticsDto.from(
                         question,
-                        numberOfResponse,
                         allResponses)
                 )
                 .collect(Collectors.toList());
@@ -69,5 +67,16 @@ public class FindSurveyStatisticsResponseDto {
         this.surveyGenderPercent = surveyGenderPercent;
         this.surveyAgePercent = surveyAgePercent;
         this.questionsResult = questionsResult;
+    }
+
+    public String changeDateFormat(Survey mySurvey) {
+        String date = Arrays.stream(mySurvey.getCreatedAt().split(" "))  // 날짜 변환 2020-1-1
+                .limit(3).collect(Collectors.joining("-")).replace(".", "");
+
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yy-M-d");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate inputDate = LocalDate.parse(date, inputFormatter);
+
+        return inputDate.format(outputFormatter);
     }
 }

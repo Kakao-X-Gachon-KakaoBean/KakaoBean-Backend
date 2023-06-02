@@ -38,7 +38,7 @@ public class ResponseQueryRepository {
                 ))
                 .from(surveyResponse)
                 .join(member).on(member.id.eq(surveyResponse.respondent.memberId))
-                .join(surveyResponse.questionResponses, questionResponse).fetchJoin()
+                //.join(surveyResponse.questionResponses, questionResponse).fetchJoin()
                 .where(surveyResponse.surveyId.eq(surveyId))
                 .fetch();
     }

@@ -3,6 +3,7 @@ package com.kakaobean.response;
 import com.kakaobean.core.response.application.ResponseProvider;
 import com.kakaobean.core.response.application.ResponseService;
 import com.kakaobean.core.response.application.dto.response.FindResponsesDto;
+import com.kakaobean.core.response.application.dto.response.FindSurveyStatisticsResponseDto;
 import com.kakaobean.core.response.application.dto.response.RegisterSurveyResponseSubmmitDto;
 import com.kakaobean.response.dto.request.RegisterSurveyResponseRequest;
 import lombok.RequiredArgsConstructor;
@@ -33,4 +34,12 @@ public class ResponseController {
         FindResponsesDto res = responseProvider.findResponses(memberId, surveyId);
         return new ResponseEntity(res, HttpStatus.OK);
     }
+
+    @GetMapping("survey-statistics/{surveyId}")
+    public ResponseEntity findSurveyStatistics(@AuthenticationPrincipal Long memberId,
+                                               @PathVariable Long surveyId){
+        FindSurveyStatisticsResponseDto res = responseProvider.findSurveyStatistics(memberId,surveyId);
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+
 }

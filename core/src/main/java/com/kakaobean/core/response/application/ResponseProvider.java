@@ -72,7 +72,7 @@ public class ResponseProvider {
         return new FindSurveyStatisticsResponseDto(mySurvey, numberOfResponse, respondents, allResponses);
 
     }
-}
+
 
     private void setTitle(FindSurveyResponseDto surveyDto, List<SurveyResponseDto> responsesDto) {
         for (int i = 0; i < responsesDto.size(); i++) {

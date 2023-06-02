@@ -38,8 +38,8 @@ public class FindSurveyStatisticsResponseDto {
                                            ) {
         this.surveyId = mySurvey.getId();
         this.surveyTitle = mySurvey.getTitle();
-        this.surveyDate = Arrays.stream(mySurvey.getCreatedAt().split("."))  // 날짜 변환 2020-1-1
-                .limit(3).collect(Collectors.joining("-")).replace(" ","");
+        this.surveyDate = Arrays.stream(mySurvey.getCreatedAt().split(" "))  // 날짜 변환 2020-1-1
+                .limit(3).collect(Collectors.joining("-")).replace(".","");
         this.numberOfResponse = numberOfResponse;
 
         this.surveyGenderPercent = GenderRatioDto.calculateRatio(respondents, numberOfResponse);

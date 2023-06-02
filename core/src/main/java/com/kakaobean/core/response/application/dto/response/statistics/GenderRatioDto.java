@@ -47,7 +47,7 @@ public class GenderRatioDto {
         genderRatioDto.add(maleRatio);
         GenderRatioDto femaleRatio = new GenderRatioDto("여자", Math.round((float) numOfFemale/numberOfResponse*100));
         genderRatioDto.add(femaleRatio);
-        GenderRatioDto socialRatio = new GenderRatioDto("알수없음", Math.round((float) numOfFemale/numberOfResponse*100));
+        GenderRatioDto socialRatio = new GenderRatioDto("알수없음", Math.round((float) socialGender/numberOfResponse*100));
         genderRatioDto.add(socialRatio);
 
         return genderRatioDto;

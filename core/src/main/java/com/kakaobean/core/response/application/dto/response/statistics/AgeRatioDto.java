@@ -58,13 +58,13 @@ public class AgeRatioDto {
         ageRatioDtos.add(ratio10);
         AgeRatioDto ratio20 = new AgeRatioDto("20대", Math.round((float) numOf20 / numberOfResponse * 100));
         ageRatioDtos.add(ratio20);
-        AgeRatioDto ratio30 = new AgeRatioDto("20대", Math.round((float) numOf30 / numberOfResponse * 100));
+        AgeRatioDto ratio30 = new AgeRatioDto("30대", Math.round((float) numOf30 / numberOfResponse * 100));
         ageRatioDtos.add(ratio30);
-        AgeRatioDto ratio40 = new AgeRatioDto("30대", Math.round((float) numOf40 / numberOfResponse * 100));
+        AgeRatioDto ratio40 = new AgeRatioDto("40대", Math.round((float) numOf40 / numberOfResponse * 100));
         ageRatioDtos.add(ratio40);
-        AgeRatioDto ratio50 = new AgeRatioDto("40대", Math.round((float) numOf50 / numberOfResponse * 100));
+        AgeRatioDto ratio50 = new AgeRatioDto("50대", Math.round((float) numOf50 / numberOfResponse * 100));
         ageRatioDtos.add(ratio50);
-        AgeRatioDto ratio60 = new AgeRatioDto("50대", Math.round((float) numOf60 / numberOfResponse * 100));
+        AgeRatioDto ratio60 = new AgeRatioDto("60대", Math.round((float) numOf60 / numberOfResponse * 100));
         ageRatioDtos.add(ratio60);
         AgeRatioDto ratioSocial = new AgeRatioDto("알수없음", Math.round((float) numOfSocial / numberOfResponse * 100));
         ageRatioDtos.add(ratioSocial);

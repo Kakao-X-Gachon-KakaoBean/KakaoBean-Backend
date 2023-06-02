@@ -30,7 +30,6 @@ public class QuestionStatisticsDtoFactory {
                     multipleChoiceQuestion.getExplanation(),
                     multipleChoiceQuestion,
                     allResponses
-                    // makeAnswerResponseDto(response));
             );
         }
 
@@ -61,10 +60,4 @@ public class QuestionStatisticsDtoFactory {
         throw new RuntimeException("없는 클래스 인데..?");
     }
 
-    private static List<String> makeAnswerResponseDto(MultipleChoiceQuestionResponse response) {
-        return response.getAnswerResponses()
-                .stream()
-                .map(answerResponse -> answerResponse.getContent())
-                .collect(Collectors.toList());
-    }
 }

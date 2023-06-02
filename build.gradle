@@ -37,6 +37,10 @@ subprojects {
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testCompileOnly 'org.projectlombok:lombok'
 		testAnnotationProcessor 'org.projectlombok:lombok'
+//		for chatbot
+		implementation 'org.springframework.boot:spring-boot-starter-websocket'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+
 	}
 
 	test{

@@ -1,11 +1,13 @@
 package com.kakaobean.core.response.application;
 
+import com.kakaobean.core.member.domain.Gender;
 import com.kakaobean.core.member.domain.Member;
 import com.kakaobean.core.member.domain.repository.MemberRepository;
 import com.kakaobean.core.member.exception.member.NotExistsMemberException;
 import com.kakaobean.core.response.application.dto.response.FindResponsesDto;
 import com.kakaobean.core.response.application.dto.response.FindSurveyStatisticsResponseDto;
 import com.kakaobean.core.response.application.dto.response.SurveyResponseDto;
+import com.kakaobean.core.response.application.dto.response.question.QuestionResponseDto;
 import com.kakaobean.core.response.domain.SurveyResponse;
 import com.kakaobean.core.response.domain.SurveyResponseRepository;
 import com.kakaobean.core.response.infrastructure.ResponseQueryRepository;
@@ -49,18 +51,26 @@ public class ResponseProvider {
     }
 
     public FindSurveyStatisticsResponseDto findSurveyStatistics(Long memberId, Long surveyId){
-
         //설문 주인만 조회할 수 있다.
         Survey mySurvey = surveyRepository.findSurveyBySurveyIdAndOwnerId(surveyId, memberId)
                 .orElseThrow(NotExistsSurveyException::new);
-        Integer numberOfResponse = surveyResponseRepository.getNumberOfResponseBySurveyId(surveyId)
-                .orElseThrow(NotExistsSurveyException::new);
         List<SurveyResponse> surveyResponses = surveyResponseRepository.findSurveyResponseBySurveyId(surveyId);
+        Integer numberOfResponse = surveyResponses.size();
         List<Member> respondents = surveyResponses.stream()
                 .map(surveyResponse -> memberRepository.findMemberById(surveyResponse.getRespondent().getMemberId())
                         .orElseThrow(NotExistsMemberException::new))
                 .collect(Collectors.toList());
+        List<SurveyResponseDto> allResponses = findResponses(memberId, surveyId).getResponses();
 
-        return new FindSurveyStatisticsResponseDto(mySurvey, numberOfResponse, surveyResponses, respondents);
+        return new FindSurveyStatisticsResponseDto(mySurvey, numberOfResponse, respondents, allResponses);
+//        FindSurveyResponseDto mySurvey = findResponseDto.getSurvey();
+//        List<SurveyResponseDto> responses = findResponseDto.getResponses();
+//        List<Integer> responseAgeList = responses.stream()
+//                .map(response -> response.getAge())
+//                .collect(Collectors.toList());
+//        List<Gender> responseGenderList = responses.stream()
+//                .map(response -> response.getGender())
+//                .collect(Collectors.toList());
+
     }
 }

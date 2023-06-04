@@ -35,4 +35,9 @@ public class RegisterSurveyServiceDtoFactory {
     public static RegisterSurveyRequestDto createFailCase4Request() {
         return new RegisterSurveyRequestDto("title", 1L, createFailListCase4Request());
     }
+
+    //Range의 min max 값이 동일한 질문이 있다.
+    public static RegisterSurveyRequestDto createFailCase5Request() {
+        return new RegisterSurveyRequestDto("title", 1L, createFailListCase5Request());
+    }
 }

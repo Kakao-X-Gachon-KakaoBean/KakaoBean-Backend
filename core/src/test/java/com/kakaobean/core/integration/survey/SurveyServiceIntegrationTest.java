@@ -13,10 +13,7 @@ import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.core.survey.domain.CloseStatus;
 import com.kakaobean.core.survey.domain.SurveyRepository;
-import com.kakaobean.core.survey.exception.ClosedSurveyException;
-import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
-import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
-import com.kakaobean.core.survey.exception.NotExistsSurveyException;
+import com.kakaobean.core.survey.exception.*;
 import org.assertj.core.api.AbstractThrowableAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -110,6 +107,23 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         //then
         result.isInstanceOf(NoMatchingQuestionNumberException.class);
         result.hasMessage("9번 질문에 해당하는 번호가 없습니다.");
+    }
+
+    @DisplayName("Range 질문의 min과 max 범위를 동일하 설정하였다. 이후에 설문 등록을 실패한다.")
+    @Test
+    void registerFailCase4Survey(){
+
+        //given
+        RegisterSurveyRequestDto dto = createFailCase5Request();
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            surveyService.registerSurvey(dto);
+        });
+
+        //then
+        result.isInstanceOf(RangeQuestionBoundaryValueException.class);
+        result.hasMessage("Range 질문의 최솟값과 최댓값이 동일합니다.");
     }
 
     @Test

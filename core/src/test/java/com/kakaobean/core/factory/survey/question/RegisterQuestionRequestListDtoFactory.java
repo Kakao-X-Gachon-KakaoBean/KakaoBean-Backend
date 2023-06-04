@@ -199,4 +199,10 @@ public class RegisterQuestionRequestListDtoFactory {
                 createEssayQuestionSuccessRequest("6", "0", true)
         );
     }
+
+    public static List<RegisterQuestionRequestDto> createFailListCase5Request(){
+        return List.of(
+                createRangeQuestionFailRequest("1", "0", true)
+        );
+    }
 }

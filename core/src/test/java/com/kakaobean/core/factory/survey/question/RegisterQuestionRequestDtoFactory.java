@@ -30,6 +30,24 @@ public class RegisterQuestionRequestDtoFactory {
     }
 
     /**
+     * Rqnge Bar Question 실패 로직
+     */
+    public static RegisterRangeQuestionRequestDto createRangeQuestionFailRequest(String questionNumber,
+                                                                                    String nextQuestionNumber,
+                                                                                    boolean finalQuestion){
+        return RegisterRangeQuestionRequestDto
+                .builder()
+                .title("Range Bar Question")
+                .explanation("ex1")
+                .questionNumber(questionNumber)
+                .min(10)
+                .max(10)
+                .finalQuestion(finalQuestion)
+                .nextQuestionNumber(nextQuestionNumber)
+                .build();
+    }
+
+    /**
      * 주관식 성공 로직
      */
     public static RegisterEssayQuestionRequestDto createEssayQuestionSuccessRequest(String questionNumber,

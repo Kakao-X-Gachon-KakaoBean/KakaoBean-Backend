@@ -45,4 +45,9 @@ public class RegisterSurveyServiceDtoFactory {
     public static RegisterSurveyRequestDto createFailCase6Request() {
         return new RegisterSurveyRequestDto("title", 1L, createFailListCase6Request());
     }
+
+    //분기문에서 동일한 조건을 가진 로직을 2개 이상 포함하면서 이동하는 질문의 번호도 같다.
+    public static RegisterSurveyRequestDto createFailCase7Request() {
+        return new RegisterSurveyRequestDto("title", 1L, createFailListCase7Request());
+    }
 }

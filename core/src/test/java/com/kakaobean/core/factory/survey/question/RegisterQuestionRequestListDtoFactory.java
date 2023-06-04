@@ -223,4 +223,20 @@ public class RegisterQuestionRequestListDtoFactory {
                 createEssayQuestionSuccessRequest("3", "0", true)
         );
     }
+
+    // 동일한 조건을 갖는 로직이 2개 이상인 케이스 + 이동하는 질문의 번호도 같음
+    public static List<RegisterQuestionRequestDto> createFailListCase7Request() {
+        return List.of(
+                createMultipleQuestionFailRequestWithSameLogic(
+                        "1", "3", "3",
+                        2, false, "0",
+                        FIRST_ANSWER,
+                        SECOND_ANSWER,
+                        THIRD_ANSWER,
+                        FOURTH_ANSWER,
+                        FIFTH_ANSWER),
+                createEssayQuestionSuccessRequest("2", "3", false),
+                createEssayQuestionSuccessRequest("3", "0", true)
+        );
+    }
 }

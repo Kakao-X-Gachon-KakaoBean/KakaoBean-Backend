@@ -145,6 +145,23 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         result.hasMessage("동일한 조건을 가진 로직이 2개 이상 존재합니다.");
     }
 
+    @DisplayName("분기문에서 동일한 조건을 가진 로직을 2개 이상 포함하면서 이동하는 질문의 번호도 같다. 이후에 설문 등록을 실패한다.")
+    @Test
+    void registerFailCase6Survey(){
+
+        //given
+        RegisterSurveyRequestDto dto = createFailCase7Request();
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            surveyService.registerSurvey(dto);
+        });
+
+        //then
+        result.isInstanceOf(ExistSameLogicException.class);
+        result.hasMessage("동일한 로직이 존재합니다.");
+    }
+
     @Test
     @DisplayName("설문 조회를 성공한다.")
     void successGetSurvey(){

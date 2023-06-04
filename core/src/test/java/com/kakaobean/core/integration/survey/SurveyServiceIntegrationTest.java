@@ -14,6 +14,8 @@ import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponse
 import com.kakaobean.core.survey.domain.CloseStatus;
 import com.kakaobean.core.survey.domain.SurveyRepository;
 import com.kakaobean.core.survey.exception.*;
+import com.kakaobean.core.survey.exception.questionflowlogic.ExistSameConditionException;
+import com.kakaobean.core.survey.exception.questionflowlogic.ExistSameLogicException;
 import org.assertj.core.api.AbstractThrowableAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -124,6 +126,23 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         //then
         result.isInstanceOf(RangeQuestionBoundaryValueException.class);
         result.hasMessage("Range 질문의 최솟값과 최댓값이 동일합니다.");
+    }
+
+    @DisplayName("분기문에서 동일한 조건을 가진 로직을 2개 이상 포함하였다. 이후에 설문 등록을 실패한다.")
+    @Test
+    void registerFailCase5Survey(){
+
+        //given
+        RegisterSurveyRequestDto dto = createFailCase6Request();
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            surveyService.registerSurvey(dto);
+        });
+
+        //then
+        result.isInstanceOf(ExistSameConditionException.class);
+        result.hasMessage("동일한 조건을 가진 로직이 2개 이상 존재합니다.");
     }
 
     @Test

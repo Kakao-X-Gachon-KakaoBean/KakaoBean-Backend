@@ -11,6 +11,7 @@ import com.kakaobean.core.member.domain.repository.MemberRepository;
 import com.kakaobean.core.response.application.ResponseProvider;
 import com.kakaobean.core.response.application.ResponseService;
 import com.kakaobean.core.response.application.dto.request.RegisterSurveyResponseRequestDto;
+import com.kakaobean.core.response.application.dto.response.FindResponsesDto;
 import com.kakaobean.core.response.application.dto.response.FindSurveyStatisticsResponseDto;
 import com.kakaobean.core.response.application.dto.response.RegisterSurveyResponseSubmmitDto;
 import com.kakaobean.core.survey.application.SurveyService;
@@ -65,6 +66,24 @@ public class ResponseServiceIntegrationTest extends IntegrationTest {
         // then
         assertThat(result.getSurveyResponseId()).isNotNull();
 
+    }
+
+    @DisplayName("내가 만든 설문조사에 대한 응답 조회에 성공한다.")
+    @Test
+    void findResponsesTest(){
+
+        // given
+        RegisterSurveyRequestDto testSurveyDto = createSuccessCase1Request();
+        RegisterSurveyResponseDto testSurvey = surveyService.registerSurvey(testSurveyDto); // 테스트 설문 생성
+
+        RegisterSurveyResponseRequestDto testResponseDto = createSuccessSurveyResponseCase1Request(testSurvey.getSurveyId());
+        RegisterSurveyResponseSubmmitDto testResponse = responseService.registerSurveyResponse(testResponseDto); // 테스트 응답 생성
+
+        // when
+        FindResponsesDto result = responseProvider.findResponses(testSurveyDto.getMemberId(),testSurvey.getSurveyId());
+
+        // then
+        assertThat(result.getSurvey().getSurveyId()).isEqualTo(testSurvey.getSurveyId());
     }
 
     @DisplayName("설문 결과 통계 조회에 성공한다.")

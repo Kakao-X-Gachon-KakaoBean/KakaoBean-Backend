@@ -1,10 +1,9 @@
 package com.kakaobean.core.survey.exception;
 
-import com.kakaobean.core.member.exception.member.MemberException;
 import lombok.Getter;
 
 @Getter
-public class NotExistsSurveyException extends SurveyException{
+public class NotExistsSurveyException extends SurveyException {
 
     private static final String message = "존재하지 않는 설문입니다.";
     private static final String errorCode = "S007";

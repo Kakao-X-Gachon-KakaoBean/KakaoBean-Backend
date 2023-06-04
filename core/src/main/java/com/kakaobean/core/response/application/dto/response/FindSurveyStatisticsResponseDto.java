@@ -52,7 +52,7 @@ public class FindSurveyStatisticsResponseDto {
                 .collect(Collectors.toList());
     }
 
-    @Builder
+    // 테스트용
     public FindSurveyStatisticsResponseDto(Long surveyId,
                                            String surveyTitle,
                                            String surveyDate,

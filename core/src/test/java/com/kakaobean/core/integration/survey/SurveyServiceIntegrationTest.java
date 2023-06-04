@@ -13,6 +13,7 @@ import com.kakaobean.core.survey.application.dto.response.FindSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.core.survey.domain.CloseStatus;
 import com.kakaobean.core.survey.domain.SurveyRepository;
+import com.kakaobean.core.survey.exception.ClosedSurveyException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionAnswerException;
 import com.kakaobean.core.survey.exception.NoMatchingQuestionNumberException;
 import com.kakaobean.core.survey.exception.NotExistsSurveyException;
@@ -144,6 +145,26 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         //then
         result.isInstanceOf(NotExistsSurveyException.class);
         result.hasMessage("존재하지 않는 설문입니다.");
+    }
+
+    @Test
+    @DisplayName("마감된 설문을 조회하여 조회를 실패한다.")
+    void failGetClosedSurvey(){
+
+        //given
+        RegisterSurveyRequestDto dto = createSuccessCase1Request();
+        RegisterSurveyResponseDto res = surveyService.registerSurvey(dto);
+
+        surveyService.closeSurvey(dto.getMemberId(), res.getSurveyId());
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            surveyProvider.getSurvey(res.getSurveyId());
+        });
+
+        //then
+        result.isInstanceOf(ClosedSurveyException.class);
+        result.hasMessage("참여 마감된 설문입니다.");
     }
 
     @Test

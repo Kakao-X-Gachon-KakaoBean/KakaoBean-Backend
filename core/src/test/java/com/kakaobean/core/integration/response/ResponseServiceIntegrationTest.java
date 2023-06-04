@@ -49,9 +49,6 @@ public class ResponseServiceIntegrationTest extends IntegrationTest {
     @Autowired
     MemberService memberService;
 
-    @Autowired
-    MemberRepository memberRepository;
-
 
     @DisplayName("설문조사에 대한 응답 제출에 성공한다.")
     @Test

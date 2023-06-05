@@ -70,9 +70,9 @@ public class SurveyController {
     public ResponseEntity closeSurvey(@AuthenticationPrincipal Long memberId,
                                       @PathVariable Long surveyId){
         log.info("설문 마감 api 호출");
-        surveyService.closeSurvey(memberId, surveyId);
+        CloseSurveyResponseDto res = surveyService.closeSurvey(memberId, surveyId);
         log.info("설문 마감 api 종료");
-        return new ResponseEntity(new CommandSuccessResponse(), HttpStatus.OK);
+        return new ResponseEntity(res, HttpStatus.OK);
     }
 
 }

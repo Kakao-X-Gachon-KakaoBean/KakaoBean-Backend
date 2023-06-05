@@ -30,6 +30,24 @@ public class RegisterQuestionRequestDtoFactory {
     }
 
     /**
+     * Rqnge Bar Question 실패 로직. min == max
+     */
+    public static RegisterRangeQuestionRequestDto createRangeQuestionFailRequest(String questionNumber,
+                                                                                    String nextQuestionNumber,
+                                                                                    boolean finalQuestion){
+        return RegisterRangeQuestionRequestDto
+                .builder()
+                .title("Range Bar Question")
+                .explanation("ex1")
+                .questionNumber(questionNumber)
+                .min(10)
+                .max(10)
+                .finalQuestion(finalQuestion)
+                .nextQuestionNumber(nextQuestionNumber)
+                .build();
+    }
+
+    /**
      * 주관식 성공 로직
      */
     public static RegisterEssayQuestionRequestDto createEssayQuestionSuccessRequest(String questionNumber,
@@ -110,6 +128,33 @@ public class RegisterQuestionRequestDtoFactory {
                                 //이상한 답 값을 넣는다.
                                 RegisterQuestionFlowLogicRequestDtoFactory.createDto(firstNextQuestionNumber, "없는 답 예시", answers[1]),
                                 RegisterQuestionFlowLogicRequestDtoFactory.createDto(secondNextQuestionNumber, answers[2], answers[3])
+                        )
+                )
+                .finalQuestion(finalQuestion)
+                .nextQuestionNumber(nextQuestionNumber)
+                .build();
+    }
+
+    // 동알한 조건을 가진 로직이 2개 이상인 객관식
+    public static RegisterMultipleChoiceQuestionRequestDto createMultipleQuestionFailRequestWithSameLogic(String questionNumber,
+                                                                                                          String firstNextQuestionNumber,
+                                                                                                          String secondNextQuestionNumber,
+                                                                                                          Integer numberOfAnswerChoices,
+                                                                                                          boolean finalQuestion,
+                                                                                                          String nextQuestionNumber,
+                                                                                                          String... answers){
+        return RegisterMultipleChoiceQuestionRequestDto
+                .builder()
+                .title("First Multiple Question Title")
+                .explanation("ex3")
+                .questionNumber(questionNumber)
+                .numberOfAnswerChoices(numberOfAnswerChoices)
+                .answers(List.of(answers))
+                .conditions(
+                        List.of(
+                                // 동일한 조건을 가진 로직을 생성한다.
+                                RegisterQuestionFlowLogicRequestDtoFactory.createDto(firstNextQuestionNumber, answers[0], answers[1]),
+                                RegisterQuestionFlowLogicRequestDtoFactory.createDto(secondNextQuestionNumber, answers[0], answers[1])
                         )
                 )
                 .finalQuestion(finalQuestion)

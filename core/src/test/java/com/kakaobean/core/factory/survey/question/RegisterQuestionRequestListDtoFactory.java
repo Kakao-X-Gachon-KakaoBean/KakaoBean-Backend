@@ -8,7 +8,8 @@ import static com.kakaobean.core.factory.survey.question.RegisterQuestionRequest
 
 public class RegisterQuestionRequestListDtoFactory {
 
-    private RegisterQuestionRequestListDtoFactory(){}
+    private RegisterQuestionRequestListDtoFactory() {
+    }
 
     private static final String FIRST_ANSWER = "first choice answer";
     private static final String SECOND_ANSWER = "second choice answer";
@@ -19,9 +20,9 @@ public class RegisterQuestionRequestListDtoFactory {
     /**
      * Rqnge Bar Question 성공 로직
      */
-    public static List<RegisterQuestionRequestDto> createSuccessListRequest(){
+    public static List<RegisterQuestionRequestDto> createSuccessListRequest() {
         return List.of(
-                createEssayQuestionSuccessRequest("1", "2",false),
+                createEssayQuestionSuccessRequest("1", "2", false),
                 createMultipleQuestionSuccessRequestWithLogic(
                         "2",
                         "3",
@@ -35,7 +36,7 @@ public class RegisterQuestionRequestListDtoFactory {
                         FOURTH_ANSWER,
                         FIFTH_ANSWER
                 ),
-                createRangeQuestionSuccessRequest("3","5", false),
+                createRangeQuestionSuccessRequest("3", "5", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
                         "4",
                         1,
@@ -47,7 +48,7 @@ public class RegisterQuestionRequestListDtoFactory {
                         FOURTH_ANSWER,
                         FIFTH_ANSWER
                 ),
-                createEssayQuestionSuccessRequest("5", "7",  false),
+                createEssayQuestionSuccessRequest("5", "7", false),
                 createEssayQuestionSuccessRequest("6", "7", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
                         "7",
@@ -63,7 +64,7 @@ public class RegisterQuestionRequestListDtoFactory {
         );
     }
 
-    public static List<RegisterQuestionRequestDto> createFailListCase1Request(){
+    public static List<RegisterQuestionRequestDto> createFailListCase1Request() {
         return List.of(
                 createEssayQuestionSuccessRequest("1", "0", true),
                 createMultipleQuestionSuccessRequestWithLogic(
@@ -79,7 +80,7 @@ public class RegisterQuestionRequestListDtoFactory {
                         FOURTH_ANSWER,
                         FIFTH_ANSWER
                 ),
-                createRangeQuestionSuccessRequest("3", "9",  false),
+                createRangeQuestionSuccessRequest("3", "9", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
                         "4",
                         1,
@@ -107,7 +108,7 @@ public class RegisterQuestionRequestListDtoFactory {
     }
 
 
-    public static List<RegisterQuestionRequestDto> createFailListCase2Request(){
+    public static List<RegisterQuestionRequestDto> createFailListCase2Request() {
         return List.of(
                 createEssayQuestionSuccessRequest("1", "2", false),
                 createMultipleQuestionFailRequestWithFailLogic(
@@ -133,7 +134,7 @@ public class RegisterQuestionRequestListDtoFactory {
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,
-                        FIFTH_ANSWER                ),
+                        FIFTH_ANSWER),
                 createEssayQuestionSuccessRequest("5", "7", false),
                 createEssayQuestionSuccessRequest("6", "7", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
@@ -150,7 +151,7 @@ public class RegisterQuestionRequestListDtoFactory {
         );
     }
 
-    public static List<RegisterQuestionRequestDto> createFailListCase3Request(){
+    public static List<RegisterQuestionRequestDto> createFailListCase3Request() {
         return List.of(
                 createEssayQuestionSuccessRequest("1", "2", false),
                 createMultipleQuestionFailRequestWithFailLogic(
@@ -176,7 +177,7 @@ public class RegisterQuestionRequestListDtoFactory {
                         SECOND_ANSWER,
                         THIRD_ANSWER,
                         FOURTH_ANSWER,
-                        FIFTH_ANSWER                ),
+                        FIFTH_ANSWER),
                 createEssayQuestionSuccessRequest("5", "7", false),
                 createEssayQuestionSuccessRequest("6", "7", false),
                 createMultipleQuestionSuccessRequestWithoutLogic(
@@ -193,10 +194,57 @@ public class RegisterQuestionRequestListDtoFactory {
         );
     }
 
-    public static List<RegisterQuestionRequestDto> createFailListCase4Request(){
+    public static List<RegisterQuestionRequestDto> createFailListCase4Request() {
         return List.of(
-                createEssayQuestionSuccessRequest("6", "0", true),
+                createEssayQuestionSuccessRequest("6", "0", false),
                 createEssayQuestionSuccessRequest("6", "0", true)
+        );
+    }
+
+    // 동일한 조건을 갖는 로직이 2개 이상인 케이스
+    public static List<RegisterQuestionRequestDto> createFailListCase5Request() {
+        return List.of(
+                createRangeQuestionFailRequest("1", "0", true)
+                );
+    }
+
+    // 동일한 조건을 갖는 로직이 2개 이상인 케이스
+    public static List<RegisterQuestionRequestDto> createFailListCase6Request() {
+        return List.of(
+                createMultipleQuestionFailRequestWithSameLogic(
+                        "1", "2", "3",
+                        2, false, "0",
+                        FIRST_ANSWER,
+                        SECOND_ANSWER,
+                        THIRD_ANSWER,
+                        FOURTH_ANSWER,
+                        FIFTH_ANSWER),
+                createEssayQuestionSuccessRequest("2", "3", false),
+                createEssayQuestionSuccessRequest("3", "0", true)
+        );
+    }
+
+    // 동일한 조건을 갖는 로직이 2개 이상인 케이스 + 이동하는 질문의 번호도 같음
+    public static List<RegisterQuestionRequestDto> createFailListCase7Request() {
+        return List.of(
+                createMultipleQuestionFailRequestWithSameLogic(
+                        "1", "3", "3",
+                        2, false, "0",
+                        FIRST_ANSWER,
+                        SECOND_ANSWER,
+                        THIRD_ANSWER,
+                        FOURTH_ANSWER,
+                        FIFTH_ANSWER),
+                createEssayQuestionSuccessRequest("2", "3", false),
+                createEssayQuestionSuccessRequest("3", "0", true)
+        );
+    }
+
+    // 중복되는 질문 번호가 있다.
+    public static List<RegisterQuestionRequestDto> createFailListCase8Request() {
+        return List.of(
+                createEssayQuestionSuccessRequest("1", "1", false),
+                createEssayQuestionSuccessRequest("1", "0", true)
         );
     }
 }

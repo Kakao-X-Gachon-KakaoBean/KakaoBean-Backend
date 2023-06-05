@@ -16,6 +16,15 @@ public class MultipleQuestionStatisticsDto extends QuestionStatisticsDto {
 
     private List<AnswerStatisticsDto> answers = new ArrayList<>();
 
+    // 테스트용
+    public MultipleQuestionStatisticsDto(QuestionDTOType type,
+                                         String title,
+                                         String explanation,
+                                         List<AnswerStatisticsDto> answers) {
+        super(type, title, explanation);
+        this.answers = answers;
+    }
+
     public MultipleQuestionStatisticsDto(QuestionDTOType type,
                                          String title,
                                          String explanation,

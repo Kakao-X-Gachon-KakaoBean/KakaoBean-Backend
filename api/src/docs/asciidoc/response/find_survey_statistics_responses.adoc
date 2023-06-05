@@ -1,0 +1,30 @@
+= 내가 만든 설문의 응답 조회
+
+**로그인한 유저만 사용할 수 있다.**
+
+== 요청
+
+include::{snippets}/find_essay_Statistics_response/http-request.adoc[]
+
+include::{snippets}/find_essay_Statistics_response/path-parameters.adoc[]
+
+
+== 응답
+
+include::{snippets}/find_essay_Statistics_response/response-body.adoc[]
+
+=== 설문 응답 바디
+성별 통계 응답
+include::{snippets}/find_GenderRatio_Statistics_response/response-fields-null.adoc[]
+
+나이 통계 응답
+include::{snippets}/find_AgeRatio_Statistics_response/response-fields-null.adoc[]
+
+서술형 통계 응답
+include::{snippets}/find_essay_Statistics_response/response-fields-null.adoc[]
+
+객관식 통계 응답
+include::{snippets}/find_multiple_Statistics_response/response-fields-null.adoc[]
+
+선형 배율 통계 응답
+include::{snippets}/find_range_Statistics_response/response-fields-null.adoc[]

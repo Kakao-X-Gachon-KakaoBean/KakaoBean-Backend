@@ -17,7 +17,6 @@ public class QuestionStatisticsDtoFactory {
     private QuestionStatisticsDtoFactory(){}
 
     public static QuestionStatisticsDto createDto(Question question,
-                                                  Integer numberOfResponse,
                                                   List<SurveyResponseDto> allResponses){
 
         Class<? extends Question> questionClass = question.getClass();

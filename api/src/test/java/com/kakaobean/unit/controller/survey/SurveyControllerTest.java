@@ -2,6 +2,7 @@ package com.kakaobean.unit.controller.survey;
 
 
 import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.CloseSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.survey.dto.request.RegisterSurveyRequest;
 import com.kakaobean.unit.controller.ControllerTest;
@@ -157,6 +158,10 @@ public class SurveyControllerTest extends ControllerTest {
     @WithMockUser
     @DisplayName("설문 마감 API 명세서 테스트.")
     public void closeSurveyTest() throws Exception{
+        // given
+        given(surveyService.closeSurvey(Mockito.any(Long.class),Mockito.any(Long.class)))
+                .willReturn(new CloseSurveyResponseDto());
+
         // when
         ResultActions perform  = mockMvc.perform(patch("/surveys/{surveyId}", 2L)
                 .contentType(MediaType.APPLICATION_JSON)

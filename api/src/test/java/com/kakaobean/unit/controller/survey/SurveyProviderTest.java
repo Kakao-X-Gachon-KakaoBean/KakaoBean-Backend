@@ -165,7 +165,8 @@ public class SurveyProviderTest extends ControllerTest {
                         fieldWithPath("myOwnSurveys").type(ARRAY).description("내가 만든 설문 리스트"),
                         fieldWithPath("myOwnSurveys[].surveyId").type(NUMBER).description("설문 아이디"),
                         fieldWithPath("myOwnSurveys[].surveyTitle").type(STRING).description("설문 제목"),
-                        fieldWithPath("myOwnSurveys[].numberOfResponse").type(NUMBER).description("설문을 제출한 응답 수")
+                        fieldWithPath("myOwnSurveys[].numberOfResponse").type(NUMBER).description("설문을 제출한 응답 수"),
+                        fieldWithPath("myOwnSurveys[].closeStatus").type(BOOLEAN).description("설문 마감 상태")
                 ))
         );
 

@@ -50,4 +50,9 @@ public class RegisterSurveyServiceDtoFactory {
     public static RegisterSurveyRequestDto createFailCase7Request() {
         return new RegisterSurveyRequestDto("title", 1L, createFailListCase7Request());
     }
+
+    //중복되는 질문 번호가 있다.
+    public static RegisterSurveyRequestDto createFailCase8Request() {
+        return new RegisterSurveyRequestDto("title", 1L, createFailListCase8Request());
+    }
 }

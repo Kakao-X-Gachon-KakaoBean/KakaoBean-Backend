@@ -239,4 +239,12 @@ public class RegisterQuestionRequestListDtoFactory {
                 createEssayQuestionSuccessRequest("3", "0", true)
         );
     }
+
+    // 중복되는 질문 번호가 있다.
+    public static List<RegisterQuestionRequestDto> createFailListCase8Request() {
+        return List.of(
+                createEssayQuestionSuccessRequest("1", "1", false),
+                createEssayQuestionSuccessRequest("1", "0", true)
+        );
+    }
 }

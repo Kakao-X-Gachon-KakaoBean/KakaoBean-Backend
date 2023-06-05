@@ -162,6 +162,23 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         result.hasMessage("동일한 로직이 존재합니다.");
     }
 
+    @DisplayName("중복되는 질문 번호가 있다. 이후에 설문 등록을 실패한다.")
+    @Test
+    void registerFailCase7Survey(){
+
+        //given
+        RegisterSurveyRequestDto dto = createFailCase8Request();
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            surveyService.registerSurvey(dto);
+        });
+
+        //then
+        result.isInstanceOf(SameQuestionNumberException.class);
+        result.hasMessage("중복되는 질문 번호가 있습니다.");
+    }
+
     @Test
     @DisplayName("설문 조회를 성공한다.")
     void successGetSurvey(){

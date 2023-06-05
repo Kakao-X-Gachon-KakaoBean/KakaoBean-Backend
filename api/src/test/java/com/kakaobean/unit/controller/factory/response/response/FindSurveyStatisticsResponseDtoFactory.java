@@ -16,6 +16,7 @@ public class FindSurveyStatisticsResponseDtoFactory {
                 "surveyTitle",
                 "2023-06-04",
                 3,
+                false,
                 GenderRatioDtoFactory.createDtoList(),
                 AgeRatioDtoFactory.createDtoList(),
                 QuestionStatisticsDtoFactory.createDtoList()

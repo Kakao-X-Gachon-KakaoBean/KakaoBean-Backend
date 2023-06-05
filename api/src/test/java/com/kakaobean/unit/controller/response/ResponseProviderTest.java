@@ -20,6 +20,7 @@ import java.util.List;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentRequest;
 import static com.kakaobean.docs.SpringRestDocsUtils.getDocumentResponse;
 
+import static com.kakaobean.docs.extractor.survey.response.SurveyResponsePayloadSubsectionExtractorFactory.getSurveyExtractor;
 import static org.mockito.BDDMockito.given;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -36,7 +37,7 @@ public class ResponseProviderTest extends ControllerTest {
     @WithMockUser
     @Test
     @DisplayName("내가 생성한 설문에 대한 모든 응답 조회 API 명세서 테스트")
-    public void findMySurveyResponses() throws Exception{
+    public void findMySurveyResponses() throws Exception {
 
         // given
         FindSurveyResponseDto res1 = FindSurveyResponseFactory.create();
@@ -116,7 +117,7 @@ public class ResponseProviderTest extends ControllerTest {
     @WithMockUser
     @Test
     @DisplayName("설문 결과 통계 조회 API 명세서 테스트")
-    public void findSurveyStatisticsTest() throws Exception{
+    public void findSurveyStatisticsTest() throws Exception {
 
         // given
         given(responseProvider.findSurveyStatistics(Mockito.anyLong(), Mockito.anyLong()))
@@ -132,11 +133,33 @@ public class ResponseProviderTest extends ControllerTest {
         perform.andDo(print());
         perform.andExpect(status().is2xxSuccessful());
 
+        createStatisticsSnippet(perform);
         createGenderRatioStatisticsSnippet(perform);
         createAgeStatisticsSnippet(perform);
         createEssayQuestionStatisticsSnippet(perform);
         createMultipleQuestionStatisticsSnippet(perform);
         createRangeQuestionStatisticsSnippet(perform);
+    }
+
+    private void createStatisticsSnippet(ResultActions perform) throws Exception {
+        perform.andDo(document("find_Statistics_response",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                pathParameters(
+                        parameterWithName("surveyId").description("설문 아이디")
+                ),
+                responseFields(
+                        new StatisticsDtoPayloadSubsectionExtractor(),
+                        fieldWithPath("surveyId").type(NUMBER).description("설문 ID"),
+                        fieldWithPath("surveyTitle").type(STRING).description("설문 제목"),
+                        fieldWithPath("surveyDate").type(STRING).description("설문 생성일자"),
+                        fieldWithPath("numberOfResponse").type(NUMBER).description("설문 응답자 수"),
+                        fieldWithPath("closeStatus").type(BOOLEAN).description("설문 마감 상태"),
+                        fieldWithPath("surveyGenderPercent").type(ARRAY).description("성벌에 따른 통계 비율"),
+                        fieldWithPath("surveyAgePercent").type(ARRAY).description("나이에 따른 통계 비율"),
+                        fieldWithPath("questionsResult").type(ARRAY).description("질문에 대한 통계")
+                ))
+        );
     }
 
     private void createGenderRatioStatisticsSnippet(ResultActions perform) throws Exception {

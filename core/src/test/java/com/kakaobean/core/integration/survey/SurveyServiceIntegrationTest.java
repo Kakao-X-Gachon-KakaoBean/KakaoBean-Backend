@@ -188,7 +188,7 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
         RegisterSurveyResponseDto res = surveyService.registerSurvey(dto);
 
         //when
-        FindSurveyResponseDto result = surveyProvider.getSurvey(res.getSurveyId());
+        FindSurveyResponseDto result = surveyProvider.getSurvey(res.getSurveyId(), dto.getMemberId());
 
         //then
         assertThat(result.getSurveyTitle()).isEqualTo("title");
@@ -206,7 +206,7 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
-            surveyProvider.getSurvey(33L);
+            surveyProvider.getSurvey(33L, dto.getMemberId());
         });
 
         //then
@@ -215,18 +215,18 @@ public class SurveyServiceIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    @DisplayName("마감된 설문을 조회하여 조회를 실패한다.")
+    @DisplayName("마감된 설문을 다른 이용자가 조회하려하면 조회를 실패한다.")
     void failGetClosedSurvey(){
 
         //given
         RegisterSurveyRequestDto dto = createSuccessCase1Request();
         RegisterSurveyResponseDto res = surveyService.registerSurvey(dto);
 
-        surveyService.closeSurvey(dto.getMemberId(), res.getSurveyId());
+        surveyService.closeSurvey(dto.getMemberId(), res.getSurveyId()); // 설문 주인이 설문을 마감한다.
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
-            surveyProvider.getSurvey(res.getSurveyId());
+            surveyProvider.getSurvey(res.getSurveyId(), 100L); // 다른 이용자가 설문을 조회하려고 한다
         });
 
         //then

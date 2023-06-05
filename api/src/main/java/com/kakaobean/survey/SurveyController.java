@@ -34,9 +34,10 @@ public class SurveyController {
     }
 
     @GetMapping("/{surveyId}")
-    public ResponseEntity findSurvey(@PathVariable Long surveyId) {
+    public ResponseEntity findSurvey(@AuthenticationPrincipal Long memberId,
+                                     @PathVariable Long surveyId) {
         log.info("설문 조회 api 호출");
-        FindSurveyResponseDto res = surveyProvider.getSurvey(surveyId);
+        FindSurveyResponseDto res = surveyProvider.getSurvey(surveyId, memberId);
         log.info("설문 조회 api 종료");
         return new ResponseEntity(res, HttpStatus.OK);
     }

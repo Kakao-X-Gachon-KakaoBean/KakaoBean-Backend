@@ -36,7 +36,7 @@ public class SurveyProviderTest extends ControllerTest {
     @DisplayName("설문 조회 API 명세서 테스트.")
     void findSurveyTest() throws Exception {
         //given
-        given(surveyProvider.getSurvey(Mockito.any(Long.class))).willReturn(FindSurveyResponseFactory.create());
+        given(surveyProvider.getSurvey(Mockito.any(Long.class),Mockito.any(Long.class))).willReturn(FindSurveyResponseFactory.create());
 
         //when
         ResultActions perform = mockMvc.perform(get("/surveys/{surveyId}", 1L)

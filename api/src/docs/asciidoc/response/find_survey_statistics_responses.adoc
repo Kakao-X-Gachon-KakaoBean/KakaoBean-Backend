@@ -14,6 +14,8 @@ include::{snippets}/find_essay_Statistics_response/path-parameters.adoc[]
 include::{snippets}/find_essay_Statistics_response/response-body.adoc[]
 
 === 설문 응답 바디
+include::{snippets}/find_Statistics_response/response-fields-.adoc[]
+
 성별 통계 응답
 include::{snippets}/find_GenderRatio_Statistics_response/response-fields-null.adoc[]
 

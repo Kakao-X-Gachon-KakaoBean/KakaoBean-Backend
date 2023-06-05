@@ -48,7 +48,7 @@ public class ResponseProvider {
                 .orElseThrow(NotExistsSurveyException::new);
 
         //조회
-        FindSurveyResponseDto surveyDto = surveyProvider.getSurvey(surveyId);
+        FindSurveyResponseDto surveyDto = surveyProvider.getSurvey(surveyId, memberId);
         List<SurveyResponseDto> responsesDto = responseQueryRepository.findResponses(surveyId);
 
         setTitle(surveyDto, responsesDto);

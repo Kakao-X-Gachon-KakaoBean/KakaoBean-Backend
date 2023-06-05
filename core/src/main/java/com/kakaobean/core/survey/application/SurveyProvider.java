@@ -24,10 +24,15 @@ public class SurveyProvider {
 
     private final SurveyResponseRepository surveyResponseRepository;
 
-    public FindSurveyResponseDto getSurvey(Long surveyId) {
-        Survey findSurvey = surveyRepository.findSurveyBySurveyIdWithFetchJoin(surveyId).orElseThrow(NotExistsSurveyException::new);
-        findSurvey.checkSurveyExpiration();
-        return FindSurveyResponseDto.from(findSurvey);
+    public FindSurveyResponseDto getSurvey(Long surveyId, Long memberId) {
+        Survey findSurvey = surveyRepository.findSurveyBySurveyIdWithFetchJoin(surveyId)
+                .orElseThrow(NotExistsSurveyException::new);
+        if (memberId == findSurvey.getSurveyOwner().getMemberId()) {
+            return FindSurveyResponseDto.from(findSurvey);
+        } else {
+            findSurvey.checkSurveyExpiration();
+            return FindSurveyResponseDto.from(findSurvey);
+        }
     }
 
     public FindOwnSurveyListResponseDto getOwnSurvey(Long memberId) {
@@ -39,7 +44,7 @@ public class SurveyProvider {
         return FindOwnSurveyListResponseDto.from(myOwnSurveys, numberOfResponseEachSurvey);
     }
 
-    public FindSubmittedSurveyListResponseDto getSubmittedSurvey(Long memberId){
+    public FindSubmittedSurveyListResponseDto getSubmittedSurvey(Long memberId) {
         List<SurveyResponse> mySurveyResponses = surveyResponseRepository.findSurveyResponseByMemberId(memberId);
         List<Survey> mySubmittedSurveys = mySurveyResponses.stream()
                 .map(mySurveyResponse -> surveyRepository.findSurveyBySurveyIdWithFetchJoin(mySurveyResponse.getSurveyId())

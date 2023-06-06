@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class MultipleChoiceQuestionFlowLogic extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**

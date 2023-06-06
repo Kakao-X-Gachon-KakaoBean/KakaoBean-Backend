@@ -20,7 +20,7 @@ import javax.persistence.*;
 public class MultipleChoiceQuestionFlowLogicCondition extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**

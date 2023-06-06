@@ -239,7 +239,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
-            memberProvider.findMemberInfoByMemberId(member.getId());
+            memberProvider.findMemberInfoByMemberId(0L);
         });
 
         //then

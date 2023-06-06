@@ -32,6 +32,10 @@ dependencies {
 
     testImplementation 'org.springframework.restdocs:spring-restdocs-restassured'
 
+    //로깅
+    //implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    //implementation 'ch.qos.logback:logback-classic:1.2.3'
+
 }
 
 test {

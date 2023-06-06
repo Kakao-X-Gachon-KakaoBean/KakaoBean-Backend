@@ -41,3 +41,5 @@ out/
 **/src/main/resources/static/**
 **/staic
 core/src/main/generated/**
+
+log/**

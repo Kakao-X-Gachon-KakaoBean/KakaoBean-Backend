@@ -36,7 +36,7 @@ public class SurveyProviderTest extends ControllerTest {
     @DisplayName("설문 조회 API 명세서 테스트.")
     void findSurveyTest() throws Exception {
         //given
-        given(surveyProvider.getSurvey(Mockito.any(Long.class))).willReturn(FindSurveyResponseFactory.create());
+        given(surveyProvider.getSurvey(Mockito.any(Long.class),Mockito.any(Long.class))).willReturn(FindSurveyResponseFactory.create());
 
         //when
         ResultActions perform = mockMvc.perform(get("/surveys/{surveyId}", 1L)
@@ -165,7 +165,8 @@ public class SurveyProviderTest extends ControllerTest {
                         fieldWithPath("myOwnSurveys").type(ARRAY).description("내가 만든 설문 리스트"),
                         fieldWithPath("myOwnSurveys[].surveyId").type(NUMBER).description("설문 아이디"),
                         fieldWithPath("myOwnSurveys[].surveyTitle").type(STRING).description("설문 제목"),
-                        fieldWithPath("myOwnSurveys[].numberOfResponse").type(NUMBER).description("설문을 제출한 응답 수")
+                        fieldWithPath("myOwnSurveys[].numberOfResponse").type(NUMBER).description("설문을 제출한 응답 수"),
+                        fieldWithPath("myOwnSurveys[].closeStatus").type(BOOLEAN).description("설문 마감 상태")
                 ))
         );
 

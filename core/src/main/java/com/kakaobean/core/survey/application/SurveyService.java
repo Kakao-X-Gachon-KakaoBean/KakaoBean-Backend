@@ -2,6 +2,7 @@ package com.kakaobean.core.survey.application;
 
 
 import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
+import com.kakaobean.core.survey.application.dto.response.CloseSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
 import com.kakaobean.core.survey.application.dto.response.RemoveSurveyResponseDto;
 import com.kakaobean.core.survey.domain.Survey;
@@ -38,9 +39,11 @@ public class SurveyService {
         survey.remove();
     }
 
-    public void closeSurvey(Long memberId, Long surveyId){
+    public CloseSurveyResponseDto closeSurvey(Long memberId, Long surveyId){
         Survey survey = surveyRepository.findSurveyBySurveyIdAndOwnerId(surveyId, memberId)
                 .orElseThrow(NotExistsSurveyException::new);
         survey.close();
+
+        return new CloseSurveyResponseDto();
     }
 }

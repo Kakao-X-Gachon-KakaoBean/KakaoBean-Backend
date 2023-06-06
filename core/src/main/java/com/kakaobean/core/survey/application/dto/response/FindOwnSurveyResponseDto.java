@@ -14,10 +14,13 @@ public class FindOwnSurveyResponseDto {
 
     private Integer numberOfResponse;
 
+    private Boolean closeStatus;
+
     @Builder
-    public FindOwnSurveyResponseDto(Long surveyId, String surveyTitle, Integer numberOfResponse) {
+    public FindOwnSurveyResponseDto(Long surveyId, String surveyTitle, Integer numberOfResponse, Boolean closeStatus) {
         this.SurveyId = surveyId;
         this.SurveyTitle = surveyTitle;
         this.numberOfResponse = numberOfResponse;
+        this.closeStatus = closeStatus;
     }
 }

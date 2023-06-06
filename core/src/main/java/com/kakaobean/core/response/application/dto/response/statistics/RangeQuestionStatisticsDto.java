@@ -5,6 +5,7 @@ import com.kakaobean.core.response.application.dto.response.question.QuestionRes
 import com.kakaobean.core.response.application.dto.response.question.RangeQuestionResponseDto;
 import com.kakaobean.core.survey.application.dto.QuestionDTOType;
 import com.kakaobean.core.survey.domain.question.range.RangeQuestion;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,19 @@ public class RangeQuestionStatisticsDto extends QuestionStatisticsDto {
     private Integer max;
 
     private List<AnswerStatisticsDto> answers = new ArrayList<>();
+
+    // 테스트용
+    public RangeQuestionStatisticsDto(QuestionDTOType type,
+                                      String title,
+                                      String explanation,
+                                      Integer min,
+                                      Integer max,
+                                      List<AnswerStatisticsDto> answers) {
+        super(type, title, explanation);
+        this.min = min;
+        this.max = max;
+        this.answers = answers;
+    }
 
     public RangeQuestionStatisticsDto(QuestionDTOType type,
                                       String title,

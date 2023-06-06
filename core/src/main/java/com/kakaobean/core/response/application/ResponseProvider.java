@@ -44,10 +44,11 @@ public class ResponseProvider {
         log.info("설문에 관련된 응답 조회 시작");
 
         //설문 주인만 조회할 수 있다.
-        surveyRepository.findSurveyBySurveyIdAndOwnerId(surveyId, memberId).orElseThrow(NotExistsSurveyException::new);
+        surveyRepository.findSurveyBySurveyIdAndOwnerId(surveyId, memberId)
+                .orElseThrow(NotExistsSurveyException::new);
 
         //조회
-        FindSurveyResponseDto surveyDto = surveyProvider.getSurvey(surveyId);
+        FindSurveyResponseDto surveyDto = surveyProvider.getSurvey(surveyId, memberId);
         List<SurveyResponseDto> responsesDto = responseQueryRepository.findResponses(surveyId);
 
         setTitle(surveyDto, responsesDto);

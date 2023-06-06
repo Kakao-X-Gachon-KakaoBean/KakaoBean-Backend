@@ -26,6 +26,15 @@ public class EssayQuestionStatisticsDto extends QuestionStatisticsDto {
         addAnswer(essayQuestion, allResponses);
     }
 
+    //테스트용
+    public EssayQuestionStatisticsDto(QuestionDTOType type,
+                                      String title,
+                                      String explanation,
+                                      List<String> answers) {
+        super(type, title, explanation);
+        this.answers = answers;
+    }
+
     public void addAnswer(EssayQuestion essayQuestion, List<SurveyResponseDto> allResponses){
         for(SurveyResponseDto surveyResponse : allResponses) {
 

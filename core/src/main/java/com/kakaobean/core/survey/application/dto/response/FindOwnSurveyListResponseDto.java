@@ -1,5 +1,6 @@
 package com.kakaobean.core.survey.application.dto.response;
 
+import com.kakaobean.core.survey.domain.CloseStatus;
 import com.kakaobean.core.survey.domain.Survey;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,11 +34,15 @@ public class FindOwnSurveyListResponseDto {
         List<FindOwnSurveyResponseDto> tempDto = new ArrayList<>();
 
         for (int i = 0; i < myOwnSurveyList.size(); i++) {
+
+            Boolean closeStatus = myOwnSurveyList.get(i).getCloseStatus() == CloseStatus.ACTIVE ? true : false;
+
             tempDto.add(
                     new FindOwnSurveyResponseDto(
                             myOwnSurveyList.get(i).getId(),
                             myOwnSurveyList.get(i).getTitle(),
-                            numberOfResponseEachSurvey.get(i)
+                            numberOfResponseEachSurvey.get(i),
+                            closeStatus
                     )
             );
         }

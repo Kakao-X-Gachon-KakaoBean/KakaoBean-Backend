@@ -33,8 +33,8 @@ public class WebSocketEventListener {
             logger.info("User Disconnected : " + username);
 
             ChatMessageDto chatMessageDto = new ChatMessageDto();
-            chatMessageDto.setType(ChatMessageDto.MessageType.LEAVE);
-            chatMessageDto.setSender(username);
+//            chatMessageDto.setType(ChatMessageDto.MessageType.LEAVE);
+//            chatMessageDto.setSender(username);
 
             messagingTemplate.convertAndSend("/topic/public", chatMessageDto);
         }else{

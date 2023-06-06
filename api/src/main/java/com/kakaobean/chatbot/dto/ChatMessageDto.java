@@ -6,13 +6,13 @@ import lombok.Data;
 
 @Data
 public class ChatMessageDto {
-    private MessageType type;
+//    private MessageType type;
     private String content;
-    private String sender;
+//    private String sender;
 
-    public enum MessageType {
-        CHAT,
-        JOIN,
-        LEAVE
-    }
+//    public enum MessageType {
+//        CHAT,
+//        JOIN,
+//        LEAVE
+//    }
 }

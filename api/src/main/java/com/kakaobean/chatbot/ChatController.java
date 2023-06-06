@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.kakaobean.chatbot.dto.ChatMessageDto.MessageType.CHAT;
+//import static com.kakaobean.chatbot.dto.ChatMessageDto.MessageType.CHAT;
 
 //api
 @RestController
@@ -25,11 +25,11 @@ public class ChatController {
         this.chatGptService = chatGptService;
     }
 
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessageDto sendMessage(@Payload ChatMessageDto chatMessageDto) {
-        return chatMessageDto;
-    }
+//    @MessageMapping("/chat.sendMessage")
+//    @SendTo("/topic/public")
+//    public ChatMessageDto sendMessage(@Payload ChatMessageDto chatMessageDto) {
+//        return chatMessageDto;
+//    }
 
     @MessageMapping("/chat-gpt/question")
     @SendTo("/topic/public")
@@ -41,17 +41,17 @@ public class ChatController {
 
         ChatMessageDto chatFromGpt = new ChatMessageDto();
         chatFromGpt.setContent(answer.toString());
-        chatFromGpt.setSender("ChatGpt");
-        chatFromGpt.setType(CHAT);
+//        chatFromGpt.setSender("ChatGpt");
+//        chatFromGpt.setType(CHAT);
 
         return chatFromGpt;
     }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessageDto addUser(@Payload ChatMessageDto chatMessageDto, SimpMessageHeaderAccessor headerAccessor) {
-// Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMessageDto.getSender());
-        return chatMessageDto;
-    }
+//    @MessageMapping("/chat.addUser")
+//    @SendTo("/topic/public")
+//    public ChatMessageDto addUser(@Payload ChatMessageDto chatMessageDto, SimpMessageHeaderAccessor headerAccessor) {
+//// Add username in web socket session
+//        headerAccessor.getSessionAttributes().put("username", chatMessageDto.getSender());
+//        return chatMessageDto;
+//    }
 }

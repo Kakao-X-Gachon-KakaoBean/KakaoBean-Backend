@@ -16,7 +16,7 @@ import javax.persistence.*;
 public abstract class QuestionResponse extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long questionId;

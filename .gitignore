@@ -42,4 +42,4 @@ out/
 **/staic
 core/src/main/generated/**
 
-log/**
+**/log/**

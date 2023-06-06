@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class MultipleChoiceAnswerResponse extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long answerId;

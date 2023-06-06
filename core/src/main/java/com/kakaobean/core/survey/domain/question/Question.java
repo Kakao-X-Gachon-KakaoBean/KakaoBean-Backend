@@ -18,7 +18,7 @@ import javax.persistence.*;
 public abstract class Question extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JoinColumn

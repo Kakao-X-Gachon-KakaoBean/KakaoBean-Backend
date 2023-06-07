@@ -1,18 +1,18 @@
 package com.kakaobean.chatbot.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 //얜 api dto - client sent this
 
-@Data
+@Getter
+@NoArgsConstructor
 public class ChatMessageDto {
-//    private MessageType type;
-    private String content;
-//    private String sender;
 
-//    public enum MessageType {
-//        CHAT,
-//        JOIN,
-//        LEAVE
-//    }
+    private String content;
+
+    public ChatMessageDto(String content) {
+        this.content = content;
+    }
 }

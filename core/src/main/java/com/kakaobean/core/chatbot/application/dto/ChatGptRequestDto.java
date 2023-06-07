@@ -1,4 +1,4 @@
-package com.kakaobean.core.chatGpt.application.dto;
+package com.kakaobean.core.chatbot.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

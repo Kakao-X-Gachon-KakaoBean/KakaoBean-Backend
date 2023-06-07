@@ -12,6 +12,7 @@
             <appender-ref ref="FILE-INFO"/>
             <appender-ref ref="FILE-WARN"/>
             <appender-ref ref="FILE-ERROR"/>
+            <appender-ref ref="CONSOLE"/>
     </root>
-
 </configuration>
+

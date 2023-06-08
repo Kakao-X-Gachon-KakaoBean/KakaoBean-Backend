@@ -154,7 +154,6 @@ public class SurveyMapper {
 
     /**
      * 분기점은 어떤 답을 고르느냐에 따라 달라짐.
-     * 그것을 초기화함.
      */
     private List<MultipleChoiceQuestionFlowLogicCondition> registerFlowCondition(List<MultipleChoiceQuestionAnswer> answers,
                                                                                  MultipleChoiceQuestionFlowLogic flowLogic,

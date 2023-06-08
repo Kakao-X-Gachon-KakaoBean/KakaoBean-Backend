@@ -11,10 +11,9 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-//@RequiredArgsConstructor
 public class ModifyMemberServiceImpl implements ModifyMemberService {
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); // 테스트를 위한 임시 방편
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public void modifyPassword(Member member, 
@@ -35,9 +34,4 @@ public class ModifyMemberServiceImpl implements ModifyMemberService {
     private boolean passwordChangeValidationFailed(String passwordToChange, String checkPasswordToChange) {
         return !passwordToChange.equals(checkPasswordToChange);
     }
-
-    private boolean nowPasswordIsNotRight(String nowPassword, String password) {
-        return !passwordEncoder.matches(nowPassword, password);
-    }
-
 }

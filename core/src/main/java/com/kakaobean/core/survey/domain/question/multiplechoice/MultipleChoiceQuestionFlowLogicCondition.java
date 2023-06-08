@@ -44,8 +44,3 @@ public class MultipleChoiceQuestionFlowLogicCondition extends BaseEntity {
         this.answer = answer;
     }
 }
-
-/**
- * 이것도 마찬가지 QuestionFlowLogicWithAnsewrCondition가 클래스 이름일 때는 jacoco가 인식을 못함.
- * 근데 MultipleChoiceQuestionFlowLogicCondition로 변경하니까 jacoco가 인식하기 시작함.(?!)
- */

@@ -57,6 +57,21 @@ public class ResponseProvider {
         return new FindResponsesDto(surveyDto, responsesDto);
     }
 
+    private void setTitle(FindSurveyResponseDto surveyDto, List<SurveyResponseDto> responsesDto) {
+        for (int i = 0; i < responsesDto.size(); i++) { //응답에 대해 반복
+            for (int j = 0; j < surveyDto.getQuestions().size(); j++) { //응답에 대한
+                SurveyResponseDto surveyResponseDto = responsesDto.get(i); //사용자에 대한 각  설문 응답을 꺼냄
+                FindQuestionResponseDto findQuestionResponseDto = surveyDto.getQuestions().get(j);
+                for (int k = 0; k < surveyResponseDto.getQuestionResponses().size(); k++) {
+                    QuestionResponseDto questionResponseDto = surveyResponseDto.getQuestionResponses().get(k);
+                    if(questionResponseDto.getQuestionId() == findQuestionResponseDto.getQuestionId()){
+                        questionResponseDto.setTitle(findQuestionResponseDto.getTitle());
+                    }
+                }
+            }
+        }
+    }
+
 
     public FindSurveyStatisticsResponseDto findSurveyStatistics(Long memberId, Long surveyId){
         //설문 주인만 조회할 수 있다.
@@ -72,19 +87,6 @@ public class ResponseProvider {
 
         return new FindSurveyStatisticsResponseDto(mySurvey, numberOfResponse, respondents, allResponses);
 
-    }
-
-
-    private void setTitle(FindSurveyResponseDto surveyDto, List<SurveyResponseDto> responsesDto) {
-        for (int i = 0; i < responsesDto.size(); i++) {
-            for (int j = 0; j < surveyDto.getQuestions().size(); j++) {
-                SurveyResponseDto surveyResponseDto = responsesDto.get(i);
-
-                FindQuestionResponseDto findQuestionResponseDto = surveyDto.getQuestions().get(j);
-                QuestionResponseDto questionResponseDto = surveyResponseDto.getQuestionResponses().get(j);
-                questionResponseDto.setTitle(findQuestionResponseDto.getTitle());
-            }
-        }
     }
 }
 

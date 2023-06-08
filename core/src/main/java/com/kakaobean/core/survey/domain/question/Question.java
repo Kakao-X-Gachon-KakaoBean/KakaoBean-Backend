@@ -29,7 +29,6 @@ public abstract class Question extends BaseEntity {
 
     private String explanation;
 
-    //설문내의 고유한 번호를 추가해야함.
     private String questionNumber;
 
     private boolean finalQuestion;
@@ -79,6 +78,3 @@ public abstract class Question extends BaseEntity {
 
 }
 
-/**
- * 다음 문제도 넣어야함
- */

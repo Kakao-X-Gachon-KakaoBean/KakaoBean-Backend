@@ -82,10 +82,3 @@ public class MultipleChoiceQuestionFlowLogic extends BaseEntity {
                 .collect(Collectors.toList());
     }
 }
-
-/**
- *
- * QuestionFlowLogic일 때는 jacoco가 인식을 못했는데
- * MultipleChoiceQuestionFlowLogic이라고 수정을 하면 jacoco가 인식을 함. 이는 추후에 살펴보자.
- *
- */

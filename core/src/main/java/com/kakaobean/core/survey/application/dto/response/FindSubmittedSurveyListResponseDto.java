@@ -25,9 +25,6 @@ public class FindSubmittedSurveyListResponseDto {
         return new FindSubmittedSurveyListResponseDto(mySurveyResponses, mySubmittedSurveys);
     }
 
-    /**
-     * Dto 생성
-     */
     public List<FindSubmittedSurveyResponseDto> createDto(List<SurveyResponse> mySurveyResponses,
                                                           List<Survey> mySubmittedSurveys){
 

@@ -33,7 +33,13 @@ public class ResponseService {
         return new RegisterSurveyResponseSubmmitDto(saveSurveyResponse.getId());
     }
 
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void removeSurveyResponsesWithEvent(Long surveyId){
+        surveyResponseRepository.deleteAllBySurveyId(surveyId);
+    }
+
+    @Transactional
     public void removeSurveyResponses(Long surveyId){
         surveyResponseRepository.deleteAllBySurveyId(surveyId);
     }

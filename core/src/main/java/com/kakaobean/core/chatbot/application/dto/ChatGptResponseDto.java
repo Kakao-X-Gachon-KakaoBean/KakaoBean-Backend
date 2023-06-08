@@ -1,15 +1,14 @@
-package com.kakaobean.core.chatGpt.application.dto;
+package com.kakaobean.core.chatbot.application.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import java.awt.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-//service dto
 @Getter
 @NoArgsConstructor
 public class ChatGptResponseDto implements Serializable {
@@ -22,8 +21,10 @@ public class ChatGptResponseDto implements Serializable {
     private List<Choice> choices;
 
     @Builder
-    public ChatGptResponseDto(String id, String object,
-                              LocalDate created, String model,
+    public ChatGptResponseDto(String id,
+                              String object,
+                              LocalDate created,
+                              String model,
                               List<Choice> choices) {
         this.id = id;
         this.object = object;

@@ -15,7 +15,6 @@ public interface SurveyResponseRepository extends JpaRepository<SurveyResponse, 
     @Query("select r from survey_response r where r.respondent.memberId = :memberId and r.status = 'ACTIVE'")
     List<SurveyResponse> findSurveyResponseByMemberId(Long memberId);
 
-    // 아직 미완
     @Query("select r from survey_response r where r.surveyId = :surveyId and r.status = 'ACTIVE'")
     List<SurveyResponse> findSurveyResponseBySurveyId(Long surveyId);
 

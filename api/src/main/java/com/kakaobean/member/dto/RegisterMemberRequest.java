@@ -10,10 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
-/**
- * Created by rajeevkumarsingh on 02/08/17.
- */
-
 @Getter
 @NoArgsConstructor
 public class RegisterMemberRequest {

@@ -1,9 +1,11 @@
 package com.kakaobean.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kakaobean.chatbot.ChatController;
 import com.kakaobean.config.AppProperties;
 import com.kakaobean.config.SecurityConfig;
 import com.kakaobean.config.WebMvcConfig;
+import com.kakaobean.core.chatbot.application.ChatbotService;
 import com.kakaobean.core.member.application.MemberProvider;
 import com.kakaobean.core.member.domain.repository.MemberRepository;
 import com.kakaobean.core.member.application.MemberService;
@@ -36,7 +38,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(controllers = {
         MemberController.class,
         SurveyController.class,
-        ResponseController.class
+        ResponseController.class,
+        ChatController.class
 })
 @AutoConfigureRestDocs
 @MockBean(JpaMetamodelMappingContext.class)
@@ -78,5 +81,8 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ResponseProvider responseProvider;
+
+    @MockBean
+    protected ChatbotService chatGptService;
 
 }

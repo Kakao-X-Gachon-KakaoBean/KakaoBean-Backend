@@ -181,9 +181,3 @@ public class SurveyControllerTest extends ControllerTest {
     }
 
 }
-
-
-//https://stackoverflow.com/questions/61637182/how-to-document-a-mixed-typed-array-structures-in-requests-responses-with-spring
-//PayloadSubsectionExtractor.
-//https://www.tabnine.com/code/java/methods/org.springframework.restdocs.payload.SubsectionDescriptor/description
-//https://stackoverflow.com/questions/32865427/document-hierarchical-json-payload-with-spring-rest-docs

@@ -18,6 +18,6 @@ public class RemoveSurveyResponseWithSurveyRemovedEventHandler {
     @Async
     @TransactionalEventListener(RemovedSurveyEvent.class)
     public void handle(RemovedSurveyEvent event){
-        responseService.removeSurveyResponses(event.getSurveyId());
+        responseService.removeSurveyResponsesWithEvent(event.getSurveyId());
     }
 }

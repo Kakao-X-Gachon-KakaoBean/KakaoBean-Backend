@@ -5,6 +5,7 @@ import com.kakaobean.core.common.domain.BaseStatus;
 import com.kakaobean.core.response.domain.questionresponse.QuestionResponse;
 import com.kakaobean.core.response.infrastructure.QuerydslResponsesDto;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,5 +37,21 @@ public class SurveyResponse extends BaseEntity {
         this.respondent = respondent;
         this.questionResponses = questionResponses;
         questionResponses.forEach(questionResponse -> questionResponse.addSurvey(this));
+    }
+
+    /**
+     * 테스트에서만 사용할 것
+     */
+    @Builder
+    public SurveyResponse(BaseStatus status,
+                          Long id,
+                          Long surveyId,
+                          Respondent respondent,
+                          List<QuestionResponse> questionResponses) {
+        super(status);
+        this.id = id;
+        this.surveyId = surveyId;
+        this.respondent = respondent;
+        this.questionResponses = questionResponses;
     }
 }

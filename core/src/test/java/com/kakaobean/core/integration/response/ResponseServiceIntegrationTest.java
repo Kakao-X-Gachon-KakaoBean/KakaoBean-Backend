@@ -1,6 +1,7 @@
 package com.kakaobean.core.integration.response;
 
 import com.kakaobean.core.factory.member.RegisterMemberServiceDtoFactory;
+import com.kakaobean.core.factory.survey.SurveyFactory;
 import com.kakaobean.core.integration.IntegrationTest;
 import com.kakaobean.core.member.application.MemberService;
 import com.kakaobean.core.member.application.dto.request.RegisterMemberRequestDto;
@@ -14,6 +15,9 @@ import com.kakaobean.core.response.application.dto.request.RegisterSurveyRespons
 import com.kakaobean.core.response.application.dto.response.FindResponsesDto;
 import com.kakaobean.core.response.application.dto.response.FindSurveyStatisticsResponseDto;
 import com.kakaobean.core.response.application.dto.response.RegisterSurveyResponseSubmmitDto;
+import com.kakaobean.core.response.domain.Respondent;
+import com.kakaobean.core.response.domain.SurveyResponse;
+import com.kakaobean.core.response.domain.SurveyResponseRepository;
 import com.kakaobean.core.survey.application.SurveyService;
 import com.kakaobean.core.survey.application.dto.request.RegisterSurveyRequestDto;
 import com.kakaobean.core.survey.application.dto.response.RegisterSurveyResponseDto;
@@ -25,6 +29,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 import static com.kakaobean.core.factory.response.RegisterSurveyResponseServiceDtoFactory.*;
 import static com.kakaobean.core.factory.survey.RegisterSurveyServiceDtoFactory.createSuccessCase1Request;
@@ -50,6 +57,8 @@ public class ResponseServiceIntegrationTest extends IntegrationTest {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    SurveyResponseRepository surveyResponseRepository;
 
     @DisplayName("설문조사에 대한 응답 제출에 성공한다.")
     @Test
@@ -112,4 +121,27 @@ public class ResponseServiceIntegrationTest extends IntegrationTest {
         assertThat(result.getSurveyId()).isEqualTo(result.getSurveyId());
     }
 
+    @DisplayName("설문을 삭제한다.")
+    @Test
+    void deleteSurveyResponse(){
+
+        //given
+        surveyResponseRepository.save(SurveyResponse
+                .builder()
+                .surveyId(1L)
+                .respondent(new Respondent(2L))
+                .build());
+        surveyResponseRepository.save(SurveyResponse
+                .builder()
+                .surveyId(1L)
+                .respondent(new Respondent(2L))
+                .build());
+
+        //when
+        responseService.removeSurveyResponses(1L);
+
+        //then
+        List<SurveyResponse> result = surveyResponseRepository.findSurveyResponseBySurveyId(1L);
+        assertThat(result.size()).isEqualTo(0);
+    }
 }

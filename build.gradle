@@ -100,7 +100,7 @@ subprojects {
 						"**.common*",
 						"**.Q*",
 						"**.chatbot*",
-						"**/event*"
+						"**.event*"
 				]
 			}
 		}

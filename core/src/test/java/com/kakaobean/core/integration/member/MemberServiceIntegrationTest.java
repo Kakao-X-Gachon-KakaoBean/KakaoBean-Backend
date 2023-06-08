@@ -1,5 +1,6 @@
 package com.kakaobean.core.integration.member;
 
+import com.kakaobean.core.chatbot.application.ChatbotService;
 import com.kakaobean.core.factory.member.MemberFactory;
 import com.kakaobean.core.member.application.MemberProvider;
 import com.kakaobean.core.member.application.dto.request.ModifyMemberPasswordRequestDto;
@@ -56,6 +57,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
     MemberProvider memberProvider;
 
     PasswordEncoder passwordEncoder;
+
 
     @BeforeEach
     void beforeEach(){

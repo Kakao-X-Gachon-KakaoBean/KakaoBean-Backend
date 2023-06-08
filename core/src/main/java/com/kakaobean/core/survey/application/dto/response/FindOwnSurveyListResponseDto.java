@@ -25,9 +25,6 @@ public class FindOwnSurveyListResponseDto {
         return new FindOwnSurveyListResponseDto(myOwnSurveyList, numberOfResponseEachSurvey);
     }
 
-    /**
-     * Dto 생성
-     */
     public List<FindOwnSurveyResponseDto> createDto(List<Survey> myOwnSurveyList,
                                                     List<Integer> numberOfResponseEachSurvey) {
 

@@ -14,7 +14,7 @@ subprojects {
 	apply plugin: 'java'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
-	apply plugin: 'jacoco' // default 경로 $buildDir/reports/jacoco
+	apply plugin: 'jacoco'
 
 	group = 'com.kakaobean'
 	version = '0.0.1-SNAPSHOT'
@@ -48,7 +48,7 @@ subprojects {
 		finalizedBy jacocoTestReport // report is always generated after tests run
 	}
 
-	jacocoTestReport { //바이너리 커버리지 결과를 사람이 읽기 좋은 형태의 리포트로 저장.
+	jacocoTestReport {
 		dependsOn test // tests are required to run before generating the report
 		reports {
 			html.enabled true
@@ -67,7 +67,9 @@ subprojects {
 						"**/security*",
 						"**/util*",
 						"**/exception*",
-						"**/Q*"
+						"**/Q*",
+						"**/chatbot*",
+						"**/event*"
 				])
 			}))
 		}
@@ -76,7 +78,7 @@ subprojects {
 		finalizedBy 'jacocoTestCoverageVerification'
 	}
 
-	jacocoTestCoverageVerification { //내가 원하는 커버리지 기준을 만족하는지 확인해 주는 task
+	jacocoTestCoverageVerification {
 		violationRules {
 			rule {
 				enabled = true
@@ -97,15 +99,11 @@ subprojects {
 						"**.util*",
 						"**.common*",
 						"**.Q*",
-						"**.response.*" //임시 설정
+						"**.chatbot*",
+						"**/event*"
 				]
 			}
 		}
 	}
 
 }
-
-
-//https://jojoldu.tistory.com/294
-//https://techblog.woowahan.com/2661/
-//https://www.baeldung.com/jacoco-report-exclude

@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-
-//service dto
 @Getter
 @NoArgsConstructor
 public class ChatGptRequestDto implements Serializable {

@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-//service dto
 @Getter
 @NoArgsConstructor
 public class ChatGptResponseDto implements Serializable {
